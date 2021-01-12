@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AspNet.Identity.MySQL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -22,7 +23,7 @@ namespace Target19_Relationship.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +35,9 @@ namespace Target19_Relationship.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -54,6 +55,7 @@ namespace Target19_Relationship.Controllers
 
         //
         // GET: /Account/Login
+        //ここのreturnUrlにURLを与えればログイン時に指定のページに行きます。
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -120,7 +122,7 @@ namespace Target19_Relationship.Controllers
             // ユーザーが誤ったコードを入力した回数が指定の回数に達すると、ユーザー アカウントは
             // 指定の時間が経過するまでロックアウトされます。
             // アカウント ロックアウトの設定は IdentityConfig の中で構成できます。
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -151,18 +153,23 @@ namespace Target19_Relationship.Controllers
         {
             if (ModelState.IsValid)
             {
+                //紫教科書520ページのコードでロールを新規作成します。
+                var employee = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(ApplicationDbContext.Create()));
+                if (!await employee.RoleExistsAsync("Employee"))
+                {
+                    await employee.CreateAsync(new ApplicationRole() { Name = "Employee" });
+                }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await UserManager.AddToRolesAsync(user.Id, "Employee");
                     // アカウント確認とパスワード リセットを有効にする方法の詳細については、https://go.microsoft.com/fwlink/?LinkID=320771 を参照してください
                     // このリンクを含む電子メールを送信します
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "アカウントの確認", "このリンクをクリックすることによってアカウントを確認してください <a href=\"" + callbackUrl + "\">こちら</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

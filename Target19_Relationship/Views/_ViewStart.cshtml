@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = HttpContext.Current.User.IsInRole("Employee");
+    string layout = "";
+    if (role)
+    {
+        layout = "~/Views/Shared/_OurLayout.cshtml";
+    }
+    else
+    {
+        layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    Layout = layout;
 }
