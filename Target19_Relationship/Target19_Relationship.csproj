@@ -204,6 +204,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\DefaultConnection.cs" />
     <Compile Include="Models\Tables\AccountTitle.cs" />
+    <Compile Include="Models\Tables\BusinessPartner.cs" />
+    <Compile Include="Models\Tables\BusinessPartnerEMailAddress.cs" />
+    <Compile Include="Models\Tables\DeliveryPlace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />

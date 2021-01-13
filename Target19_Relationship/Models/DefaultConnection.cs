@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-//using Target19_Relationship.Models.Tables;
+using Target19_Relationship.Models.Tables;
 //using Target19_Relationship.Models.Views;
 
 namespace Target19_Relationship.Models
@@ -14,6 +14,7 @@ namespace Target19_Relationship.Models
         : base("name=Model1")
         {
         }
+        public virtual DbSet<AccountTitle> AccountTitles { get; set; }
         /*
         public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
