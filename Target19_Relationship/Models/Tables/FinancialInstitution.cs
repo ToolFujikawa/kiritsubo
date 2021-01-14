@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Target19_Relationship.Models.Tables
 {
-    public class FinancialInstitution : CreationRecord
+    public partial class FinancialInstitution : CreationRecord
     {
         public int Id { get; set; }
 

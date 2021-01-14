@@ -209,6 +209,9 @@
     <Compile Include="Models\Tables\DeliveryPlace.cs" />
     <Compile Include="Models\Tables\FinancialInstitution.cs" />
     <Compile Include="Models\Tables\FinancialInstitutionBranche.cs" />
+    <Compile Include="Models\Tables\GoodsReceipt.cs" />
+    <Compile Include="Models\Tables\GoodsIssue.cs" />
+    <Compile Include="Models\Tables\Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />

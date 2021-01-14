@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,7 @@ namespace Target19_Relationship.Models.Tables
         public int BusinessPartner_Id { get; set; }
 
         [DisplayName("Eメールアドレス")]
+        [EmailAddress]
         public string EMailAddress { get; set; }
 
         [DisplayName("優先順位")]
@@ -27,6 +29,6 @@ namespace Target19_Relationship.Models.Tables
         [ForeignKey("BusinessPartner_Id")]
         public virtual BusinessPartner BusinessPartner { get; set; }
 
-        public virtual ICollection<Quotation> Estimates { get; set; }
+        public virtual ICollection<Quotation> Quotations { get; set; }
     }
 }

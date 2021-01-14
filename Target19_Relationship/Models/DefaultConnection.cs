@@ -15,10 +15,17 @@ namespace Target19_Relationship.Models
         {
         }
         public virtual DbSet<AccountTitle> AccountTitles { get; set; }
+        public virtual DbSet<BusinessPartner> BusinessPartners { get; set; }
+        public virtual DbSet<BusinessPartnerEMailAddress> BusinessPartnerEMailAddresses { get; set; }
+        public virtual DbSet<DeliveryPlace> DeliveryPlaces { get; set; }
+        public virtual DbSet<FinancialInstitution> FinancialInstitutions { get; set; }
+        public virtual DbSet<FinancialInstitutionBranche> FinancialInstitutionBranches { get; set; }
+        public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
+        public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
+        public virtual DbSet<Helper> Helpers { get; set; }
         /*
         public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<BusinessPartner> BusinessPartners { get; set; }
         public virtual DbSet<SalesOrder> SalesOrders { get; set; }
         public virtual DbSet<ProductList> ProductLists { get; set; }
         public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
@@ -30,8 +37,6 @@ namespace Target19_Relationship.Models
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
-        public virtual DbSet<Helper> Helpers { get; set; }
-        public virtual DbSet<DeliveryPlace> DeliveryPlaces { get; set; }
         public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
         public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
         public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
