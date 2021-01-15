@@ -23,9 +23,12 @@ namespace Target19_Relationship.Models
         public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<Helper> Helpers { get; set; }
-        /*
-        public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
+        public virtual DbSet<Journal> Journals { get; set; }
+        public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        /*
         public virtual DbSet<SalesOrder> SalesOrders { get; set; }
         public virtual DbSet<ProductList> ProductLists { get; set; }
         public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
@@ -34,13 +37,11 @@ namespace Target19_Relationship.Models
         public virtual DbSet<InvoiceEntryTarget> InvoiceEntryTargets { get; set; }
         public virtual DbSet<Shipment> Shipments { get; set; }
         public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
-        public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
         public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
         public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
         public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
-        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<AfterDelivery> AfterDeliveries { get; set; }
