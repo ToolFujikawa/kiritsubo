@@ -345,6 +345,20 @@ namespace Target19_Relationship.Models
             鹿児島県 = 45,
             [Display(Name = "沖縄県")]
             沖縄県 = 46
-        }  
+        }
+
+        public enum ValidityPeriods
+        {
+            [Display(Name = "発行後30日間")]
+            発行後30日間 = 0,
+            [Display(Name = "発行後60日間")]
+            発行後60日間 = 1
+        }
+
+        public enum PaymentTerms
+        {
+            [Display(Name = "従来通り")]
+            従来通り = 0
+        }
     }
 }

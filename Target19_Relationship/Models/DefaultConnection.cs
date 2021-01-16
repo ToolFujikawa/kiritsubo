@@ -28,22 +28,24 @@ namespace Target19_Relationship.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        /*
+        public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Quotation> Quotations { get; set; }
+        public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SalesOrder> SalesOrders { get; set; }
+        public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
+        public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        /*
         public virtual DbSet<ProductList> ProductLists { get; set; }
         public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
-        public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<ProductWithCommonName> ProductWithCommonNames { get; set; }
         public virtual DbSet<InvoiceEntryTarget> InvoiceEntryTargets { get; set; }
         public virtual DbSet<Shipment> Shipments { get; set; }
         public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
-        public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
         public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
         public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
         public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
-        public virtual DbSet<Purchase> Purchases { get; set; }
-        public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<AfterDelivery> AfterDeliveries { get; set; }
         public virtual DbSet<AfterPurchase> AfterPurchases { get; set; }
         public virtual DbSet<BeforeSetSellingPrice> BeforeSetSellingPrices { get; set; }

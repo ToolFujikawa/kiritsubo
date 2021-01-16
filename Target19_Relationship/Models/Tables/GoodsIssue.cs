@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -27,5 +28,15 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("備考")]
         public string Note { get; set; }
+
+        //ナビゲーションプロパティ
+        [ForeignKey("Product_Id")]
+        public virtual Product Product { get; set; } 
+
+        [ForeignKey("AccountTitle_Id")]
+        public virtual AccountTitle AccountTitle { get; set; }
+
+        [ForeignKey("ResponsibleStaff_Id")]
+        public virtual Staff Staff { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("Eメールアドレス")]
         [EmailAddress]
-        public string EMailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
         [DisplayName("優先順位")]
         public int Rank { get; set; }

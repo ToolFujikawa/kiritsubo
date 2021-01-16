@@ -208,6 +208,7 @@
     <Compile Include="Models\Tables\BusinessPartner.cs" />
     <Compile Include="Models\Tables\BusinessPartnerEMailAddress.cs" />
     <Compile Include="Models\Tables\DeliveryPlace.cs" />
+    <Compile Include="Models\Tables\Quotation.cs" />
     <Compile Include="Models\Tables\FinancialInstitution.cs" />
     <Compile Include="Models\Tables\FinancialInstitutionBranche.cs" />
     <Compile Include="Models\Tables\GoodsReceipt.cs" />
@@ -217,7 +218,13 @@
     <Compile Include="Models\Tables\Manufacturer.cs" />
     <Compile Include="Models\Tables\Product.cs" />
     <Compile Include="Models\Tables\ProductAttribute.cs" />
+    <Compile Include="Models\Tables\Purchase.cs" />
     <Compile Include="Models\Tables\PurchaseOrder.cs" />
+    <Compile Include="Models\Tables\Sale.cs" />
+    <Compile Include="Models\Tables\SalesOrder.cs" />
+    <Compile Include="Models\Tables\ShoppingBasket.cs" />
+    <Compile Include="Models\Tables\Staff.cs" />
+    <Compile Include="Models\Tables\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
