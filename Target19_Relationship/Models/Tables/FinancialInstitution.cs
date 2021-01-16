@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,5 +21,16 @@ namespace Target19_Relationship.Models.Tables
         public string Note { get; set; }
 
         public string FIMS_Id { get; set; }
+
+        //ナビゲーションプロパティ
+        public virtual ICollection<Journal> JournalFinancialInstitutions { get; set; }
+
+        public virtual ICollection<Journal> JournalIssuedFinancialInstitutions { get; set; }
+
+        [ForeignKey("Recorder_Id")]
+        public virtual Staff Recorder { get; set; }
+
+        [ForeignKey("Changer_Id")]
+        public virtual Staff Changer { get; set; }
     }
 }

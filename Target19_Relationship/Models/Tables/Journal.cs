@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -49,12 +50,12 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("支払期日")]
         public DateTime PaymentDate { get; set; }
-
-        [DisplayName("手形発行金融機関Id")]
-        public int IssuedFinancialInstitutionBranch_Id { get; set; }
         
-        [DisplayName("手形発行金融機関支店Id")]
+        [DisplayName("手形発行金融機関Id")]
         public int IssuedFinancialInstitution_Id { get; set; }
+
+        [DisplayName("手形発行金融機関支店Id")]
+        public int IssuedFinancialInstitutionBranch_Id { get; set; }
 
         [DisplayName("裏書譲渡先Id")]
         public int Transferee_Id { get; set; }
@@ -66,5 +67,36 @@ namespace Target19_Relationship.Models.Tables
         public string Note { get; set; }
 
         public int FIMS_Id { get; set; }
+
+        //ナビゲーションプロパティ
+        [ForeignKey("BusinessPartner_Id")]
+        public virtual BusinessPartner BusinessPartner { get; set; }
+
+        [ForeignKey("Debit_Id")]
+        public virtual AccountTitle DebitTitle { get; set; }
+
+        [ForeignKey("Credit_Id")]
+        public virtual AccountTitle CreditTitle { get; set; }
+
+        [ForeignKey("FinancialInstitution_Id")]
+        public virtual FinancialInstitution FinancialInstitution { get; set; }
+
+        [ForeignKey("FinancialInstitutionBranche_Id")]
+        public virtual FinancialInstitutionBranche FinancialInstitutionBranche { get; set; }
+
+        [ForeignKey("IssuedFinancialInstitution_Id")]
+        public virtual FinancialInstitution IssuedFinancialInstitution { get; set; }
+
+        [ForeignKey("IssuedFinancialInstitutionBranche_Id")]
+        public virtual FinancialInstitutionBranche IssuedFinancialInstitutionBranche { get; set; }
+
+        [ForeignKey("Transferee_Id")]
+        public virtual BusinessPartner Transferee { get; set; }
+
+        [ForeignKey("Recorder_Id")]
+        public virtual Staff Recorder { get; set; }
+
+        [ForeignKey("Changer_Id")]
+        public virtual Staff Changer { get; set; }
     }
 }

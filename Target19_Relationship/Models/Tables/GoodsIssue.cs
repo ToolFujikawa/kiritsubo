@@ -37,6 +37,12 @@ namespace Target19_Relationship.Models.Tables
         public virtual AccountTitle AccountTitle { get; set; }
 
         [ForeignKey("ResponsibleStaff_Id")]
-        public virtual Staff Staff { get; set; }
+        public virtual Staff ResponsibleStaff { get; set; }
+
+        [ForeignKey("Recorder_Id")]
+        public virtual Staff Recorder { get; set; }
+
+        [ForeignKey("Changer_Id")]
+        public virtual Staff Changer { get; set; }
     }
 }

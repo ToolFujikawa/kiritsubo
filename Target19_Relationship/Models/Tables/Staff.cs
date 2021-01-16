@@ -87,6 +87,45 @@ namespace Target19_Relationship.Models.Tables
         public string FullName { get; set; }
 
         //ナビゲーションプロパティ
+        public virtual ICollection<AccountTitle> AccountTitleRecorders { get; set; }
+        public virtual ICollection<AccountTitle> AccountTitleChangers { get; set; }
+
+        public virtual ICollection<BusinessPartner> BusinessPartnerChangers { get; set; }
+        public virtual ICollection<BusinessPartner> BusinessPartnerRecorders { get; set; }
+
+        public virtual ICollection<BusinessPartnerEMailAddress> BusinessPartnerEMailAddressChangers { get; set; }
+        public virtual ICollection<BusinessPartnerEMailAddress> BusinessPartnerEMailAddressRecorders { get; set; }
+
+        public virtual ICollection<DeliveryPlace> DeliveryPlaceChanger { get; set; }
+        public virtual ICollection<DeliveryPlace> DeliveryPlaceRecorderr { get; set; }
+
+        public virtual ICollection<FinancialInstitution> FinancialInstitutionChangers { get; set; }
+        public virtual ICollection<FinancialInstitution> FinancialInstitutionRecorders { get; set; }
+
+        public virtual ICollection<FinancialInstitutionBranche> FinancialInstitutionBrancheChangers { get; set; }
+        public virtual ICollection<FinancialInstitutionBranche> FinancialInstitutionBrancheRecorders { get; set; }
+
+        public virtual ICollection<GoodsIssue> GoodsIssueChangers { get; set; }
+        public virtual ICollection<GoodsIssue> GoodsIssueRecorders { get; set; }
+        public virtual ICollection<GoodsIssue> GoodsIssueResponsibleStaffs { get; set; }
+
+        public virtual ICollection<GoodsReceipt> GoodsReceiptChangers { get; set; }
+        public virtual ICollection<GoodsReceipt> GoodsReceiptRecorders { get; set; }
+        public virtual ICollection<GoodsReceipt> GoodsReceiptResponsibleStaffs { get; set; }
+
+        public virtual ICollection<Helper> HelperChanger { get; set; }
+        public virtual ICollection<Helper> HelperRecorderr { get; set; }
+
+        public virtual ICollection<Journal> JournalChanger { get; set; }
+        public virtual ICollection<Journal> JournalRecorderr { get; set; }
+
+        public virtual ICollection<Manufacturer> ManufacturerChanger { get; set; }
+        public virtual ICollection<Manufacturer> ManufacturerRecorderr { get; set; }
+
+        public virtual ICollection<Product> ProductChangers { get; set; }
+        public virtual ICollection<Product> ProductRecorders { get; set; }
+
         public virtual ICollection<Quotation> Quotations { get; set; }
+
     }
 }

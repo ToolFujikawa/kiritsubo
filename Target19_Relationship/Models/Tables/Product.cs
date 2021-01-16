@@ -88,18 +88,31 @@ namespace Target19_Relationship.Models.Tables
         public string Note { get; set; }
 
         [NotMapped]
-        public int FIMS_Id { get; set; }
+        public string SearchKey { get; set; }
 
         [NotMapped]
-        public string SearchKey { get; set; }
+        public int FIMS_Id { get; set; }
 
         [NotMapped]
         public string MAKER_Id { get; set; }
 
+        [NotMapped]
+        public string CREATER_Id { get; set; }
+
         //ナビゲーションプロパティ
+        public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
+
+        public virtual ICollection<GoodsReceipt> GoodsReceipts { get; set; }
+
         public virtual ICollection<Quotation> Quotations { get; set; }
 
         [ForeignKey("Manufacturer_Id")]
         public virtual Manufacturer Manufacturer { get; set; }
+
+        [ForeignKey("Recorder_Id")]
+        public virtual Staff Recorder { get; set; }
+
+        [ForeignKey("Changer_Id")]
+        public virtual Staff Changer { get; set; }
     }
 }
