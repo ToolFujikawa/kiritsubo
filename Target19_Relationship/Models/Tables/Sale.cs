@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using static Target19_Relationship.Models.Enums;
@@ -52,5 +53,9 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("備考")]
         public string Note { get; set; }
+
+        //ナビゲーションプロパティ
+        [ForeignKey("SalesOrder_Id")]
+        public virtual SalesOrder SalesOrder { get; set; }
     }
 }

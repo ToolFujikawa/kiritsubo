@@ -58,5 +58,17 @@ namespace Target19_Relationship.Models.Tables
         public bool IsCancel { get; set; }
 
         public int FIMS_Id { get; set; }
+
+        //ナビゲーションプロパティ
+        public virtual ICollection<Purchase> Purchases { get; set; }
+
+        [ForeignKey("Supplier_Id")]
+        public virtual BusinessPartner BusinessPartner { get; set; }
+
+        [ForeignKey("Product_Id")]
+        public virtual Product Product { get; set; }
+
+        [ForeignKey("ResponsibleStaff_Id")]
+        public virtual Staff ResponsibleStaff { get; set; }
     }
 }

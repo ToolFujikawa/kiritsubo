@@ -28,5 +28,7 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("備考")]
         public string Note { get; set; }
+
+        //ナビゲーションプロパティはこの中間テーブルには設定しない
     }
 }

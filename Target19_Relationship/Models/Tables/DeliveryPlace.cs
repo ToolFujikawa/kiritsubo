@@ -18,10 +18,6 @@ namespace Target19_Relationship.Models.Tables
         public string Note { get; set; }
 
         //ナビゲーションプロパティ
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
-
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
+        public virtual ICollection<SalesOrder> SalesOrders { get; set; }
     }
 }

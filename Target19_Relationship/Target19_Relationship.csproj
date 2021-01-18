@@ -211,7 +211,7 @@
     <Compile Include="Models\Tables\DeliveryPlace.cs" />
     <Compile Include="Models\Tables\Quotation.cs" />
     <Compile Include="Models\Tables\FinancialInstitution.cs" />
-    <Compile Include="Models\Tables\FinancialInstitutionBranche.cs" />
+    <Compile Include="Models\Tables\FinancialInstitutionBranch.cs" />
     <Compile Include="Models\Tables\GoodsReceipt.cs" />
     <Compile Include="Models\Tables\GoodsIssue.cs" />
     <Compile Include="Models\Tables\Helper.cs" />
@@ -346,11 +346,15 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_OurLayout.cshtml" />
+    <Content Include="Views\MasterData\AccountTitleList.cshtml" />
+    <Content Include="Views\MasterData\BusinessPartnerList.cshtml" />
+    <Content Include="Views\MasterData\BusinessPartnerEMailAddressList.cshtml" />
+    <Content Include="Views\MasterData\DeliveryPlaceList.cshtml" />
+    <Content Include="Views\MasterData\FinancialInstitutionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Views\" />
-    <Folder Include="Views\MasterData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

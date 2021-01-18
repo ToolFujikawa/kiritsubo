@@ -51,5 +51,14 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("受注詳細")]
         public string SalesOrderDetail { get; set; }
+
+        //ナビゲーションプロパティ
+        public SalesOrder SalesOrder { get; set; }
+
+        [ForeignKey("Product_Id")]
+        public virtual Product Product { get; set; }
+
+        [ForeignKey("ResponsibleStaff_Id")]
+        public virtual Staff ResponsibleStaff { get; set; }
     }
 }

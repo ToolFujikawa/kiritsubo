@@ -74,10 +74,10 @@ namespace Target19_Relationship.Models.Tables
         public int PaymentMethod { get; set; }
 
         [DisplayName("受取方法")]
-        public int ReceiveingMethod { get; set; }
+        public int ReceivingMethod { get; set; }
 
         [DisplayName("支払日")]
-        public int PaymentDay { get; set; }
+        public int PaymentDate { get; set; }
 
         [DisplayName("集金日")]
         public int CollectionDate { get; set; }
@@ -94,12 +94,12 @@ namespace Target19_Relationship.Models.Tables
         //ナビゲーションプロパティ
         public virtual ICollection<Journal> Journals { get; set; }
 
-        public virtual ICollection<Journal> Transferee { get; set; }
+        public virtual ICollection<Journal> Transferees { get; set; }
 
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
+        public virtual ICollection<PurchaseOrder> Suppliers { get; set; }
+
+        public virtual ICollection<SalesOrder> Customers { get; set; }
     }
 }

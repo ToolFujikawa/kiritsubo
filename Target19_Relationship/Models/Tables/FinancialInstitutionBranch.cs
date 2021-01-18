@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Target19_Relationship.Models.Tables
 {
-    public partial class FinancialInstitutionBranche : CreationRecord
+    public partial class FinancialInstitutionBranch : CreationRecord
     {
         public int Id { get; set; }
 
@@ -27,11 +27,5 @@ namespace Target19_Relationship.Models.Tables
         public virtual ICollection<Journal> JournalFinancialInstitutionBranches { get; set; }
 
         public virtual ICollection<Journal> JournalIssuedFinancialInstitutionBranches { get; set; }
-
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
-
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
     }
 }

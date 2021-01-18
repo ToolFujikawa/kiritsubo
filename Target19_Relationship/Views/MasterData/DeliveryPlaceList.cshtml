@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Tables.DeliveryPlace>
+
+@{
+    ViewBag.Title = "DeliveryPlaceList";
+}
+
+<h2>納品場所</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessRoute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessRoute)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

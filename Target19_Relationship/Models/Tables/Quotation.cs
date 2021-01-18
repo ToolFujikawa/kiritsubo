@@ -69,7 +69,7 @@ namespace Target19_Relationship.Models.Tables
         public virtual Product Product { get; set; }
 
         [ForeignKey("ResponsibleStaff_Id")]
-        public virtual Staff Staff { get; set; }
+        public virtual Staff ResponsibleStaff { get; set; }
 
         [ForeignKey("Customer_Id")]
         public virtual BusinessPartner BusinessPartner { get; set; }

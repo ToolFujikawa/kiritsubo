@@ -38,11 +38,5 @@ namespace Target19_Relationship.Models.Tables
 
         [ForeignKey("ResponsibleStaff_Id")]
         public virtual Staff ResponsibleStaff { get; set; }
-
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
-
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
     }
 }

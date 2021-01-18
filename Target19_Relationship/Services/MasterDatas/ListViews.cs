@@ -18,5 +18,45 @@ namespace Target19_Relationship.Services.MasterDatas
                 return records;
             }
         }
+
+        public List<BusinessPartner> BusinessPartners()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.BusinessPartners
+                                .ToList();
+                return records;
+            }
+        }
+
+        public List<BusinessPartnerEMailAddress> BusinessPartnerEMailAddresses()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.BusinessPartnerEMailAddresses
+                                .ToList();
+                return records;
+            }
+        }
+
+        public List<DeliveryPlace> DeliveryPlaces()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.DeliveryPlaces
+                                .ToList();
+                return records;
+            }
+        }
+
+        public List<FinancialInstitution> FinancialInstitutions()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.FinancialInstitutions
+                                .ToList();
+                return records;
+            }
+        }
     }
 }

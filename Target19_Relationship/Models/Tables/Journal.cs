@@ -81,22 +81,16 @@ namespace Target19_Relationship.Models.Tables
         [ForeignKey("FinancialInstitution_Id")]
         public virtual FinancialInstitution FinancialInstitution { get; set; }
 
-        [ForeignKey("FinancialInstitutionBranche_Id")]
-        public virtual FinancialInstitutionBranche FinancialInstitutionBranche { get; set; }
+        [ForeignKey("FinancialInstitutionBranch_Id")]
+        public virtual FinancialInstitutionBranch FinancialInstitutionBranche { get; set; }
 
         [ForeignKey("IssuedFinancialInstitution_Id")]
         public virtual FinancialInstitution IssuedFinancialInstitution { get; set; }
 
-        [ForeignKey("IssuedFinancialInstitutionBranche_Id")]
-        public virtual FinancialInstitutionBranche IssuedFinancialInstitutionBranche { get; set; }
+        [ForeignKey("IssuedFinancialInstitutionBranch_Id")]
+        public virtual FinancialInstitutionBranch IssuedFinancialInstitutionBranche { get; set; }
 
         [ForeignKey("Transferee_Id")]
         public virtual BusinessPartner Transferee { get; set; }
-
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
-
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Target19_Relationship.Models
     public partial class DefaultConnection : DbContext
     {
         public DefaultConnection()
-        : base("name=Model1")
+        : base("name=DefaultConnection")
         {
         }
         public virtual DbSet<AccountTitle> AccountTitles { get; set; }
@@ -19,7 +19,7 @@ namespace Target19_Relationship.Models
         public virtual DbSet<BusinessPartnerEMailAddress> BusinessPartnerEMailAddresses { get; set; }
         public virtual DbSet<DeliveryPlace> DeliveryPlaces { get; set; }
         public virtual DbSet<FinancialInstitution> FinancialInstitutions { get; set; }
-        public virtual DbSet<FinancialInstitutionBranche> FinancialInstitutionBranches { get; set; }
+        public virtual DbSet<FinancialInstitutionBranch> FinancialInstitutionBranches { get; set; }
         public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<Helper> Helpers { get; set; }

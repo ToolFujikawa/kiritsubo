@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Target19_Relationship.Models.Tables
 {
@@ -60,5 +61,23 @@ namespace Target19_Relationship.Models.Tables
         public string Note { get; set; }
 
         public int FIMS_Id { get; set; }
+
+        //ナビゲーションプロパティ
+        public virtual ICollection<Sale> Sales { get; set; }
+
+        [ForeignKey("ResponsibleStaff_Id")]
+        public virtual Staff ResponsibleStaff { get; set; }
+
+        [ForeignKey("Helper_Id")]
+        public virtual Helper Helper { get; set; }
+
+        [ForeignKey("Customer_Id")]
+        public virtual BusinessPartner BusinessPartner { get; set; }
+
+        [ForeignKey("DeliveryPlace_Id")]
+        public virtual DeliveryPlace DeliveryPlace { get; set; }
+
+        [ForeignKey("Product_Id")]
+        public virtual Product Product { get; set; }
     }
 }

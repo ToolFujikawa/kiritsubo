@@ -104,15 +104,17 @@ namespace Target19_Relationship.Models.Tables
 
         public virtual ICollection<GoodsReceipt> GoodsReceipts { get; set; }
 
+        public virtual ICollection<BusinessPartner> BusinessPartners { get; set; }
+
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
+
         public virtual ICollection<Quotation> Quotations { get; set; }
+
+        public virtual ICollection<SalesOrder> SalesOrders { get; set; }
+
+        public virtual ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
 
         [ForeignKey("Manufacturer_Id")]
         public virtual Manufacturer Manufacturer { get; set; }
-
-        [ForeignKey("Recorder_Id")]
-        public virtual Staff Recorder { get; set; }
-
-        [ForeignKey("Changer_Id")]
-        public virtual Staff Changer { get; set; }
     }
 }
