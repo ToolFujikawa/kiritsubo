@@ -38,5 +38,23 @@ namespace Target19_Relationship.Controllers
             ListViews listViews = new ListViews();
             return View(listViews.FinancialInstitutions());
         }
+
+        public ActionResult FinancialInstitutionBranchList()
+        {
+            ListViews listViews = new ListViews();
+            return View(listViews.FinancialInstitutionBranches());
+        }
+
+        public ActionResult HelperList()
+        {
+            ListViews listViews = new ListViews();
+            return View(listViews.Helpers());
+        }
+
+        public ActionResult StaffList()
+        {
+            ListViews listViews = new ListViews();
+            return View(listViews.Staffs());
+        }
     }
 }

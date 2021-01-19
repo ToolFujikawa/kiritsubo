@@ -58,5 +58,35 @@ namespace Target19_Relationship.Services.MasterDatas
                 return records;
             }
         }
+
+        public List<FinancialInstitutionBranch> FinancialInstitutionBranches()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.FinancialInstitutionBranches
+                                .ToList();
+                return records;
+            }
+        }
+
+        public List<Helper> Helpers()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.Helpers
+                                .ToList();
+                return records;
+            }
+        }
+
+        public List<Staff> Staffs()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.Staffs
+                                .ToList();
+                return records;
+            }
+        }
     }
 }

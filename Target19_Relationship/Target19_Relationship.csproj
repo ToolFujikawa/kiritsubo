@@ -351,6 +351,9 @@
     <Content Include="Views\MasterData\BusinessPartnerEMailAddressList.cshtml" />
     <Content Include="Views\MasterData\DeliveryPlaceList.cshtml" />
     <Content Include="Views\MasterData\FinancialInstitutionList.cshtml" />
+    <Content Include="Views\MasterData\FinancialInstitutionBranchList.cshtml" />
+    <Content Include="Views\MasterData\HelperList.cshtml" />
+    <Content Include="Views\MasterData\StaffList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
