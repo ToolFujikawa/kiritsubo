@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Tables.BusinessPartnerEMailAddress>
+﻿@model IEnumerable<Target19_Relationship.Models.Details.DetailBusinessPartnerEmailAddress>
 
 @{
     ViewBag.Title = "BusinessPartnerEMailAddressList";
@@ -9,85 +9,55 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Recorder_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Changer_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecordingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecordingTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessRoute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessPartner_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rank)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recorder_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Changer_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecordingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecordingTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessRoute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BusinessPartner_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<div class="form-group">
+    <label for="initial">頭文字</label>
+    <div class="btn-group" data-toggle="buttons" id="initial">
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="あ" />あ
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="か" />か
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="さ" />さ
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="た" />た
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="な" />な
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="は" />は
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="ま" />ま
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="や" />や
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="ら" />ら
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="radio-group" autocomplete="off" value="わ" />わ
+        </label>
+    </div>
+    <button type="submit" name="search">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('button[name="search"]').click(function (e) {
+                const str = $('input:radio[name="radio-group"]:checked').val();
+                    $('#result').load('/MasterData/BusinessPartnerEmailAddressContent', { initial: str });
+            })
+        })
+    </script>
 }
-
-</table>

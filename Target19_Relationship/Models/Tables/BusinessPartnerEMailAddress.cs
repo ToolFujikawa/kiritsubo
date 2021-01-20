@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Target19_Relationship.Models.Tables
 {
-    public partial class BusinessPartnerEMailAddress : CreationRecord
+    public partial class BusinessPartnerEmailAddress : CreationRecord
     {
         public int Id { get; set; }
 

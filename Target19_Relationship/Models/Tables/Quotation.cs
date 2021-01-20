@@ -77,6 +77,6 @@ namespace Target19_Relationship.Models.Tables
         [ForeignKey("Helper_Id")]
         public virtual Helper Helper { get; set; }
 
-        public virtual ICollection<BusinessPartnerEMailAddress> BusinessPartnerEMailAddresses { get; set; }
+        public virtual ICollection<BusinessPartnerEmailAddress> BusinessPartnerEMailAddresses { get; set; }
     }
 }

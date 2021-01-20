@@ -16,7 +16,7 @@ namespace Target19_Relationship.Models
         }
         public virtual DbSet<AccountTitle> AccountTitles { get; set; }
         public virtual DbSet<BusinessPartner> BusinessPartners { get; set; }
-        public virtual DbSet<BusinessPartnerEMailAddress> BusinessPartnerEMailAddresses { get; set; }
+        public virtual DbSet<BusinessPartnerEmailAddress> BusinessPartnerEMailAddresses { get; set; }
         public virtual DbSet<DeliveryPlace> DeliveryPlaces { get; set; }
         public virtual DbSet<FinancialInstitution> FinancialInstitutions { get; set; }
         public virtual DbSet<FinancialInstitutionBranch> FinancialInstitutionBranches { get; set; }
@@ -35,20 +35,22 @@ namespace Target19_Relationship.Models
         public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+
+        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.DetailBusinessPartnerEmailAddress> DetailBusinessPartnerEmailAddresses { get; set; }
         /*
-        public virtual DbSet<ProductList> ProductLists { get; set; }
-        public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
-        public virtual DbSet<ProductWithCommonName> ProductWithCommonNames { get; set; }
-        public virtual DbSet<InvoiceEntryTarget> InvoiceEntryTargets { get; set; }
-        public virtual DbSet<Shipment> Shipments { get; set; }
-        public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
-        public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
-        public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
-        public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
-        public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
-        public virtual DbSet<AfterDelivery> AfterDeliveries { get; set; }
-        public virtual DbSet<AfterPurchase> AfterPurchases { get; set; }
-        public virtual DbSet<BeforeSetSellingPrice> BeforeSetSellingPrices { get; set; }
-        */
+public virtual DbSet<ProductList> ProductLists { get; set; }
+public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
+public virtual DbSet<ProductWithCommonName> ProductWithCommonNames { get; set; }
+public virtual DbSet<InvoiceEntryTarget> InvoiceEntryTargets { get; set; }
+public virtual DbSet<Shipment> Shipments { get; set; }
+public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
+public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
+public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
+public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
+public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
+public virtual DbSet<AfterDelivery> AfterDeliveries { get; set; }
+public virtual DbSet<AfterPurchase> AfterPurchases { get; set; }
+public virtual DbSet<BeforeSetSellingPrice> BeforeSetSellingPrices { get; set; }
+*/
     }
 }

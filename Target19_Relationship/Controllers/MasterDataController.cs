@@ -21,10 +21,27 @@ namespace Target19_Relationship.Controllers
             return View(listViews.BusinessPartners());
         }
 
-        public ActionResult BusinessPartnerEMailAddressList()
+        public ActionResult BusinessPartnerEmailAddressList()
         {
-            ListViews listViews = new ListViews();
-            return View(listViews.BusinessPartnerEMailAddresses());
+            return View();
+        }
+
+        public ActionResult BusinessPartnerEmailAddressContent(string initial)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                ListViews listViews = new ListViews();
+                var results = listViews.BusinessPartnerEmailAddresses(initial);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_BusinessPartnerEmailAddressContent");
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
         }
 
         public ActionResult DeliveryPlaceList()
