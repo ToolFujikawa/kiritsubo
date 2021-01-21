@@ -348,7 +348,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_OurLayout.cshtml" />
     <Content Include="Views\MasterData\AccountTitleList.cshtml" />
-    <Content Include="Views\MasterData\BusinessPartnerList.cshtml" />
     <Content Include="Views\MasterData\BusinessPartnerEmailAddressList.cshtml" />
     <Content Include="Views\MasterData\DeliveryPlaceList.cshtml" />
     <Content Include="Views\MasterData\FinancialInstitutionList.cshtml" />
@@ -357,6 +356,8 @@
     <Content Include="Views\MasterData\StaffList.cshtml" />
     <Content Include="Views\MasterData\_NoResult.cshtml" />
     <Content Include="Views\MasterData\_BusinessPartnerEmailAddressContent.cshtml" />
+    <Content Include="Views\MasterData\BusinessPartnerList.cshtml" />
+    <Content Include="Views\MasterData\_BusinessPartnerContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

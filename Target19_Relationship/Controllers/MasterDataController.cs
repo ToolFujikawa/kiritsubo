@@ -17,8 +17,25 @@ namespace Target19_Relationship.Controllers
 
         public ActionResult BusinessPartnerList()
         {
-            ListViews listViews = new ListViews();
-            return View(listViews.BusinessPartners());
+            return View();
+        }
+
+        public ActionResult BusinessPartnerContent(string initial)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                ListViews listViews = new ListViews();
+                var results = listViews.BusinessPartners(initial);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_BusinessPartnerContent");
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
         }
 
         public ActionResult BusinessPartnerEmailAddressList()

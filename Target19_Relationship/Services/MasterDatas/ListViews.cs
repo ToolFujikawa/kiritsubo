@@ -20,11 +20,89 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
-        public List<BusinessPartner> BusinessPartners()
+        public List<BusinessPartner> BusinessPartners(string initial)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
-                var records = db.BusinessPartners
+                var anonymous = db.BusinessPartners
+                                    .Where(bp => bp.Furigana.StartsWith(initial))
+                                    .Select(bp => new
+                                    {
+                                        bp.Id,
+                                        bp.IsHalted,
+                                        bp.IsExport,
+                                        bp.FormalName,
+                                        bp.CommonName,
+                                        bp.IntegratedName,
+                                        bp.Furigana,
+                                        bp.PhoneNo,
+                                        bp.FAXNo,
+                                        bp.ZIPCode,
+                                        bp.Prefecture,
+                                        bp.City,
+                                        bp.Address,
+                                        bp.StreetAddress,
+                                        bp.AccountsPayable,
+                                        bp.AccountsPayableClosingDay,
+                                        bp.AccountsReceivable,
+                                        bp.AccountsReceivableClosingDay,
+                                        bp.PaymentSite,
+                                        bp.ReceivingSite,
+                                        bp.PaymentMethod,
+                                        bp.ReceivingMethod,
+                                        bp.PaymentDate,
+                                        bp.CollectionDate,
+                                        bp.IsExclusiveDeliveryNote,
+                                        bp.Note,
+                                        bp.Recorder_Id,
+                                        bp.Changer_Id,
+                                        bp.RecordingDate,
+                                        bp.RecordingTime,
+                                        bp.UpdateDate,
+                                        bp.UpdateTime,
+                                        bp.AccessRoute,
+                                        bp.FIMS_Id
+                                    })
+                                    .ToList();
+
+                var records = anonymous
+                                .Select(a => new BusinessPartner
+                                {
+                                    Id = a.Id,
+                                    IsHalted = a.IsHalted,
+                                    IsExport = a.IsExport,
+                                    FormalName = a.FormalName,
+                                    CommonName = a.CommonName,
+                                    IntegratedName = a.IntegratedName,
+                                    Furigana = a.Furigana,
+                                    PhoneNo = a.PhoneNo,
+                                    FAXNo = a.FAXNo,
+                                    ZIPCode = a.ZIPCode,
+                                    Prefecture = a.Prefecture,
+                                    City = a.City,
+                                    Address = a.Address,
+                                    StreetAddress = a.StreetAddress,
+                                    AccountsPayable = a.AccountsPayable,
+                                    AccountsPayableClosingDay = a.AccountsPayableClosingDay,
+                                    AccountsReceivable = a.AccountsReceivable,
+                                    AccountsReceivableClosingDay = a.AccountsReceivableClosingDay,
+                                    PaymentSite = a.PaymentSite,
+                                    ReceivingSite = a.ReceivingSite,
+                                    PaymentMethod = a.PaymentMethod,
+                                    ReceivingMethod = a.ReceivingMethod,
+                                    PaymentDate = a.PaymentDate,
+                                    CollectionDate = a.CollectionDate,
+                                    IsExclusiveDeliveryNote = a.IsExclusiveDeliveryNote,
+                                    Note = a.Note,
+                                    Recorder_Id = a.Recorder_Id,
+                                    Changer_Id = a.Changer_Id,
+                                    RecordingDate = a.RecordingDate,
+                                    RecordingTime = a.RecordingTime,
+                                    UpdateDate = a.UpdateDate,
+                                    UpdateTime = a.UpdateTime,
+                                    AccessRoute = a.AccessRoute,
+                                    FIMS_Id = a.FIMS_Id
+                                })
                                 .ToList();
                 return records;
             }

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using static Target19_Relationship.Models.Enums;
 
 namespace Target19_Relationship.Models.Tables
 {
@@ -56,31 +57,39 @@ namespace Target19_Relationship.Models.Tables
         public decimal AccountsPayable { get; set; }
         
         [DisplayName("買掛金締日")]
-        public string AccountsPayableClosingDay { get; set; }
+        [EnumDataType(typeof(Days))]
+        public Days AccountsPayableClosingDay { get; set; }
 
         [DisplayName("売掛金残高")]
         public decimal AccountsReceivable { get; set; }
 
         [DisplayName("売掛金締日")]
-        public string AccountsReceivableClosingDay { get; set; }
+        [EnumDataType(typeof(Days))]
+        public Days AccountsReceivableClosingDay { get; set; }
 
         [DisplayName("支払サイト")]
-        public int PaymentSite { get; set; }
+        [EnumDataType(typeof(DeferPeriod))]
+        public DeferPeriod PaymentSite { get; set; }
 
         [DisplayName("受取サイト")]
-        public int ReceivingSite { get; set; }
+        [EnumDataType(typeof(DeferPeriod))]
+        public DeferPeriod ReceivingSite { get; set; }
 
         [DisplayName("支払方法")]
-        public int PaymentMethod { get; set; }
+        [EnumDataType(typeof(RemittanceMethod))]
+        public RemittanceMethod PaymentMethod { get; set; }
 
         [DisplayName("受取方法")]
-        public int ReceivingMethod { get; set; }
+        [EnumDataType(typeof(RemittanceMethod))]
+        public RemittanceMethod ReceivingMethod { get; set; }
 
         [DisplayName("支払日")]
-        public int PaymentDate { get; set; }
+        [EnumDataType(typeof(Days))]
+        public Days PaymentDate { get; set; }
 
         [DisplayName("集金日")]
-        public int CollectionDate { get; set; }
+        [EnumDataType(typeof(Days))]
+        public Days CollectionDate { get; set; }
 
         [DisplayName("専用伝票")]
         public int IsExclusiveDeliveryNote { get; set; }

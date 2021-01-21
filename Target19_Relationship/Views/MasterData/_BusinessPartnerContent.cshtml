@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Tables.BusinessPartner>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsHalted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsExport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FormalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IntegratedName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Furigana)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FAXNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZIPCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prefecture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountsPayable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountsPayableClosingDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountsReceivable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountsReceivableClosingDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentSite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivingSite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivingMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CollectionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsExclusiveDeliveryNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FIMS_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessRoute)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsHalted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsExport)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FormalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IntegratedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Furigana)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FAXNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZIPCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prefecture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StreetAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountsPayable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountsPayableClosingDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountsReceivable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountsReceivableClosingDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentSite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivingSite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivingMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CollectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsExclusiveDeliveryNote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIMS_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessRoute)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
