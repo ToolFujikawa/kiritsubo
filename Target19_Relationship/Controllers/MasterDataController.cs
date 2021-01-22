@@ -85,6 +85,29 @@ namespace Target19_Relationship.Controllers
             return View(listViews.Helpers());
         }
 
+        public ActionResult ManufacturerList()
+        {
+            return View();
+        }
+
+        public ActionResult ManufacturerContent(string initial)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                ListViews listViews = new ListViews();
+                var results = listViews.Manufacturers(initial);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_ManufacturerContent");
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
         public ActionResult StaffList()
         {
             ListViews listViews = new ListViews();

@@ -192,6 +192,18 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
+        public List<Manufacturer> Manufacturers(string initial)
+
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                var records = db.Manufacturers
+                                .Where(m => m.Furigana.StartsWith(initial))
+                                .ToList();
+                return records;
+            }
+        }
+
         public List<Staff> Staffs()
         {
             using (DefaultConnection db = new DefaultConnection())

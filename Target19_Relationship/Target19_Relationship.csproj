@@ -358,6 +358,8 @@
     <Content Include="Views\MasterData\_BusinessPartnerEmailAddressContent.cshtml" />
     <Content Include="Views\MasterData\BusinessPartnerList.cshtml" />
     <Content Include="Views\MasterData\_BusinessPartnerContent.cshtml" />
+    <Content Include="Views\MasterData\ManufacturerList.cshtml" />
+    <Content Include="Views\MasterData\_ManufacturerContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
