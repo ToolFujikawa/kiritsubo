@@ -205,13 +205,51 @@ namespace Target19_Relationship.Services.MasterDatas
 
         public List<DetailProduct> Products(string keywords)
         {
-            string[] keywordList = keywords.Split(new[] { ' ', '　' });//スペースでキーワードを分割
             using (DefaultConnection db = new DefaultConnection())
             {
-                IEnumerable<Product> selectedProducts = db.Products;
-                foreach (var item in selectedProducts)
+                WhereString whereString = new WhereString();
+                string where = whereString.AssembleProductWhere(db, keywords);
+                //検索文字列が評価できなかった時、空集合を返す。
+                if (where == "Empty")
                 {
+                    List<DetailProduct> products = new List<DetailProduct>();
+                    return products;
+                }
+                else
+                {
+                    var anonymous = db.Database
+                                        .SqlQuery<Product>(where)
+                                        .OrderBy(p => p.Id)
+                                        .Take(10);
 
+                    var results = anonymous
+                                    .Select(a => new DetailProduct
+                                    {
+                                        Id = a.Id,
+                                        Manufacturer = a.Manufacturer.CommonName,
+                                        Pseudonym = a.Pseudonym,
+                                        ProductName = a.ProductName,
+                                        Material = a.Material,
+                                        Model = a.Model,
+                                        Quantity = a.Quantity,
+                                        LowerLimitQuantity = a.LowerLimitQuantity,
+                                        OrderQuantity = a.OrderQuantity,
+                                        TaxRate = a.TaxRate,
+                                        TransactionUnit = a.TransactionUnit,
+                                        Cost = a.Cost,
+                                        Valuation = a.Valuation,
+                                        IsUnmanaged = a.IsUnmanaged,
+                                        Note = a.Note,
+                                        Recorder_Id = a.Recorder_Id,
+                                        Changer_Id = a.Changer_Id,
+                                        RecordingDate = a.RecordingDate,
+                                        RecordingTime = a.RecordingTime,
+                                        UpdateDate = a.UpdateDate,
+                                        UpdateTime = a.UpdateTime,
+                                        AccessRoute = a.AccessRoute
+                                    })
+                                    .ToList();
+                    return results;
                 }
             }
         }

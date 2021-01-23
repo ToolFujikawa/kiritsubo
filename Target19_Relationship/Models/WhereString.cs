@@ -5,11 +5,11 @@ using System.Text;
 using System.Web;
 using Target19_Relationship.Models;
 
-namespace Target19_Relationship.Extensions
+namespace Target19_Relationship.Models
 {
     public class WhereString
     {
-        public string AssembleWhereCriteria(DefaultConnection db, string keywords)
+        public string AssembleProductWhere(DefaultConnection db, string keywords)
         {
             StringBuilder sb = new StringBuilder();
             string[] keywordArray = keywords.Split(new[] { ' ', '　' });
@@ -47,7 +47,7 @@ namespace Target19_Relationship.Extensions
             }
             else
             {
-                sb.Insert(0, "select * from productwithcommonnames where");
+                sb.Insert(0, "select * from products where");
                 return sb.ToString();
             }
         }
