@@ -193,7 +193,6 @@ namespace Target19_Relationship.Services.MasterDatas
         }
 
         public List<Manufacturer> Manufacturers(string initial)
-
         {
             using (DefaultConnection db = new DefaultConnection())
             {
@@ -201,6 +200,19 @@ namespace Target19_Relationship.Services.MasterDatas
                                 .Where(m => m.Furigana.StartsWith(initial))
                                 .ToList();
                 return records;
+            }
+        }
+
+        public List<DetailProduct> Products(string keywords)
+        {
+            string[] keywordList = keywords.Split(new[] { ' ', '　' });//スペースでキーワードを分割
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                IEnumerable<Product> selectedProducts = db.Products;
+                foreach (var item in selectedProducts)
+                {
+
+                }
             }
         }
 

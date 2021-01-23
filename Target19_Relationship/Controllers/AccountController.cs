@@ -9,6 +9,7 @@ using AspNet.Identity.MySQL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Target19_Relationship.Controllers;
 using Target19_Relationship.Models;
 
 namespace Target19_Relationship.Controllers

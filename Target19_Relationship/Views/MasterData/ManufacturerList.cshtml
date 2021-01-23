@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Tables.Manufacturer>
+﻿@model IEnumerable<Target19_Relationship.DefaultConnection.Tables.Manufacturer>
 @{
     ViewBag.Title = "ManufacturerList";
 }
@@ -10,10 +10,7 @@
 </p>
 
 <div class="form-inline">
-    <div class="input-group">
-    <input type="text" name="search" class="form-control" placeholder = "ふりがな検索" id ="searchtext" />
-    </div>
-<button type="submit" name="search" class="btn btn-default">検索</button>
+    @Html.SearchBox("ふりがな検索")
 </div>
 
 <div id="result"></div>
@@ -25,7 +22,7 @@
         $(function () {
             $('button[name="search"]').click(function (e) {
                 const str = $('#searchtext').val();
-                    $('#result').load('/MasterData/ManufacturerContent', { initial: str });
+                $('#result').load('/MasterData/ManufacturerContent', { initial: str });
             })
         })
     </script>

@@ -43,7 +43,6 @@ namespace Target19_Relationship.Models.Tables
 
         public int Id { get; set; }
 
-        //外部キー
         [DisplayName("メーカーId")]
         public int Manufacturer_Id { get; set; }
 
