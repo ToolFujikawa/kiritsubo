@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Details.DetailProduct>
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<h2>商品</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="form-inline">
+    @Html.SearchBox("キーワード検索")
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('button[name="search"]').click(function (e) {
+                const str = $('#searchtext').val();
+                $('#result').load('/MasterData/ProductContent', { keywords: str });
+            })
+        })
+    </script>
+}

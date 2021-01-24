@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Target19_Relationship.Models.Tables;
-//using Target19_Relationship.Models.Views;
+using Target19_Relationship.Models.Views;
 
 namespace Target19_Relationship.Models
 {
@@ -36,7 +36,8 @@ namespace Target19_Relationship.Models
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
 
-        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.DetailBusinessPartnerEmailAddress> DetailBusinessPartnerEmailAddresses { get; set; }
+        //Views
+        public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
 public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }

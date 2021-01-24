@@ -108,6 +108,29 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
+        public ActionResult ProductList()
+        {
+            return View();
+        }
+
+        public ActionResult ProductContent(string keywords)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                ListViews listViews = new ListViews();
+                var results = listViews.Products(keywords);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_ProductContent");
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
         public ActionResult StaffList()
         {
             ListViews listViews = new ListViews();

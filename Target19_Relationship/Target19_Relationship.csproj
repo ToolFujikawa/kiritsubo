@@ -203,6 +203,7 @@
     <Compile Include="Models\CreationRecord.cs" />
     <Compile Include="Models\Details\DetailBusinessPartnerEmailAddress.cs" />
     <Compile Include="Models\Details\DetailProduct.cs" />
+    <Compile Include="Models\Views\ReadableProductAttribute.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -364,11 +365,12 @@
     <Content Include="Views\MasterData\_BusinessPartnerContent.cshtml" />
     <Content Include="Views\MasterData\ManufacturerList.cshtml" />
     <Content Include="Views\MasterData\_ManufacturerContent.cshtml" />
+    <Content Include="Views\MasterData\ProductList.cshtml" />
+    <Content Include="Views\MasterData\_ProductContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Creates\" />
-    <Folder Include="Models\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

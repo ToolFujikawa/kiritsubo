@@ -7,7 +7,7 @@ using Target19_Relationship.Models;
 
 namespace Target19_Relationship.Models
 {
-    public class WhereString
+    public class SQLWhereString
     {
         public string AssembleProductWhere(DefaultConnection db, string keywords)
         {

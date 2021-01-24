@@ -5,6 +5,7 @@ using System.Web;
 using Target19_Relationship.Models;
 using Target19_Relationship.Models.Details;
 using Target19_Relationship.Models.Tables;
+using Target19_Relationship.Models.Views;
 
 namespace Target19_Relationship.Services.MasterDatas
 {
@@ -207,7 +208,7 @@ namespace Target19_Relationship.Services.MasterDatas
         {
             using (DefaultConnection db = new DefaultConnection())
             {
-                WhereString whereString = new WhereString();
+                SQLWhereString whereString = new SQLWhereString();
                 string where = whereString.AssembleProductWhere(db, keywords);
                 //検索文字列が評価できなかった時、空集合を返す。
                 if (where == "Empty")
@@ -250,6 +251,39 @@ namespace Target19_Relationship.Services.MasterDatas
                                     })
                                     .ToList();
                     return results;
+                }
+            }
+        }
+
+        public List<ReadableProductAttribute> ProductAttributes(string businessPartner, string keywords)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                if (String.IsNullOrEmpty(keywords))
+                {
+                    var results = db.ReadableProductAttributes
+                                    .Where(rp => rp.BusinessPartner == businessPartner);
+                    return results.ToList();
+                }
+                else
+                {
+                    SQLWhereString whereString = new SQLWhereString();
+                    string where = whereString.AssembleProductWhere(db, keywords);
+
+                    if (where == "Empty")//検索文字列が評価できなかった時
+                    {
+                        var results = db.ReadableProductAttributes
+                                        .Where(rp => rp.BusinessPartner == businessPartner);
+                        return results.ToList();
+                    }
+                    else
+                    {
+                        var results = db.Database
+                                        .SqlQuery<ReadableProductAttribute>(where);
+                        return results
+                                .Where(r => r.BusinessPartner == businessPartner)
+                                .ToList();
+                    }
                 }
             }
         }
