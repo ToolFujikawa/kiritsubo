@@ -10,7 +10,9 @@
 </p>
 
 <div class="form-inline">
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
     @Html.SearchBox("キーワード検索")
+    <button type="submit" name="search" class="btn btn-default">検索</button>
 </div>
 
 <div id="result"></div>
@@ -21,9 +23,9 @@
     <script>
         $(function () {
             $('button[name="search"]').click(function (e) {
-                const str = $('#searchtext').val();
-                $('#result').load('/MasterData/ProductContent', { keywords: str });
-            })
-        })
+                let str = [$('#autocomplete').val(), $('#searchtext').val()]
+                $('#result').load('/MasterData/ProductContent', { manufacturer: str[0], keywords: str[1] });
+            });
+        });
     </script>
 }

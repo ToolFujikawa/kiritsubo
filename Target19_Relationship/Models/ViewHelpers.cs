@@ -10,24 +10,31 @@ namespace Target19_Relationship.Models
     {
         public static IHtmlString SearchBox(this HtmlHelper helper, string placeholder)
         {
-            TagBuilder[] builders = new TagBuilder[] { new TagBuilder("input"), new TagBuilder("button") };
-            builders[0].MergeAttribute("type", "type");
-            builders[0].MergeAttribute("name", "search");
-            builders[0].MergeAttribute("class", "form-control");
-            builders[0].MergeAttribute("placeholder", placeholder);
-            builders[0].MergeAttribute("id", "searchtext");
-
-            builders[1].MergeAttribute("type", "submit");
-            builders[1].MergeAttribute("name", "search");
-            builders[1].MergeAttribute("class", "btn btn-default");
-            builders[1].SetInnerText("検索");
+            TagBuilder builder = new TagBuilder("input");
+            builder.MergeAttribute("type", "search");
+            builder.MergeAttribute("name", "search");
+            builder.MergeAttribute("class", "form-control");
+            builder.MergeAttribute("placeholder", placeholder);
+            builder.MergeAttribute("id", "searchtext");
 
             return MvcHtmlString.Create(
                 String.Format(
-                    "<div class=\"input-group\">" +
-                    builders[0].ToString(TagRenderMode.StartTag) +
-                    "</div>" + builders[1].ToString(TagRenderMode.Normal))
-                );
+                    builder.ToString(TagRenderMode.StartTag)
+                ));
+        }
+
+        public static IHtmlString AutoCompleteBox(this HtmlHelper helper, string target, string placeholper)
+        {
+            TagBuilder builder = new TagBuilder("input");
+            builder.MergeAttribute("type", "search");
+            builder.MergeAttribute("name", target);
+            builder.MergeAttribute("class", "form-control");
+            builder.MergeAttribute("placeholder", placeholper);
+            builder.MergeAttribute("id", "autocomplete");
+
+            return MvcHtmlString.Create(
+                String.Format(
+                    builder.ToString(TagRenderMode.StartTag)));
         }
     }
 }

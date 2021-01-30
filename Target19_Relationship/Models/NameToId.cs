@@ -51,26 +51,7 @@ namespace Target19_Relationship.Models
                             .Id;
             return result;
         }
-/*
-        public static int Product(DefaultConnection db, string productName)
-        {
-            if (productName == null)//商品新規登録時のエラー回避
-            {
-                return 1;
-            }
-            else
-            {
-                string replacedProductName = productName.Replace(" ", "");
-                int result = db.ProductWithCommonNames
-                                .Single(pc => pc.Manufacturer
-                                            + pc.ProductName
-                                            + pc.Material
-                                            + pc.Model == replacedProductName)
-                                .Id;
-                return result;
-            }
-        }
-        */
+
         public static int ProductPseudonym(DefaultConnection db, string pseudonym)
         {
             if (pseudonym == null)//三項演算で使用して必ず評価されるための分岐

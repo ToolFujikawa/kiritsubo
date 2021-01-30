@@ -11,7 +11,7 @@ namespace Target19_Relationship.Controllers
     {
         public ActionResult AccountTitleList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.AccountTitles());
         }
 
@@ -24,7 +24,7 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                ListViews listViews = new ListViews();
+                MasterListViews listViews = new MasterListViews();
                 var results = listViews.BusinessPartners(initial);
                 if (results.Count() == 0)
                 {
@@ -47,7 +47,7 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                ListViews listViews = new ListViews();
+                MasterListViews listViews = new MasterListViews();
                 var results = listViews.BusinessPartnerEmailAddresses(initial);
                 if (results.Count() == 0)
                 {
@@ -63,25 +63,25 @@ namespace Target19_Relationship.Controllers
 
         public ActionResult DeliveryPlaceList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.DeliveryPlaces());
         }
 
         public ActionResult FinancialInstitutionList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.FinancialInstitutions());
         }
 
         public ActionResult FinancialInstitutionBranchList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.FinancialInstitutionBranches());
         }
 
         public ActionResult HelperList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.Helpers());
         }
 
@@ -94,7 +94,7 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                ListViews listViews = new ListViews();
+                MasterListViews listViews = new MasterListViews();
                 var results = listViews.Manufacturers(initial);
                 if (results.Count() == 0)
                 {
@@ -113,12 +113,12 @@ namespace Target19_Relationship.Controllers
             return View();
         }
 
-        public ActionResult ProductContent(string keywords)
+        public ActionResult ProductContent(string manufacturer, string keywords)
         {
             if (Request.IsAjaxRequest())
             {
-                ListViews listViews = new ListViews();
-                var results = listViews.Products(keywords);
+                MasterListViews listViews = new MasterListViews();
+                var results = listViews.Products(manufacturer, keywords);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -131,9 +131,32 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
+        public ActionResult ProductAttributeList()
+        {
+            return View();
+        }
+
+        public ActionResult ProductAttributeContent(string businessPartner, string manufacturer, string keywords)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                MasterListViews listViews = new MasterListViews();
+                var results = listViews.ProductAttributes(businessPartner, manufacturer, keywords);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+;               }
+                else
+                {
+                    return PartialView("_ProductAttributeContent");
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
         public ActionResult StaffList()
         {
-            ListViews listViews = new ListViews();
+            MasterListViews listViews = new MasterListViews();
             return View(listViews.Staffs());
         }
     }

@@ -9,7 +9,7 @@ using Target19_Relationship.Models.Views;
 
 namespace Target19_Relationship.Services.MasterDatas
 {
-    public class ListViews
+    public class MasterListViews
     {
         public List<AccountTitle> AccountTitles()
         {
@@ -204,12 +204,12 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
-        public List<DetailProduct> Products(string keywords)
+        public List<DetailProduct> Products(string manufacturer, string keywords)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords);
+                string where = whereString.AssembleProductWhere(db, manufacturer, keywords);
                 //検索文字列が評価できなかった時、空集合を返す。
                 if (where == "Empty")
                 {
@@ -220,8 +220,7 @@ namespace Target19_Relationship.Services.MasterDatas
                 {
                     var anonymous = db.Database
                                         .SqlQuery<Product>(where)
-                                        .OrderBy(p => p.Id)
-                                        .Take(10);
+                                        .OrderBy(p => p.Id);
 
                     var results = anonymous
                                     .Select(a => new DetailProduct
@@ -255,35 +254,25 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
-        public List<ReadableProductAttribute> ProductAttributes(string businessPartner, string keywords)
+        public List<ReadableProductAttribute> ProductAttributes(string businessPartner, string manufacturer, string keywords)
         {
+            //検索条件判定
             using (DefaultConnection db = new DefaultConnection())
             {
-                if (String.IsNullOrEmpty(keywords))
+                SQLWhereString whereString = new SQLWhereString();
+                string where = whereString.AssembleProductAttributeWhere(db, businessPartner, manufacturer, keywords);
+
+                if (where == "Empty")//検索文字列が評価できなかった時は空集合
                 {
-                    var results = db.ReadableProductAttributes
-                                    .Where(rp => rp.BusinessPartner == businessPartner);
-                    return results.ToList();
+                    List<ReadableProductAttribute> results = new List<ReadableProductAttribute>();
+                    return results;
                 }
                 else
                 {
-                    SQLWhereString whereString = new SQLWhereString();
-                    string where = whereString.AssembleProductWhere(db, keywords);
-
-                    if (where == "Empty")//検索文字列が評価できなかった時
-                    {
-                        var results = db.ReadableProductAttributes
-                                        .Where(rp => rp.BusinessPartner == businessPartner);
-                        return results.ToList();
-                    }
-                    else
-                    {
-                        var results = db.Database
-                                        .SqlQuery<ReadableProductAttribute>(where);
-                        return results
-                                .Where(r => r.BusinessPartner == businessPartner)
-                                .ToList();
-                    }
+                    var results = db.Database
+                                    .SqlQuery<ReadableProductAttribute>(where)
+                                    .ToList();
+                    return results;
                 }
             }
         }

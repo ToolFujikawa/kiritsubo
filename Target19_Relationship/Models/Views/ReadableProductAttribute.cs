@@ -18,9 +18,6 @@ namespace Target19_Relationship.Models.Views
         [DisplayName("メーカー")]
         public string Manufacturer { get; set; }
 
-        [DisplayName("商品")]
-        public string Product { get; set; }
-
         [Key]
         [Column(Order = 1)]
         [DisplayName("取引先Id")]
@@ -37,5 +34,28 @@ namespace Target19_Relationship.Models.Views
 
         [DisplayName("備考")]
         public string Note { get; set; }
+
+        [DisplayName("登録者Id")]
+        public int Recorder_Id { get; set; }
+
+        [DisplayName("更新者Id")]
+        public int Changer_Id { get; set; }
+
+        [DisplayName("登録日")]
+        public DateTime RecordingDate { get; set; }
+
+        [DisplayName("登録時刻")]
+        public TimeSpan RecordingTime { get; set; }
+
+        [DisplayName("更新日")]
+        public DateTime UpdateDate { get; set; }
+
+        [DisplayName("更新時刻")]
+        public TimeSpan UpdateTime { get; set; }
+
+        [DisplayName("アクセス元")]
+        public string AccessRoute { get; set; }
+
+        public string SearchKey { get; set; }
     }
 }

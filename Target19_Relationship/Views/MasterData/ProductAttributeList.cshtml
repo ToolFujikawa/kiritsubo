@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableProductAttribute>
+@{
+    ViewBag.Title = "ProductAttributeList";
+}
+
+<h2>商品属性</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("businesspartner", "取引先")
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
+    @Html.SearchBox("商品キーワード")
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('button[name="search"]').click(function (e) {
+                let str = [$('input[name="businesspartner"]').val(), $('input[name="manufacturer"]').val(), $('#searchtext').val()]
+                $('#result').load('/MasterData/ProductAttributeContent', { businessPartner: str[0], manufacturer: str[1], keywords: str[2] });
+            });
+        });
+    </script>
+}

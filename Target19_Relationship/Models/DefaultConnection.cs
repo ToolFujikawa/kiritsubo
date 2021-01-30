@@ -34,9 +34,9 @@ namespace Target19_Relationship.Models
         public virtual DbSet<SalesOrder> SalesOrders { get; set; }
         public virtual DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
 
         //Views
+        public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
         public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
