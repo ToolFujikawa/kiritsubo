@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreationRecord.cs" />
+    <Compile Include="Models\DateRangeSetting.cs" />
     <Compile Include="Models\Details\DetailBusinessPartnerEmailAddress.cs" />
     <Compile Include="Models\Details\DetailProduct.cs" />
     <Compile Include="Models\Views\ReadableGoodsIssue.cs" />

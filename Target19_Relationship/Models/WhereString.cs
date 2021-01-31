@@ -9,7 +9,7 @@ namespace Target19_Relationship.Models
 {
     public class SQLWhereString
     {
-        public string AssembleProductWhere(DefaultConnection db, string manufacturer, string keywords)
+        public string AssembleProductWhere(DefaultConnection db, string keywords, string table)
         {
             StringBuilder sb = new StringBuilder();
             string[] keywordArray = keywords.Split(new[] { ' ', '　' });
@@ -27,12 +27,6 @@ namespace Target19_Relationship.Models
                 }
             }
 
-            //メーカー検索条件
-            if (!String.IsNullOrEmpty(manufacturer))
-            {
-                sb.Append(ManufacturerPartWhere(db, manufacturer, false));
-            }
-
             //戻り値
             if (sb.Length == 0)
             {
@@ -40,7 +34,7 @@ namespace Target19_Relationship.Models
             }
             else
             {
-                sb.Insert(0, "select * from products where");
+                sb.Insert(0, "select * from " + table + " where");
                 return sb.ToString();
             }
         }
@@ -94,13 +88,13 @@ namespace Target19_Relationship.Models
             }
         }
 
-        private static string BusinessPartnerPartWhere(DefaultConnection db, string businessPartner, bool thisOnly)
+        private static string BusinessPartnerPartWhere(DefaultConnection db, string businessPartner, bool beginning)
         {
             StringBuilder sb = new StringBuilder();
             int businessPartner_Id = NameToId.BusinessPartner(db, businessPartner);
             if (businessPartner_Id != 0)
             {
-                if (thisOnly)
+                if (beginning)
                 {
                     sb.Append(" BusineePartner_Id = " + businessPartner_Id + "");
                     return sb.ToString();
@@ -117,13 +111,13 @@ namespace Target19_Relationship.Models
             }
         }
 
-        private static string ManufacturerPartWhere(DefaultConnection db, string manufacturer, bool thisOnly)
+        private static string ManufacturerPartWhere(DefaultConnection db, string manufacturer, bool beginning)
         {
             StringBuilder sb = new StringBuilder();
-            int manufacturer_Id = NameToId.Manufacturer(db, manufacturer);//""(未指定)は0を返す。
-            if (manufacturer_Id != 0)
+            int[] manufacturer_Id = NameToId.Manufacturer(db, manufacturer);//""(未指定)は0を返す。
+            if (!String.IsNullOrEmpty(manufacturer))
             {
-                if (thisOnly)
+                if (beginning)
                 {
                     sb.Append(" Manufacturer_Id = " + manufacturer_Id + "");
                     return sb.ToString();

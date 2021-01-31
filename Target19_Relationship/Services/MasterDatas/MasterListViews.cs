@@ -209,7 +209,9 @@ namespace Target19_Relationship.Services.MasterDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, manufacturer, keywords);
+                string where = whereString.AssembleProductWhere(db, keywords, "products");
+                int[] manufacturer_Ids = new int[2] { NameToId.Manufacturer(db, manufacturer)[0], NameToId.Manufacturer(db, manufacturer)[1] };
+
                 //検索文字列が評価できなかった時、空集合を返す。
                 if (where == "Empty")
                 {
@@ -220,6 +222,8 @@ namespace Target19_Relationship.Services.MasterDatas
                 {
                     var anonymous = db.Database
                                         .SqlQuery<Product>(where)
+                                        .Where(p => p.Manufacturer_Id >= manufacturer_Ids[0]
+                                                    && p.Manufacturer_Id <= manufacturer_Ids[1])
                                         .OrderBy(p => p.Id);
 
                     var results = anonymous
@@ -256,6 +260,7 @@ namespace Target19_Relationship.Services.MasterDatas
 
         public List<ReadableProductAttribute> ProductAttributes(string businessPartner, string manufacturer, string keywords)
         {
+            //多対多テーブルの検索はこの方法でなくてはならない。データベースビューも必要。
             //検索条件判定
             using (DefaultConnection db = new DefaultConnection())
             {

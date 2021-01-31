@@ -8,28 +8,66 @@ namespace Target19_Relationship.Models
 {
     public class NameToId
     {
-        public static int Manufacturer(DefaultConnection db, string commonName)
+        //戻り値が配列なのは条件を与えられない検索に対応するため
+        public static int[] AccountTitle(DefaultConnection db, string accountTitle)
+        {
+            try
+            {
+                var result = db.AccountTitles
+                               .Single(at => at.AccountName == accountTitle)
+                               .Id;
+                int[] ids = new int[2] { result, result };
+                return ids;
+            }
+            catch (Exception)
+            {
+                var result = db.AccountTitles
+                                .Max(at => at.Id);
+                int[] ids = new int[2] { 1, result };
+                return ids;
+                throw;
+            }
+        }
+
+        public static int[] Manufacturer(DefaultConnection db, string commonName)
         {
             try
             {
                 var result = db.Manufacturers
                                 .Single(m => m.CommonName == commonName)
                                 .Id;
-                return result;
+                int[] ids = new int[2] { result, result };
+                return ids;
             }
             catch (Exception)
             {
-                return 0;
+                var result = db.Manufacturers
+                                .Max(m => m.Id);
+                int[] ids = new int[2] { 1, result };
+                return ids;
                 throw;
             }
         }
 
-        public static int Staff(DefaultConnection db, string fullName)
+        public static int[] Staff(DefaultConnection db, string fullName)
         {
-            var result = db.Staffs
-                            .Single(s => s.LastName + s.FirstName == fullName)
-                            .Id;
-            return result;
+            try
+            {
+                var result = db.Staffs
+                                .Single(s => s.LastName + s.FirstName == fullName)
+                                .Id;
+                int[] ids = new int[2] { result, result };
+                return ids;
+
+            }
+            catch (Exception)
+            {
+                var result = db.Staffs
+                                .Max(s => s.Id);
+                int[] ids = new int[2] { 1, result };
+                return ids;
+                throw;
+            }
         }
 
         public static int Helper(DefaultConnection db, string fullName)
@@ -64,7 +102,6 @@ namespace Target19_Relationship.Models
                                 .Single(p => p.Pseudonym == pseudonym)
                                 .Id;
                 return result;
-
             }
         }
     }

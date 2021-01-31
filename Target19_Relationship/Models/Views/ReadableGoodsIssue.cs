@@ -23,7 +23,7 @@ namespace Target19_Relationship.Models.Views
         public int AccountTitle_Id { get; set; }
 
         [DisplayName("勘定科目")]
-        public int AccountTitle { get; set; }
+        public string AccountTitle { get; set; }
 
         [DisplayName("責任者Id")]
         public int ResponsibleStaff_Id { get; set; }
@@ -36,11 +36,5 @@ namespace Target19_Relationship.Models.Views
 
         [DisplayName("備考")]
         public string Note { get; set; }
-
-        [DisplayName("登録者")]
-        public string Recorder { get; set; }
-
-        [DisplayName("更新者")]
-        public string Changer { get; set; }
     }
 }
