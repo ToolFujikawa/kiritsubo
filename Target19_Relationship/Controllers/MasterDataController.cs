@@ -32,7 +32,7 @@ namespace Target19_Relationship.Controllers
                 }
                 else
                 {
-                    return PartialView("_BusinessPartnerContent");
+                    return PartialView("_BusinessPartnerContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
@@ -55,7 +55,7 @@ namespace Target19_Relationship.Controllers
                 }
                 else
                 {
-                    return PartialView("_BusinessPartnerEmailAddressContent");
+                    return PartialView("_BusinessPartnerEmailAddressContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
@@ -102,7 +102,7 @@ namespace Target19_Relationship.Controllers
                 }
                 else
                 {
-                    return PartialView("_ManufacturerContent");
+                    return PartialView("_ManufacturerContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
@@ -125,7 +125,7 @@ namespace Target19_Relationship.Controllers
                 }
                 else
                 {
-                    return PartialView("_ProductContent");
+                    return PartialView("_ProductContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
@@ -148,7 +148,7 @@ namespace Target19_Relationship.Controllers
 ;               }
                 else
                 {
-                    return PartialView("_ProductAttributeContent");
+                    return PartialView("_ProductAttributeContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");

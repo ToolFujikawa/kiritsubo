@@ -196,21 +196,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterDataController.cs" />
+    <Compile Include="Controllers\TransactionDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreationRecord.cs" />
-    <Compile Include="Models\DateRangeSetting.cs" />
     <Compile Include="Models\Details\DetailBusinessPartnerEmailAddress.cs" />
     <Compile Include="Models\Details\DetailProduct.cs" />
+    <Compile Include="Models\Details\ReadableGoodsIReceipt.cs" />
+    <Compile Include="Models\Details\ReadableJournal.cs" />
     <Compile Include="Models\Views\ReadableGoodsIssue.cs" />
     <Compile Include="Models\Views\ReadableProductAttribute.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\DefaultConnection.cs" />
-    <Compile Include="Models\NameToId.cs" />
     <Compile Include="Models\Tables\AccountTitle.cs" />
     <Compile Include="Models\Tables\BusinessPartner.cs" />
     <Compile Include="Models\Tables\BusinessPartnerEmailAddress.cs" />
@@ -231,11 +232,13 @@
     <Compile Include="Models\Tables\SalesOrder.cs" />
     <Compile Include="Models\Tables\ShoppingBasket.cs" />
     <Compile Include="Models\Tables\Staff.cs" />
-    <Compile Include="Models\ViewHelpers.cs" />
-    <Compile Include="Models\WhereString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DropdownDataSources.cs" />
     <Compile Include="Services\MasterDatas\MasterListViews.cs" />
+    <Compile Include="Services\NameToId.cs" />
     <Compile Include="Services\TransactionDatas\TransactionListViews.cs" />
+    <Compile Include="Services\ViewHelpers.cs" />
+    <Compile Include="Services\WhereString.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -292,6 +295,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\datepicker-ja.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -371,6 +375,10 @@
     <Content Include="Views\MasterData\_ProductContent.cshtml" />
     <Content Include="Views\MasterData\ProductAttributeList.cshtml" />
     <Content Include="Views\MasterData\_ProductAttributeContent.cshtml" />
+    <Content Include="Views\TransactionData\GoodsIssueList.cshtml" />
+    <Content Include="Views\TransactionData\_GoodsIssueContent.cshtml" />
+    <Content Include="Views\TransactionData\GoodsReceiptList.cshtml" />
+    <Content Include="Views\TransactionData\_GoodsReceiptContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

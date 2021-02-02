@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableGoodsReceipt>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountTitle_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FluctuatingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessRoute)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountTitle_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FluctuatingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessRoute)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Web;
 using Target19_Relationship.Models;
 
-namespace Target19_Relationship.Models
+namespace Target19_Relationship.Services
 {
     public class SQLWhereString
     {

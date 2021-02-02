@@ -38,6 +38,8 @@ namespace Target19_Relationship.Models
         //Views
         public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
         public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
+
+        public System.Data.Entity.DbSet<Target19_Relationship.Models.Views.ReadableGoodsReceipt> ReadableGoodsReceipts { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
 public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }

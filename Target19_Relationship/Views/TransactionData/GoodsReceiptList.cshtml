@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableGoodsReceipt>
+@{
+    ViewBag.Title = "GoodsReceiptList";
+}
+
+<h2>入庫</h2>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
+    @Html.SearchBox("商品キーワード")
+    @Html.DropDownList("AccountTitleSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("StaffSelectOptions", null, htmlAttributes: new { @class="form-control"})
+    @Html.DateInputBox("start", "検索開始日")
+    @Html.DateInputBox("end", "検索終了日")
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#dateinputstart').datepicker();
+            $('#dateinputend').datepicker();
+            $('button[name="search"]').click(function (e) {
+                let startDate = $('#dateinputstart').val();
+                let endDate = $('#dateinputend').val();
+                if (startDate == '') {
+                    startDate = '1000/01/01 00:00:00';
+                };
+                if (endDate == '') {
+                    endDate = '9999/12/31 00:00:00';
+                };
+                let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val(), $('#AccountTitleSelectOptions').val(),
+                            $('#StaffSelectOptions').val(), startDate, endDate];
+                $('#result').load('/TransactionData/GoodsIssueContent', {
+                    manufacturer: str[0], keywords: str[1], accounttitleid: str[2],
+                    responsiblestaffid: str[3], startdate: str[4], enddate: str[5]
+                });
+            });
+        });
+    </script>
+    }

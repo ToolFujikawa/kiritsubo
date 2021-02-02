@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Target19_Relationship.Models;
 
-namespace Target19_Relationship.Models
+namespace Target19_Relationship.Services
 {
     public class NameToId
     {
