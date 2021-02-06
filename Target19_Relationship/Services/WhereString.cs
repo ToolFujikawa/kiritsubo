@@ -91,7 +91,7 @@ namespace Target19_Relationship.Services
         private static string BusinessPartnerPartWhere(DefaultConnection db, string businessPartner, bool beginning)
         {
             StringBuilder sb = new StringBuilder();
-            int businessPartner_Id = NameToId.BusinessPartner(db, businessPartner);
+            int businessPartner_Id = NameToId.BusinessPartner(db, businessPartner)[0];
             if (businessPartner_Id != 0)
             {
                 if (beginning)

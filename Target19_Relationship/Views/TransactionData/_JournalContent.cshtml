@@ -1,0 +1,237 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadableJournal>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentAccountReflectingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessPartner_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessPartner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credit_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Debit_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Debit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apply)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinancialInstitution_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinancialInstitution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinancialInstitutionBranch_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinancialInstitutionBranch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillStatuses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssuedFinancialInstitution_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssuedFinancialInstitution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssuedFinancialInstitutionBranch_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssuedFinancialInstitutionBranch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transferee_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transferee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndorsementTransferDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FIMS_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessRoute)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentAccountReflectingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessPartner_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessPartner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credit_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Debit_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Debit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apply)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancialInstitution_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancialInstitution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancialInstitutionBranch_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancialInstitutionBranch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillStatuses)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssuedFinancialInstitution_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssuedFinancialInstitution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssuedFinancialInstitutionBranch_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssuedFinancialInstitutionBranch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Transferee_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Transferee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndorsementTransferDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIMS_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessRoute)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

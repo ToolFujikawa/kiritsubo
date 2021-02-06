@@ -41,6 +41,30 @@ namespace Target19_Relationship.Services
                         results2.Insert(0, new SelectListItem { Value = "0", Text = "入庫理由選択" });
                         return results2;
 
+                    case "Debit":
+                        var results3 = db.AccountTitles
+                                            .OrderBy(at => at.Id)
+                                            .Select(at => new SelectListItem
+                                            {
+                                                Text = at.AccountName,
+                                                Value = at.Id.ToString()
+                                            })
+                                            .ToList();
+                        results3.Insert(0, new SelectListItem { Value = "0", Text = "借方科目選択" });
+                        return results3;
+
+                    case "Credit":
+                        var results4 = db.AccountTitles
+                                            .OrderBy(at => at.Id)
+                                            .Select(at => new SelectListItem
+                                            {
+                                                Text = at.AccountName,
+                                                Value = at.Id.ToString()
+                                            })
+                                            .ToList();
+                        results4.Insert(0, new SelectListItem { Value = "0", Text = "貸方科目選択" });
+                        return results4;
+
                     default:
                         var results1 = db.AccountTitles
                                             .Select(at => new SelectListItem

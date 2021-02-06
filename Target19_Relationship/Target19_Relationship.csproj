@@ -234,6 +234,7 @@
     <Compile Include="Models\Tables\Staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DropdownDataSources.cs" />
+    <Compile Include="Services\IdRange.cs" />
     <Compile Include="Services\MasterDatas\MasterListViews.cs" />
     <Compile Include="Services\NameToId.cs" />
     <Compile Include="Services\TransactionDatas\TransactionListViews.cs" />
@@ -379,10 +380,13 @@
     <Content Include="Views\TransactionData\_GoodsIssueContent.cshtml" />
     <Content Include="Views\TransactionData\GoodsReceiptList.cshtml" />
     <Content Include="Views\TransactionData\_GoodsReceiptContent.cshtml" />
+    <Content Include="Views\TransactionData\JournalList.cshtml" />
+    <Content Include="Views\TransactionData\_JournalContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Creates\" />
+    <Folder Include="Views\IdRange\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

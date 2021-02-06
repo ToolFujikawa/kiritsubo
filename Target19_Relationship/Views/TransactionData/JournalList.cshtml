@@ -1,15 +1,15 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableGoodsReceipt>
+﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadableJournal>
 @{
-    ViewBag.Title = "GoodsReceiptList";
+    ViewBag.Title = "JournalList";
 }
 
-<h2>入庫</h2>
+<h2>会計</h2>
 
 <div class="form-inline">
-    @Html.AutoCompleteBox("manufacturer", "メーカー")
-    @Html.DropDownList("AccountTitleSelectOptions", null, htmlAttributes: new { @class = "form-control" })
-    @Html.DropDownList("StaffSelectOptions", null, htmlAttributes: new { @class="form-control"})
-    @Html.SearchBox("適用")
+    @Html.AutoCompleteBox("businesspartner", "取引先")
+    @Html.DropDownList("DebitSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("CreditSelectOptions", null, htmlAttributes: new { @class="form-control"})
+    @Html.SearchBox("商品キーワード")
     @Html.DateInputBox("start", "検索開始日")
     @Html.DateInputBox("end", "検索終了日")
     <button type="submit" name="search" class="btn btn-default">検索</button>
@@ -33,11 +33,11 @@
                 if (endDate == '') {
                     endDate = '9999/12/31 00:00:00';
                 };
-                let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val(), $('#AccountTitleSelectOptions').val(),
-                            $('#StaffSelectOptions').val(), startDate, endDate];
-                $('#result').load('/TransactionData/GoodsIssueContent', {
-                    manufacturer: str[0], keywords: str[1], accounttitleid: str[2],
-                    responsiblestaffid: str[3], startdate: str[4], enddate: str[5]
+                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#DebitSelectOptions').val(),
+                            $('#CreditSelectOptions').val(), startDate, endDate];
+                $('#result').load('/TransactionData/JournalContent', {
+                    manufacturer: str[0], keywords: str[1], debit_Id: str[2],
+                    credit_Id: str[3], startdate: str[4], enddate: str[5]
                 });
             });
         });

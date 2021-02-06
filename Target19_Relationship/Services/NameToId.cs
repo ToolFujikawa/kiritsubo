@@ -82,12 +82,24 @@ namespace Target19_Relationship.Services
             return result;
         }
 
-        public static int BusinessPartner(DefaultConnection db, string commonName)
+        public static int[] BusinessPartner(DefaultConnection db, string commonName)
         {
-            int result = db.BusinessPartners
-                            .Single(bp => bp.CommonName == commonName)
-                            .Id;
-            return result;
+            try
+            {
+                var result = db.BusinessPartners
+                                .Single(m => m.CommonName == commonName)
+                                .Id;
+                int[] ids = new int[2] { result, result };
+                return ids;
+            }
+            catch (Exception)
+            {
+                var result = db.BusinessPartners
+                                .Max(m => m.Id);
+                int[] ids = new int[2] { 1, result };
+                return ids;
+                throw;
+            }
         }
 
         public static int ProductPseudonym(DefaultConnection db, string pseudonym)
