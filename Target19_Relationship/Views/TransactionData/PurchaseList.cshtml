@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadablePurchase>
+@{
+    ViewBag.Title = "PurchaseList";
+}
+
+<h2>仕入</h2>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("businesspartner", "仕入先")
+    @Html.SearchBox("商品キーワード")
+    @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    <p>
+        <label class="control-label">検索期間対象</label>
+        <label class="radio-inline">
+            <input type="radio" name="range" value="発注日">発注日
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="range" value="入庫日">入庫日
+        </label>
+        @Html.DateInputBox("start", "検索開始日")
+        @Html.DateInputBox("end", "検索終了日")
+    </p>
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#dateinputstart').datepicker();
+            $('#dateinputend').datepicker();
+            $('button[name="search"]').click(function (e) {
+                let purchaseStratDate = '1000/01/01';
+                let purchaseEndDate = '9999/12/31';
+                let receiptStratDate = '1000/01/01';
+                let receiptEndDate = '9999/12/31';
+                switch ($('input:radio[name="range"]:checked').val()) {
+                    case '発注日':
+                        purchaseStratDate = $('#dateinputstart').val();
+                        purchaseEndDate = $('#dateinputend').val();
+                        break;
+
+                    case '入庫日':
+                        receiptStratDate = $('#dateinputstart').val();
+                        receiptEndDate = $('#dateinputend').val();
+                        break;
+
+                    default:
+                };
+                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
+                            purchaseStratDate, purchaseEndDate, receiptStratDate, receiptEndDate];
+                $('#result').load('/TransactionData/PurchaseContent', {
+                    supplier: str[0], keywords: str[1], staff_Id: str[2],
+                    purchaseStartDate: str[3], purchaseEndDate: str[4], receiptStartDate: str[5], receiptEndDate: str[6]
+                });
+            });
+        });
+    </script>
+}

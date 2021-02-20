@@ -239,7 +239,7 @@ namespace Target19_Relationship.Services.MasterDatas
                                         LowerLimitQuantity = a.LowerLimitQuantity,
                                         OrderQuantity = a.OrderQuantity,
                                         TaxRate = a.TaxRate,
-                                        TransactionUnit = a.TransactionUnit,
+                                        Unit = a.TransactionUnit.Unit,
                                         Cost = a.Cost,
                                         Valuation = a.Valuation,
                                         IsUnmanaged = a.IsUnmanaged,

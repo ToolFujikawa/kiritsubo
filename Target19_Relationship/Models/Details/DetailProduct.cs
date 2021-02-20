@@ -40,8 +40,7 @@ namespace Target19_Relationship.Models.Details
         public int TaxRate { get; set; }
 
         [DisplayName("取引単位")]
-        [EnumDataType(typeof(TransactionUnits))]
-        public TransactionUnits TransactionUnit { get; set; }
+        public string Unit { get; set; }
 
         [DisplayName("原価")]
         public decimal Cost { get; set; }

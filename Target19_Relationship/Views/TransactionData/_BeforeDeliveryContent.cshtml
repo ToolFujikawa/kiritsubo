@@ -1,0 +1,153 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.BeforeDelivery>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCancel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsExclusiveDeliveryNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helper_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helper)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryPlace_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderMainNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderBranchNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsParchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSeparateDelivery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimatedSale)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCancel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsExclusiveDeliveryNote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Helper_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Helper)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryPlace_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryPlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderMainNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderBranchNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsParchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSeparateDelivery)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimatedSale)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

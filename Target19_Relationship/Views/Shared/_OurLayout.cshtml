@@ -69,13 +69,27 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">情報閲覧<b class="create"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("Product", "MasterMaintenance")">商品</a></li>
-                            <li><a href="@Url.Action("History", "Sale")">売上</a></li>
-                            <li><a href="@Url.Action("History", "Warehousing")">仕入</a></li>
-                            <li><a href="@Url.Action("BeforeDelivery", "Sale")">納品前商品</a></li>
-                            <li><a href="@Url.Action("BeforePurchase", "Purchase")">入庫前商品</a></li>
-                            <li><a href="@Url.Action("BeforePurchaseOrder", "Purchase")">発注前商品</a></li>
+                        <ul class="dropdown-menu  multi-level">
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">マスターデータ</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("AccountTitleList", "MasterData")">勘定科目</a></li>
+                                    <li><a href="@Url.Action("BusinessPartnerList", "MasterData")">取引先</a></li>
+                                    <li><a href="@Url.Action("ProductList", "MasterData")">商品</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">取引データ</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("BeforeIssuingPurchaseOrderList", "TransactionData")">注文書発行前</a></li>
+                                    <li><a href="@Url.Action("BeforeWarehousingList","TransactionData")">入庫前</a></li>
+                                    <li><a href="@Url.Action("PurchaseList","TransactionData")">仕入</a></li>
+                                    <li><a href="@Url.Action("History", "TransactionData")">納品書発行前</a></li>
+                                    <li><a href="@Url.Action("SalesList", "TransactionData")">売上</a></li>
+                                    <li><a href="@Url.Action("BeforeDelivery", "Sale")">納品前商品</a></li>
+                                    <li><a href="@Url.Action("BeforePurchase", "Purchase")">入庫前商品</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("問い合わせ", "Contact", "Home")</li>
@@ -95,6 +109,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datepicker")
     @RenderSection("scripts", required: false)
 </body>
 </html>

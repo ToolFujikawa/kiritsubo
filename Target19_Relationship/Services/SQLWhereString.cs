@@ -43,7 +43,8 @@ namespace Target19_Relationship.Services
         {
             bool[] elements = new bool[3] { String.IsNullOrEmpty(businessPartner),
                                             String.IsNullOrEmpty(manufacturer),
-                                            String.IsNullOrEmpty(keywords) };
+                                            String.IsNullOrEmpty(keywords)
+            };
 
             switch (Convert.ToInt32(elements[0]).ToString() + Convert.ToInt32(elements[1]).ToString() + Convert.ToInt32(elements[2]).ToString())
             {

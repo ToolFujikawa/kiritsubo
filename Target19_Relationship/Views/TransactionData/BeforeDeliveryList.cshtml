@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.BeforeDelivery>
+@{
+    ViewBag.Title = "BeforeDeliveryList";
+}
+
+<h2>納品前</h2>
+
+<div class="form-inline">
+    @Html.DropDownList("CustomerSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("ManufacturerSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.SearchBox("商品キーワード")
+    @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("HelperSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DateInputBox("start", "受注日検索開始")
+    @Html.DateInputBox("end", "受注日検索終了")
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#dateinputstart').datepicker();
+            $('#dateinputend').datepicker();
+            $('button[name="search"]').click(function (e) {
+                let startDate = $('#dateinputstart').val();
+                let endDate = $('#dateinputend').val();
+                if (startDate == '') {
+                    startDate = '1000/01/01 00:00:00';
+                };
+                if (endDate == '') {
+                    endDate = '9999/12/31 00:00:00';
+                };
+                let str = [$('#CustomerSelectOptions').val(), $('#ManufacturerSelectOptions').val(),
+                    $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
+                    $('#HelperSelectOptions').val(), startDate, endDate];
+                $('#result').load('/TransactionData/BeforeDeliveryContent', {
+                    customer_Id: str[0], manufacturer_Id: str[1], keywords: str[2],
+                    responsibleStaff_Id: str[3], helper_Id: str[4], startDate: str[5], endDate: str[6]
+                });
+            });
+        });
+    </script>
+}

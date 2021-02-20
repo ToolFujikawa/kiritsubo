@@ -1,0 +1,153 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.BeforeWarehousing>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manufacturer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseMethod_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryDateInstruction_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AskingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrderDetail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCancel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Changer_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchKey)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supplier_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supplier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseMethod_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDateInstruction_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AskingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrderDetail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCancel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Changer_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchKey)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -121,7 +121,7 @@ namespace Target19_Relationship.Services.TransactionDatas
                 else
                 {
                     var extractions = db.Database
-                                    .SqlQuery<GoodsReceipt>(where);
+                                        .SqlQuery<GoodsReceipt>(where);
                     var results = extractions
                                          .Where(r => r.AccountTitle_Id >= accountTitle_Id
                                                     && r.AccountTitle_Id <= accountTitle_Id
@@ -211,6 +211,249 @@ namespace Target19_Relationship.Services.TransactionDatas
                                     .ToList();
 
                 return readableJournals;
+            }
+        }
+
+        public List<BeforeIssuingPurchaseOrder> BeforeIssuingPurchaseOrderList()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.BeforeIssuingPurchaseOrders
+                            .ToList();
+            }
+        }
+
+        public List<BeforeWarehousing> BeforeWarehousingList(int supplier_Id, int manufacturer_Id, string keywords,
+                                                        DateTime startDate, DateTime endDate)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                int[] manufacturer_Ids = IdRange.Manufacturer(db, manufacturer_Id);
+                int[] supplier_Ids = IdRange.BusinessPartner(db, supplier_Id);
+                var anonymous = db.BeforeWarehousings
+                                    .Where(bw => bw.Supplier_Id >= supplier_Ids[0]
+                                            && bw.Supplier_Id <= supplier_Ids[1]
+                                            && bw.Manufacturer_Id >= manufacturer_Ids[0]
+                                            && bw.Manufacturer_Id <= manufacturer_Ids[1]
+                                            && bw.PurchaseDate >= startDate
+                                            && bw.PurchaseDate <= endDate);
+
+                //データベースビューでデータが絞り込まれているので、このメソッドを使います。
+                string[] keywordArray = keywords.Split(new[] { ' ', '　' });
+                foreach (var item in keywordArray)
+                {
+                    anonymous = anonymous
+                                .Where(a => a.SearchKey.Contains(item));
+                }
+
+                var results = anonymous
+                                .Select(a => new BeforeWarehousing
+                                {
+                                    Id = a.Id,
+                                    Supplier_Id = a.Supplier_Id,
+                                    Supplier = a.Supplier,
+                                    Manufacturer_Id = a.Manufacturer_Id,
+                                    Product_Id = a.Product_Id,
+                                    Product = a.Product,
+                                    Quantity = a.Quantity,
+                                    Unit = a.Unit,
+                                    Detail = a.Detail,
+                                    ResponsibleStaff_Id = a.ResponsibleStaff_Id,
+                                    ResponsibleStaff = a.ResponsibleStaff,
+                                    PurchaseDate = a.PurchaseDate,
+                                    PurchaseMethod_Id = a.PurchaseMethod_Id,
+                                    DeliveryDate = a.DeliveryDate,
+                                    DeliveryDateInstruction_Id = a.DeliveryDateInstruction_Id,
+                                    AskingPrice = a.AskingPrice,
+                                    Note = a.Note,
+                                    SalesOrder_Id = a.SalesOrder_Id,
+                                    SalesOrderDetail = a.SalesOrderDetail,
+                                    IsCancel = a.IsCancel,
+                                    Recorder_Id = a.Recorder_Id,
+                                    Changer_Id = a.Changer_Id,
+                                    SearchKey = a.SearchKey
+                                })
+                                .ToList();
+                return results;
+            }
+        }
+
+        public List<ReadablePurchase> PurchaseList(string supplier, string keywords, int staff_Id,
+                                                    DateTime purchaseStartDate, DateTime purchaseEndDate,
+                                                    DateTime receiptStartDate, DateTime receiptEndDate)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                SQLWhereString whereString = new SQLWhereString();
+                string where = whereString.AssembleProductWhere(db, keywords, "purchaseorders");
+                int[] supplier_Ids = new int[2] { NameToId.BusinessPartner(db, supplier)[0], NameToId.BusinessPartner(db, supplier)[1] };
+                int[] staff_Ids = new int[2] { IdRange.Staff(db, staff_Id)[0], IdRange.Staff(db, staff_Id)[1] };
+                List<ReadablePurchase> readablePurchases = new List<ReadablePurchase>();
+                if (where == "Empty")//商品データ数が多数に上るため商品抽出をSQLで実行
+                {
+                    var anonymous = db.Purchases
+                                        .Where(p => p.PurchaseOrder.Supplier_Id >= supplier_Ids[0]
+                                                    && p.PurchaseOrder.Supplier_Id <= supplier_Ids[1]
+                                                    && p.PurchaseOrder.ResponsibleStaff_Id >= staff_Ids[0]
+                                                    && p.PurchaseOrder.ResponsibleStaff_Id <= staff_Ids[1]
+                                                    && p.PurchaseOrder.PurchaseDate >= purchaseStartDate
+                                                    && p.PurchaseOrder.PurchaseDate <= purchaseEndDate
+                                                    && p.ReceiptDate >= receiptStartDate
+                                                    && p.ReceiptDate <= receiptEndDate);
+                    readablePurchases = anonymous
+                                        .Select(a => new ReadablePurchase
+                                        {
+                                            Id = a.Id,//Purchase
+                                            Supplier_Id = a.PurchaseOrder.Supplier_Id,
+                                            Supplier = a.PurchaseOrder.BusinessPartner.CommonName,
+                                            Product_Id = a.PurchaseOrder.Product_Id,
+                                            Product = a.PurchaseOrder.Product.Manufacturer.CommonName + " "
+                                                        + a.PurchaseOrder.Product.ProductName + " "
+                                                        + a.PurchaseOrder.Product.Material + " "
+                                                        + a.PurchaseOrder.Product.Model,
+                                            PurchaseOrderQuantity = a.PurchaseOrder.Quantity,
+                                            Detail = a.PurchaseOrder.Detail,
+                                            ResponsibleStaff_Id = a.PurchaseOrder.ResponsibleStaff_Id,
+                                            ResponsibleStaff = a.PurchaseOrder.ResponsibleStaff.LastName +
+                                                                a.PurchaseOrder.ResponsibleStaff.FirstName,
+                                            PurchaseDate = a.PurchaseOrder.PurchaseDate,
+                                            PurchaseMethod_Id = a.PurchaseOrder.PurchaseMethod_Id,
+                                            DeliveryDate = a.PurchaseOrder.DeliveryDate,
+                                            DeliveryDateInstruction_Id = a.PurchaseOrder.DeliveryDateInstruction_Id,
+                                            AskingPrice = a.PurchaseOrder.AskingPrice,
+                                            PurchaseOrderNote = a.PurchaseOrder.Note,
+                                            SalesOrder_Id = a.PurchaseOrder.SalesOrder_Id,
+                                            SalesOrderDetail = a.PurchaseOrder.SalesOrderDetail,
+                                            IsCancel = a.PurchaseOrder.IsCancel,
+                                            PurchaseOrderRecorder_Id = a.PurchaseOrder.Recorder_Id,
+                                            PurchaseOrderChanger_Id = a.PurchaseOrder.Changer_Id,
+                                            PurchaseOrderFIMS_Id = a.PurchaseOrder.FIMS_Id,
+                                            PurchaseOrder_Id = a.PurchaseOrder_Id,
+                                            ReceiptDate = a.ReceiptDate,
+                                            BilledDate = a.BilledDate,
+                                            PurchaseQuantity = a.Quantity,
+                                            UnitPrice = a.UnitPrice,
+                                            TaxRate = a.TaxRate,
+                                            PurchaseNote = a.Note,
+                                            PurchaseFIMS_Id = a.FIMS_Id
+                                        })
+                                        .ToList();
+                    return readablePurchases;
+                }
+                else
+                {
+                    var anonymous = db.Database
+                                        .SqlQuery<Purchase>(where);
+
+                    readablePurchases = anonymous
+                                        .Where(a => a.PurchaseOrder.Supplier_Id >= supplier_Ids[0]
+                                                    && a.PurchaseOrder.Supplier_Id <= supplier_Ids[1]
+                                                    && a.PurchaseOrder.ResponsibleStaff_Id >= staff_Ids[0]
+                                                    && a.PurchaseOrder.ResponsibleStaff_Id <= staff_Ids[1]
+                                                    && a.PurchaseOrder.PurchaseDate >= purchaseStartDate
+                                                    && a.PurchaseOrder.PurchaseDate <= purchaseEndDate
+                                                    && a.ReceiptDate >= receiptStartDate
+                                                    && a.ReceiptDate <= receiptEndDate)
+                                        .Select(a => new ReadablePurchase
+                                        {
+                                            Id = a.Id,//Purchase
+                                            Supplier_Id = a.PurchaseOrder.Supplier_Id,
+                                            Supplier = a.PurchaseOrder.BusinessPartner.CommonName,
+                                            Product_Id = a.PurchaseOrder.Product_Id,
+                                            Product = a.PurchaseOrder.Product.Manufacturer.CommonName + " "
+                                                        + a.PurchaseOrder.Product.ProductName + " "
+                                                        + a.PurchaseOrder.Product.Material + " "
+                                                        + a.PurchaseOrder.Product.Model,
+                                            PurchaseOrderQuantity = a.PurchaseOrder.Quantity,
+                                            Detail = a.PurchaseOrder.Detail,
+                                            ResponsibleStaff_Id = a.PurchaseOrder.ResponsibleStaff_Id,
+                                            ResponsibleStaff = a.PurchaseOrder.ResponsibleStaff.LastName +
+                                                                a.PurchaseOrder.ResponsibleStaff.FirstName,
+                                            PurchaseDate = a.PurchaseOrder.PurchaseDate,
+                                            PurchaseMethod_Id = a.PurchaseOrder.PurchaseMethod_Id,
+                                            DeliveryDate = a.PurchaseOrder.DeliveryDate,
+                                            DeliveryDateInstruction_Id = a.PurchaseOrder.DeliveryDateInstruction_Id,
+                                            AskingPrice = a.PurchaseOrder.AskingPrice,
+                                            PurchaseOrderNote = a.PurchaseOrder.Note,
+                                            SalesOrder_Id = a.PurchaseOrder.SalesOrder_Id,
+                                            SalesOrderDetail = a.PurchaseOrder.SalesOrderDetail,
+                                            IsCancel = a.PurchaseOrder.IsCancel,
+                                            PurchaseOrderRecorder_Id = a.PurchaseOrder.Recorder_Id,
+                                            PurchaseOrderChanger_Id = a.PurchaseOrder.Changer_Id,
+                                            PurchaseOrderFIMS_Id = a.PurchaseOrder.FIMS_Id,
+                                            PurchaseOrder_Id = a.PurchaseOrder_Id,
+                                            ReceiptDate = a.ReceiptDate,
+                                            BilledDate = a.BilledDate,
+                                            PurchaseQuantity = a.Quantity,
+                                            UnitPrice = a.UnitPrice,
+                                            TaxRate = a.TaxRate,
+                                            PurchaseNote = a.Note,
+                                            PurchaseFIMS_Id = a.FIMS_Id
+                                        })
+                                        .ToList();
+                    return readablePurchases;
+                }
+            }
+        }
+
+        public List<BeforeDelivery> BeforeDeliveryList(int customer_Id, int manufacturer_Id, string keywords, int responsibleStaff_Id,
+                                                        int helper_Id, DateTime startDate, DateTime endDate)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                int[] customer_Ids = IdRange.BusinessPartner(db, customer_Id);
+                int[] manufacturer_Ids = IdRange.Manufacturer(db, manufacturer_Id);
+                int[] staff_Ids = IdRange.Staff(db, responsibleStaff_Id);
+                int[] helper_Ids = IdRange.Helper(db, helper_Id);
+
+                var anonymous = db.SalesOrders
+                                    .Where(so => so.Customer_Id >= customer_Ids[0]
+                                            && so.Customer_Id <= customer_Ids[1]
+                                            && so.Product.Manufacturer_Id >= manufacturer_Ids[0]
+                                            && so.Product.Manufacturer_Id <= manufacturer_Ids[1]
+                                            && so.ResponsibleStaff_Id >= staff_Ids[0]
+                                            && so.ResponsibleStaff_Id <= staff_Ids[1]
+                                            && so.Helper_Id >= helper_Ids[0]
+                                            && so.Helper_Id <= helper_Ids[1]
+                                            && so.SalesOrderDate >= startDate
+                                            && so.SalesOrderDate <= endDate);
+
+                string[] keywordArray = keywords.Split(new[] { ' ', '　' });
+                foreach (var item in keywordArray)
+                {
+                    anonymous = anonymous
+                                .Where(a => a.Product.SearchKey.Contains(item));
+                }
+
+                var results = anonymous
+                                .Select(a => new BeforeDelivery
+                                {
+                                    Id = a.Id,
+                                    IsCancel = a.IsCancel,
+                                    IsExclusiveDeliveryNote = a.IsExclusiveDeliveryNote,
+                                    Detail = a.Detail,
+                                    ResponsibleStaff_Id = a.ResponsibleStaff_Id,
+                                    ResponsibleStaff = a.ResponsibleStaff.LastName + a.ResponsibleStaff.FirstName,
+                                    Helper_Id = a.Helper_Id,
+                                    Helper = a.Helper.LastName + a.Helper.FirstName,
+                                    Customer_Id = a.Customer_Id,
+                                    Customer = a.BusinessPartner.CommonName,
+                                    DeliveryPlace_Id = a.DeliveryPlace_Id,
+                                    DeliveryPlace = a.DeliveryPlace.Location,
+                                    Product_Id = a.Product_Id,
+                                    Product = a.Product.Manufacturer.CommonName + " " + a.Product.ProductName + " " + a.Product.Material + " " + a.Product.Model,
+                                    Quantity = a.Quantity,
+                                    Unit = a.Product.TransactionUnit.Unit,
+                                    SalesOrderDate = a.SalesOrderDate,
+                                    OrderMainNo = a.OrderMainNo,
+                                    OrderBranchNo = a.OrderBranchNo,
+                                    IsParchase = a.IsParchase,
+                                    IsSeparateDelivery = a.IsSeparateDelivery,
+                                    EstimatedSale = a.EstimatedSale,
+                                    Note = a.Note
+                                })
+                                .ToList();
+                return results;
             }
         }
     }

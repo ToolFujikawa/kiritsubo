@@ -25,40 +25,6 @@ namespace Target19_Relationship.Models
             以降に = 2
         }
 
-        public enum TransactionUnits
-        {
-            [Display(Name = "個")]
-            個 = 0,
-            [Display(Name = "小箱")]
-            小箱 = 1,
-            [Display(Name = "ケース")]
-            ケース = 2,
-            [Display(Name = "袋")]
-            袋 = 3,
-            [Display(Name = "セット")]
-            セット = 4,
-            [Display(Name = "双")]
-            双 = 5,
-            [Display(Name = "足")]
-            足 = 6,
-            [Display(Name = "式")]
-            式 = 7,
-            [Display(Name = "ダース")]
-            ダース = 8,
-            [Display(Name = "グロス")]
-            グロス = 9,
-            [Display(Name = "巻")]
-            cm = 10,
-            [Display(Name = "cm")]
-            m = 11,
-            [Display(Name = "m")]
-            g = 12,
-            [Display(Name = "g")]
-            kg = 13,
-            [Display(Name = "kg")]
-            巻 = 14
-        }
-
         public enum BillStatuses
         {
             [Display(Name = "非手形")]

@@ -27,7 +27,7 @@ namespace Target19_Relationship.Models.Tables
             LowerLimitQuantity = 0;
             OrderQuantity = 0;
             TaxRate = 10;
-            TransactionUnit = 0;
+            TransactionUnit_Id = 1;
             Cost = 0;
             Valuation = 0;
             Note = "";
@@ -71,8 +71,7 @@ namespace Target19_Relationship.Models.Tables
         public int TaxRate { get; set; }
 
         [DisplayName("取引単位")]
-        [EnumDataType(typeof(TransactionUnits))]
-        public TransactionUnits TransactionUnit { get; set; }
+        public int TransactionUnit_Id { get; set; }
 
         [DisplayName("原価")]
         public decimal Cost { get; set; }
@@ -115,5 +114,8 @@ namespace Target19_Relationship.Models.Tables
 
         [ForeignKey("Manufacturer_Id")]
         public virtual Manufacturer Manufacturer { get; set; }
+
+        [ForeignKey("TransactionUnit_Id")]
+        public virtual TransactionUnit TransactionUnit { get; set; }
     }
 }

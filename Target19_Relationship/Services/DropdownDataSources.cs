@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Target19_Relationship.Models;
+using Target19_Relationship.Models.Tables;
 
 namespace Target19_Relationship.Services
 {
@@ -77,6 +78,138 @@ namespace Target19_Relationship.Services
                         return results1;
                 }
 
+            }
+        }
+
+        public List<SelectListItem> GetBusinessPartner(string dataSouce)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                switch (dataSouce)
+                {
+                    case "BeforeDelivery":
+                        var results2 = db.BeforeDeliveries
+                                            .Select(bd => new SelectListItem
+                                            {
+                                                Text = bd.Customer,
+                                                Value = bd.Customer_Id.ToString()
+                                            })
+                                            .Distinct()
+                                            .ToList();
+                        results2.Insert(0, new SelectListItem { Value = "0", Text = "販売先" });
+                        return results2;
+
+                    case "BeforeWarehousing":
+                        var results0 = db.BeforeWarehousings
+                                            .Select(bw => new SelectListItem
+                                            {
+                                                Text = bw.Supplier,
+                                                Value = bw.Supplier_Id.ToString()
+                                            })
+                                            .Distinct()
+                                            .ToList();
+                        results0.Insert(0, new SelectListItem { Value = "0", Text = "仕入先" });
+                        return results0;
+
+                    default:
+                        var results1 = db.BusinessPartners
+                                            .Select(bp => new SelectListItem
+                                            {
+                                                Text = bp.CommonName,
+                                                Value = bp.Id.ToString()
+                                            })
+                                            .ToList();
+                        results1.Insert(0, new SelectListItem { Value = "0", Text = "取引先" });
+                        return results1;
+                }
+            }
+        }
+
+        public List<SelectListItem> GetHelper(string dataSource)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                switch (dataSource)
+                {
+                    default:
+                        var results0 = db.BeforeDeliveries
+                                            .Select(bd => new SelectListItem
+                                            {
+                                                Text = bd.Helper,
+                                                Value = bd.Helper_Id.ToString()
+                                            })
+                                            .Distinct()
+                                            .ToList();
+                        results0.Insert(0, new SelectListItem { Value = "0", Text = "販売先担当者" });
+                        return results0;
+                }
+            }
+        }
+
+        public List<SelectListItem> GetManufacturer(string dataSource)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                switch (dataSource)
+                {
+                    case "BeforeDelivery":
+                        var results2 = db.BeforeDeliveries
+                                            .Join(
+                                                db.Products,
+                                                bd => bd.Product_Id,
+                                                p => p.Id,
+                                                (bd, p) => new
+                                                {
+                                                    p.Manufacturer_Id,
+                                                    p.Manufacturer.CommonName,
+                                                    p.Manufacturer.Furigana
+                                                })
+                                            .OrderBy(jointable => jointable.Furigana)
+                                            .Select(jointable => new SelectListItem
+                                            {
+                                                Text = jointable.CommonName,
+                                                Value = jointable.Manufacturer_Id.ToString()
+                                            })
+                                            .Distinct()
+                                            .ToList();
+                        results2.Insert(0, new SelectListItem { Value = "0", Text = "メーカー選択" });
+                        return results2;
+
+                    case "BeforeWarehousing":
+                        var results0 = db.BeforeWarehousings
+                                            .Join(
+                                                db.Products,
+                                                bd => bd.Product_Id,
+                                                p => p.Id,
+                                                (bd, p) => new
+                                                {
+                                                    p.Manufacturer_Id,
+                                                    p.Manufacturer.CommonName,
+                                                    p.Manufacturer.Furigana
+                                                })
+                                            .OrderBy(jointable => jointable.Furigana)
+                                            .Select(jointable => new SelectListItem
+                                            {
+                                                Text = jointable.CommonName,
+                                                Value = jointable.Manufacturer_Id.ToString()
+                                            })
+                                            .Distinct()
+                                            .ToList();
+                        results0.Insert(0, new SelectListItem { Value = "0", Text = "メーカー選択" });
+                        return results0;
+
+                    default:
+                        var results1 = db.Manufacturers
+                                            .OrderBy(m => m.Furigana)
+                                            .Select(m => new SelectListItem
+                                            {
+                                                Text = m.CommonName,
+                                                Value = m.Id.ToString()
+                                            })
+                                            .ToList();
+                        results1.Insert(0, new SelectListItem { Value = "0", Text = "メーカー選択" });
+                        return results1;
+                }
             }
         }
 

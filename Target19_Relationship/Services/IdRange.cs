@@ -14,7 +14,8 @@ namespace Target19_Relationship.Services
             if (targetId == 0)
             {
                 results[0] = 1;
-                results[1] = db.AccountTitles.Max(at => at.Id);
+                results[1] = db.AccountTitles
+                                .Max(at => at.Id);
                 return results;
             }
             else
@@ -24,11 +25,76 @@ namespace Target19_Relationship.Services
                 return results;
             }
         }
-        public int[] Manufacturer(string commonName)
+
+        public static int[] BusinessPartner(DefaultConnection db, int targetId)
         {
-            using (DefaultConnection db = new DefaultConnection())
+            int[] results = new int[2];
+            if (targetId == 0)
             {
-                return NameToId.Manufacturer(db, commonName);
+                results[0] = 1;
+                results[1] = db.BusinessPartners
+                                .Max(bp => bp.Id);
+                return results;
+            }
+            else
+            {
+                results[0] = targetId;
+                results[1] = targetId;
+                return results;
+            }
+        }
+
+        public static int[] Helper(DefaultConnection db, int targetId)
+        {
+            int[] results = new int[2];
+            if (targetId == 0)
+            {
+                results[0] = 1;
+                results[1] = db.Helpers
+                                .Max(h => h.Id);
+                return results;
+            }
+            else
+            {
+                results[0] = targetId;
+                results[1] = targetId;
+                return results;
+            }
+        }
+
+        public static int[] Manufacturer(DefaultConnection db, int targetId)
+        {
+            int[] results = new int[2];
+            if (targetId == 0)
+            {
+                results[0] = 1;
+                results[1] = db.Manufacturers
+                                .Max(m => m.Id);
+                return results;
+            }
+            else
+            {
+                results[0] = targetId;
+                results[1] = targetId;
+                return results;
+            }
+        }
+
+        public static int[] Staff(DefaultConnection db, int targetId)
+        {
+            int[] results = new int[2];
+            if (targetId == 0)
+            {
+                results[0] = 1;
+                results[1] = db.Staffs
+                                .Max(s => s.Id);
+                return results;
+            }
+            else
+            {
+                results[0] = targetId;
+                results[1] = targetId;
+                return results;
             }
         }
     }

@@ -1,0 +1,189 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadablePurchase>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrderQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseMethod_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryDateInstruction_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AskingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrderNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrderDetail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCancel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrderRecorder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrderChanger_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrderFIMS_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrder_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiptDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BilledDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseFIMS_Id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supplier_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supplier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseMethod_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDateInstruction_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AskingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderNote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrderDetail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCancel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderRecorder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderChanger_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderFIMS_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrder_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiptDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BilledDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseNote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseFIMS_Id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

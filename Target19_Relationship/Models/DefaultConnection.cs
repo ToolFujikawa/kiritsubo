@@ -36,12 +36,15 @@ namespace Target19_Relationship.Models
         public virtual DbSet<Staff> Staffs { get; set; }
 
         //Views
+        public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
+        public virtual DbSet<BeforeIssuingPurchaseOrder> BeforeIssuingPurchaseOrders { get; set; }
+        public virtual DbSet<BeforeWarehousing> BeforeWarehousings { get; set; }
         public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
         public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
-
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Views.ReadableGoodsReceipt> ReadableGoodsReceipts { get; set; }
-
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableJournal> ReadableJournals { get; set; }
+
+        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadablePurchase> ReadablePurchases { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
 public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }
@@ -49,7 +52,6 @@ public virtual DbSet<ProductWithCommonName> ProductWithCommonNames { get; set; }
 public virtual DbSet<InvoiceEntryTarget> InvoiceEntryTargets { get; set; }
 public virtual DbSet<Shipment> Shipments { get; set; }
 public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
-public virtual DbSet<BeforePurchaseOrder> BeforePurchaseOrders { get; set; }
 public virtual DbSet<StockFluctuation> StockFluctuations { get; set; }
 public virtual DbSet<BeforeSendPurchaseOrder> BeforeSendPurchaseOrders { get; set; }
 public virtual DbSet<BeforePurchase> BeforePurchases { get; set; }
