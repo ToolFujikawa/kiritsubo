@@ -18,6 +18,7 @@ namespace Target19_Relationship.Controllers
             return View(results);
         }
 
+        //入庫前商品
         public ActionResult BeforeWarehousingList()
         {
             DropdownDataSources dropdownDataSources = new DropdownDataSources();
@@ -28,7 +29,6 @@ namespace Target19_Relationship.Controllers
             return View();
         }
 
-        //入庫前商品
         public ActionResult BeforeWarehousingContent(int supplier_Id, int manufacturer_Id, string keywords,
                                                         DateTime startDate, DateTime endDate)
         {
@@ -146,8 +146,8 @@ namespace Target19_Relationship.Controllers
             return View();
         }
 
-        public ActionResult PurchaseContent(string supplier, string keywords, int staff_Id, 
-                                            DateTime purchaseStartDate, DateTime purchaseEndDate, 
+        public ActionResult PurchaseContent(string supplier, string keywords, int staff_Id,
+                                            DateTime purchaseStartDate, DateTime purchaseEndDate,
                                             DateTime receiptStartDate, DateTime receiptEndDate)
         {
             if (Request.IsAjaxRequest())
@@ -197,6 +197,35 @@ namespace Target19_Relationship.Controllers
                 else
                 {
                     return PartialView("_BeforeDeliveryContent", results);
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
+        //売掛金発生事由
+        public ActionResult SalesList()
+        {
+            DropdownDataSources dropdownDataSources = new DropdownDataSources();
+            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
+            ViewBag.ResponsibleStaffSelectOptions = staff;
+            return View();
+        }
+
+        public ActionResult SalesContent(string customer, string keywords, int staff_Id, string helper, DateTime salesOrderStartDate,
+                                            DateTime salesOrderEndDate, DateTime salesStartDate, DateTime salesEndDate)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                TransactionListViews listViews = new TransactionListViews();
+                var results = listViews.SalesList(customer, keywords, staff_Id, helper, salesOrderStartDate,
+                                                    salesOrderEndDate, salesStartDate, salesEndDate);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_ReadableSaleContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");

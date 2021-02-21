@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadableSale>
+@{
+    ViewBag.Title = "SalesList";
+}
+
+<h2>売上</h2>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("businesspartner", "販売先")
+    @Html.SearchBox("商品キーワード")
+    @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.AutoCompleteBox("helper", "販売先担当者")
+    <p>
+        <label class="control-label">検索期間対象</label>
+        <label class="radio-inline">
+            <input type="radio" name="range" value="受注日">受注日
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="range" value="売上日">売上日
+        </label>
+        @Html.DateInputBox("start", "検索開始日")
+        @Html.DateInputBox("end", "検索終了日")
+    </p>
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#dateinputstart').datepicker();
+            $('#dateinputend').datepicker();
+            $('button[name="search"]').click(function (e) {
+                let salesOrderStratDate = '1000/01/01';
+                let salesOrderEndDate = '9999/12/31';
+                let salesStratDate = '1000/01/01';
+                let salesEndDate = '9999/12/31';
+                switch ($('input:radio[name="range"]:checked').val()) {
+                    case '受注日':
+                        salesOrderStratDate = $('#dateinputstart').val();
+                        salesOrderEndDate = $('#dateinputend').val();
+                        break;
+
+                    case '売上日':
+                        salesStratDate = $('#dateinputstart').val();
+                        salesEndDate = $('#dateinputend').val();
+                        break;
+
+                    default:
+                };
+                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
+                            $('#autocompletehelper').val(), salesOrderStratDate, salesOrderEndDate, salesStratDate, salesEndDate];
+                $('#result').load('/TransactionData/SalesContent', {
+                    customer: str[0], keywords: str[1], staff_Id: str[2], helper: str[3],
+                    salesOrderStartDate: str[4], salesOrderEndDate: str[5], salesStartDate: str[6], salesEndDate: str[7]
+                });
+            });
+        });
+    </script>
+}

@@ -70,16 +70,23 @@ namespace Target19_Relationship.Services
             }
         }
 
-        public static int Helper(DefaultConnection db, string fullName)
+        public static int[] Helper(DefaultConnection db, string fullName)
         {
-            if (fullName == null)
+            if (String.IsNullOrEmpty(fullName))
             {
-                return 1;
+                var result = db.Helpers
+                                .Max(h => h.Id);
+                int[] ids = new int[2] { 1, result };
+                return ids ;
             }
-            var result = db.Helpers
-                            .Single(s => s.LastName + s.FirstName == fullName)
-                            .Id;
-            return result;
+            else
+            {
+                var result = db.Helpers
+                                .Single(h => h.LastName + h.FirstName == fullName)
+                                .Id;
+                int[] ids = new int[2] { result, result };
+                return ids;
+            }
         }
 
         public static int[] BusinessPartner(DefaultConnection db, string commonName)

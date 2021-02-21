@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using static Target19_Relationship.Models.Enums;
 
-namespace Target19_Relationship.Models.Views
+namespace Target19_Relationship.Models.Details
 {
     public class ReadableSale
     {
@@ -19,7 +21,7 @@ namespace Target19_Relationship.Models.Views
         public bool IsExclusiveDeliveryNote { get; set; }
 
         [DisplayName("受注詳細")]
-        public int SalesOrderDetail { get; set; }
+        public string SalesOrderDetail { get; set; }
 
         [DisplayName("受注責任者Id")]
         public int SalesOrderResponsibleStaff_Id { get; set; }
@@ -54,14 +56,17 @@ namespace Target19_Relationship.Models.Views
         [DisplayName("受注数")]
         public int SalesOrderQuantity { get; set; }
 
+        [DisplayName("単位")]
+        public string SalesOrderUnit { get; set; }
+
         [DisplayName("受注日")]
-        public int SalesOrderDate { get; set; }
+        public DateTime SalesOrderDate { get; set; }
 
         [DisplayName("受注主番号")]
-        public int OrderMainNo { get; set; }
+        public string OrderMainNo { get; set; }
 
         [DisplayName("受注枝番号")]
-        public int OrderBranchNo { get; set; }
+        public string OrderBranchNo { get; set; }
 
         [DisplayName("発注済")]
         public bool IsParchase { get; set; }
@@ -70,10 +75,10 @@ namespace Target19_Relationship.Models.Views
         public bool IsSeparateDelivery { get; set; }
 
         [DisplayName("想定売上")]
-        public int EstimatedSale { get; set; }
+        public decimal EstimatedSale { get; set; }
 
         [DisplayName("受注備考")]
-        public int SaleOrderNote { get; set; }
+        public string SaleOrderNote { get; set; }
 
         [DisplayName("受注記録者Id")]
         public int SalesOrderRecorder_Id { get; set; }
@@ -82,37 +87,42 @@ namespace Target19_Relationship.Models.Views
         public int SalesOrderChanger_Id { get; set; }
 
         [DisplayName("納品書発行遅延")]
-        public string IsLater { get; set; }
+        public bool IsLater { get; set; }
 
         [DisplayName("販売数")]
-        public string SalesQuantity { get; set; }
+        public int SalesQuantity { get; set; }
+
+        [DisplayName("単位")]
+        public string SalesUnit { get; set; }
 
         [DisplayName("単価")]
-        public string UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         [DisplayName("適用税率")]
-        public string TaxRate { get; set; }
+        public int TaxRate { get; set; }
 
         [DisplayName("売上日")]
-        public string SalesDate { get; set; }
+        public DateTime SalesDate { get; set; }
 
         [DisplayName("売上詳細")]
         public string SalesDetail { get; set; }
 
-        [DisplayName("伝票種別Id")]
-        public int DocumentType_Id { get; set; }
+        [DisplayName("伝票種別")]
+        [EnumDataType(typeof(DocumentTypes))]
+        public DocumentTypes DocumentType_Id { get; set; }
 
         [DisplayName("納品書番号")]
-        public string DeliveryNoteNo { get; set; }
+        public int DeliveryNoteNo { get; set; }
 
-        [DisplayName("納品状態Id")]
-        public int DeliveryStatus_Id { get; set; }
+        [DisplayName("納品状態")]
+        [EnumDataType(typeof(DeliveryStatus))]
+        public DeliveryStatus DeliveryStatus_Id { get; set; }
 
         [DisplayName("請求書番号")]
-        public string InvoiceNo { get; set; }
+        public int InvoiceNo { get; set; }
 
         [DisplayName("請求日")]
-        public string BilledDate { get; set; }
+        public DateTime BilledDate { get; set; }
 
         [DisplayName("売上備考")]
         public string SalesNote { get; set; }

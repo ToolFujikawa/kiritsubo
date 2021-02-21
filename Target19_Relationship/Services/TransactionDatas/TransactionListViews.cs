@@ -456,5 +456,140 @@ namespace Target19_Relationship.Services.TransactionDatas
                 return results;
             }
         }
+
+        public List<ReadableSale> SalesList(string customer, string keywords, int staff_Id, string helper, DateTime salesOrderStartDate,
+                                            DateTime salesOrderEndDate, DateTime salesStartDate, DateTime salesEndDate)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                SQLWhereString whereString = new SQLWhereString();
+                string where = whereString.AssembleProductWhere(db, keywords, "salesorders");
+                int[] customer_Ids = new int[2] { NameToId.BusinessPartner(db, customer)[0], NameToId.BusinessPartner(db, customer)[1] };
+                int[] staff_Ids = new int[2] { IdRange.Staff(db, staff_Id)[0], IdRange.Staff(db, staff_Id)[1] };
+                int[] helper_Ids = new int[2] { NameToId.Helper(db, helper)[0], NameToId.Helper(db, helper)[1] };
+                List<ReadableSale> readableSales = new List<ReadableSale>();
+                if (where == "Empty")
+                {
+                    var anonymous = db.Sales
+                                        .Where(s => s.SalesOrder.Customer_Id >= customer_Ids[0]
+                                                    && s.SalesOrder.Customer_Id <= customer_Ids[1]
+                                                    && s.SalesOrder.ResponsibleStaff_Id >= staff_Ids[0]
+                                                    && s.SalesOrder.ResponsibleStaff_Id <= staff_Ids[1]
+                                                    && s.SalesOrder.Helper_Id >= helper_Ids[0]
+                                                    && s.SalesOrder.Helper_Id <= helper_Ids[1]
+                                                    && s.SalesOrder.SalesOrderDate >= salesOrderStartDate
+                                                    && s.SalesOrder.SalesOrderDate <= salesOrderEndDate
+                                                    && s.SalesDate >= salesStartDate
+                                                    && s.SalesDate <= salesEndDate);
+
+                    readableSales = anonymous
+                                    .Select(a => new ReadableSale
+                                    {
+                                        Id = a.Id,
+                                        SalesOrder_Id = a.SalesOrder_Id,
+                                        IsCancel = a.SalesOrder.IsCancel,
+                                        IsExclusiveDeliveryNote = a.SalesOrder.IsExclusiveDeliveryNote,
+                                        SalesOrderDetail = a.SalesOrder.Detail,
+                                        SalesOrderResponsibleStaff_Id = a.SalesOrder.ResponsibleStaff_Id,
+                                        SalesOrderResponsibleStaff = a.SalesOrder.ResponsibleStaff.LastName + a.SalesOrder.ResponsibleStaff.FirstName,
+                                        Helper_Id = a.SalesOrder.Helper_Id,
+                                        Helper = a.SalesOrder.Helper.LastName + a.SalesOrder.Helper.FirstName,
+                                        Customer_Id = a.SalesOrder.Customer_Id,
+                                        Customer = a.SalesOrder.BusinessPartner.CommonName,
+                                        DeliveryPlace_Id = a.SalesOrder.DeliveryPlace_Id,
+                                        DeliveryPlace = a.SalesOrder.DeliveryPlace.Location,
+                                        Product_Id = a.SalesOrder.Product_Id,
+                                        Product = a.SalesOrder.Product.Manufacturer.CommonName + " "
+                                                        + a.SalesOrder.Product.ProductName + " "
+                                                        + a.SalesOrder.Product.Material + " "
+                                                        + a.SalesOrder.Product.Model,
+                                        SalesOrderQuantity = a.SalesOrder.Quantity,
+                                        SalesOrderUnit = a.SalesOrder.Product.TransactionUnit.Unit,
+                                        SalesOrderDate = a.SalesOrder.SalesOrderDate,
+                                        OrderMainNo = a.SalesOrder.OrderMainNo,
+                                        OrderBranchNo = a.SalesOrder.OrderBranchNo,
+                                        IsParchase = a.SalesOrder.IsParchase,
+                                        IsSeparateDelivery = a.SalesOrder.IsSeparateDelivery,
+                                        EstimatedSale = a.SalesOrder.EstimatedSale,
+                                        SaleOrderNote = a.SalesOrder.Note,
+                                        SalesOrderRecorder_Id = a.SalesOrder.Recorder_Id,
+                                        SalesChanger_Id = a.SalesOrder.Changer_Id,
+                                        IsLater = a.IsLater,
+                                        SalesQuantity = a.Quantity,
+                                        SalesUnit = a.SalesOrder.Product.TransactionUnit.Unit,
+                                        UnitPrice = a.UnitPrice,
+                                        TaxRate = a.TaxRate,
+                                        SalesDate = a.SalesDate,
+                                        SalesDetail = a.Detail,
+                                        DocumentType_Id = a.DocumentType_Id,
+                                        DeliveryNoteNo = a.DeliveryNoteNo,
+                                        DeliveryStatus_Id = a.DeliveryStatus_Id,
+                                        InvoiceNo = a.InvoiceNo,
+                                        BilledDate = a.BilledDate,
+                                        SalesNote = a.Note,
+                                        SalesRecorder_Id = a.Recorder_Id,
+                                        SalesOrderChanger_Id = a.Changer_Id
+                                    })
+                                    .ToList();
+                    return readableSales;
+                }
+                else
+                {
+                    var anonymous = db.Database
+                                        .SqlQuery<Sale>(where);
+
+                    readableSales = anonymous
+                                    .Select(a => new ReadableSale
+                                    {
+                                        Id = a.Id,
+                                        SalesOrder_Id = a.SalesOrder_Id,
+                                        IsCancel = a.SalesOrder.IsCancel,
+                                        IsExclusiveDeliveryNote = a.SalesOrder.IsExclusiveDeliveryNote,
+                                        SalesOrderDetail = a.SalesOrder.Detail,
+                                        SalesOrderResponsibleStaff_Id = a.SalesOrder.ResponsibleStaff_Id,
+                                        SalesOrderResponsibleStaff = a.SalesOrder.ResponsibleStaff.LastName + a.SalesOrder.ResponsibleStaff.FirstName,
+                                        Helper_Id = a.SalesOrder.Helper_Id,
+                                        Helper = a.SalesOrder.Helper.LastName + a.SalesOrder.Helper.FirstName,
+                                        Customer_Id = a.SalesOrder.Customer_Id,
+                                        Customer = a.SalesOrder.BusinessPartner.CommonName,
+                                        DeliveryPlace_Id = a.SalesOrder.DeliveryPlace_Id,
+                                        DeliveryPlace = a.SalesOrder.DeliveryPlace.Location,
+                                        Product_Id = a.SalesOrder.Product_Id,
+                                        Product = a.SalesOrder.Product.Manufacturer.CommonName + " "
+                                                        + a.SalesOrder.Product.ProductName + " "
+                                                        + a.SalesOrder.Product.Material + " "
+                                                        + a.SalesOrder.Product.Model,
+                                        SalesOrderQuantity = a.SalesOrder.Quantity,
+                                        SalesOrderUnit = a.SalesOrder.Product.TransactionUnit.Unit,
+                                        SalesOrderDate = a.SalesOrder.SalesOrderDate,
+                                        OrderMainNo = a.SalesOrder.OrderMainNo,
+                                        OrderBranchNo = a.SalesOrder.OrderBranchNo,
+                                        IsParchase = a.SalesOrder.IsParchase,
+                                        IsSeparateDelivery = a.SalesOrder.IsSeparateDelivery,
+                                        EstimatedSale = a.SalesOrder.EstimatedSale,
+                                        SaleOrderNote = a.SalesOrder.Note,
+                                        SalesOrderRecorder_Id = a.SalesOrder.Recorder_Id,
+                                        SalesChanger_Id = a.SalesOrder.Changer_Id,
+                                        IsLater = a.IsLater,
+                                        SalesQuantity = a.Quantity,
+                                        SalesUnit = a.SalesOrder.Product.TransactionUnit.Unit,
+                                        UnitPrice = a.UnitPrice,
+                                        TaxRate = a.TaxRate,
+                                        SalesDate = a.SalesDate,
+                                        SalesDetail = a.Detail,
+                                        DocumentType_Id = a.DocumentType_Id,
+                                        DeliveryNoteNo = a.DeliveryNoteNo,
+                                        DeliveryStatus_Id = a.DeliveryStatus_Id,
+                                        InvoiceNo = a.InvoiceNo,
+                                        BilledDate = a.BilledDate,
+                                        SalesNote = a.Note,
+                                        SalesRecorder_Id = a.Recorder_Id,
+                                        SalesOrderChanger_Id = a.Changer_Id
+                                    })
+                                    .ToList();
+                    return readableSales;
+                }
+            }
+        }
     }
 }

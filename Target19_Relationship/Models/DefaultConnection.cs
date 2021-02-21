@@ -45,6 +45,8 @@ namespace Target19_Relationship.Models
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableJournal> ReadableJournals { get; set; }
 
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadablePurchase> ReadablePurchases { get; set; }
+
+        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableSale> ReadableSales { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
 public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }

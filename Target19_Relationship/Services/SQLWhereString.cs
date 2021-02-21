@@ -32,9 +32,14 @@ namespace Target19_Relationship.Services
             {
                 return "Empty";
             }
-            else
+            else if(table != "salesorders")
             {
                 sb.Insert(0, "select * from " + table + " where");
+                return sb.ToString();
+            }
+            else
+            {
+                sb.Insert(0, "select * from sales left outer join salesorders on sales.SalesOrder_Id = salesorders.Id where");
                 return sb.ToString();
             }
         }
