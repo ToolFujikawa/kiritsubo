@@ -207,6 +207,7 @@
     <Compile Include="Models\Details\ReadableGoodsIReceipt.cs" />
     <Compile Include="Models\Details\ReadableJournal.cs" />
     <Compile Include="Models\Details\ReadablePurchase.cs" />
+    <Compile Include="Models\Details\ReadableQuotation.cs" />
     <Compile Include="Models\Details\ReadableSale.cs" />
     <Compile Include="Models\Tables\TransactionUnit.cs" />
     <Compile Include="Models\Views\BeforeDelivery.cs" />
@@ -398,6 +399,7 @@
     <Content Include="Views\TransactionData\_BeforeDeliveryContent.cshtml" />
     <Content Include="Views\TransactionData\SalesList.cshtml" />
     <Content Include="Views\TransactionData\_ReadableSaleContent.cshtml" />
+    <Content Include="Views\TransactionData\QuotationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

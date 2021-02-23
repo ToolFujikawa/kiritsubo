@@ -209,7 +209,7 @@ namespace Target19_Relationship.Services.MasterDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "products");
+                string where = whereString.AssembleProductWhere(db, keywords, "products", "pr0");
                 int[] manufacturer_Ids = new int[2] { NameToId.Manufacturer(db, manufacturer)[0], NameToId.Manufacturer(db, manufacturer)[1] };
 
                 //検索文字列が評価できなかった時、空集合を返す。

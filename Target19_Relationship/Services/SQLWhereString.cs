@@ -9,21 +9,33 @@ namespace Target19_Relationship.Services
 {
     public class SQLWhereString
     {
-        public string AssembleProductWhere(DefaultConnection db, string keywords, string table)
+        public string AssembleProductWhere(DefaultConnection db, string keywords, string table, string prefix)
         {
             StringBuilder sb = new StringBuilder();
             string[] keywordArray = keywords.Split(new[] { ' ', '　' });
+
 
             //品名、材質、型式検索条件
             for (int i = 0; i < keywordArray.Count(); i++)
             {
                 if (i == 0)
                 {
-                    sb.Append(" SearchKey like '%" + keywordArray[i] + "%'");
+                    if (table == "products")
+                    {
+                        sb.Append(" SearchKey like '%" + keywordArray[i] + "%'");
+                    }
+                    else
+                    {
+                        sb.Append(" pr0.SearchKey like '%" + keywordArray[i] + "%'");
+                    }
+                }
+                else if(table == "products")
+                {
+                    sb.Append(" and SearchKey like '%" + keywordArray[i] + "%'");
                 }
                 else
                 {
-                    sb.Append(" and SearchKey like '%" + keywordArray[i] + "%'");
+                    sb.Append(" and pr0.SearchKey like '%" + keywordArray[i] + "%'");
                 }
             }
 
@@ -32,14 +44,14 @@ namespace Target19_Relationship.Services
             {
                 return "Empty";
             }
-            else if(table != "salesorders")
+            else if(table == "products")
             {
                 sb.Insert(0, "select * from " + table + " where");
                 return sb.ToString();
             }
             else
             {
-                sb.Insert(0, "select * from sales left outer join salesorders on sales.SalesOrder_Id = salesorders.Id where");
+                sb.Insert(0, "select * from " + table + " left outer join products as pr0 on " + prefix + ".product_Id = pr0.Id where");
                 return sb.ToString();
             }
         }

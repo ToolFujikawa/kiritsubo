@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "QuotationList";
+}
+
+<h2>見積</h2>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("businesspartner", "販売先")
+    @Html.SearchBox("商品キーワード")
+    @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
+    @Html.AutoCompleteBox("helper", "販売先担当者")
+    @Html.DateInputBox("start", "回答日検索開始日")
+    @Html.DateInputBox("end", "回答日検索終了日")
+    <button type="submit" name="search" class="btn btn-default">検索</button>
+</div>
+
+<div id="result"></div>
+
+<div id="pageList"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#dateinputstart').datepicker();
+            $('#dateinputend').datepicker();
+            $('button[name="search"]').click(function (e) {
+                let startDate = $('#dateinputstart').val();
+                let endDate = $('#dateinputend').val();
+                if (startDate == '') {
+                    startDate = '1000/01/01 00:00:00';
+                };
+                if (endDate == '') {
+                    endDate = '9999/12/31 00:00:00';
+                };
+                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
+                $('#autocompletehelper').val(), startDate, endDate];
+                $('#result').load('/TransactionData/QuotationContent', {
+                    customer: str[0], keywords: str[1], staff_Id: str[2], helper: str[3],
+                    startDate: str[4], endDate: str[5]
+                });
+            });
+        });
+    </script>
+}

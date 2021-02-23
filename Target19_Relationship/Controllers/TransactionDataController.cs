@@ -230,5 +230,33 @@ namespace Target19_Relationship.Controllers
             }
             return Content("Ajax通信以外のアクセスはできません");
         }
+
+        //見積
+        public ActionResult QuotationList()
+        {
+            DropdownDataSources dropdownDataSources = new DropdownDataSources();
+            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
+            ViewBag.ResponsibleStaffSelectOptions = staff;
+            return View();
+        }
+
+        public ActionResult QuotationContent(string customer, string keywords, int staff_Id, string helper,
+                                                DateTime startDate, DateTime endDate)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                TransactionListViews listViews = new TransactionListViews();
+                var results = listViews.QuotationList(customer, keywords, staff_Id, helper, startDate, endDate);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_ReadableQuotationContent", results);
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
     }
 }
