@@ -11,37 +11,19 @@
 
 <div class="form-group">
     <label for="initial">ふりがな頭文字</label>
-    <div class="btn-group" data-toggle="buttons" id="initial">
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="あ" />あ
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="か" />か
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="さ" />さ
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="た" />た
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="な" />な
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="は" />は
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="ま" />ま
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="や" />や
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="ら" />ら
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="radio-group" autocomplete="off" value="わ" />わ
-        </label>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" id="あ">あ行</button>
+        <button type="button" class="btn btn-default" id="か">か行</button>
+        <button type="button" class="btn btn-default" id="さ">さ行</button>
+        <button type="button" class="btn btn-default" id="た">た行</button>
+        <button type="button" class="btn btn-default" id="な">な行</button>
+        <button type="button" class="btn btn-default" id="は">は行</button>
+        <button type="button" class="btn btn-default" id="ま">ま行</button>
+        <button type="button" class="btn btn-default" id="や">や行</button>
+        <button type="button" class="btn btn-default" id="ら">ら行</button>
+        <button type="button" class="btn btn-default" id="わ">わ行</button>
+        <br />
+        <div id="line"></div>
     </div>
     <button type="submit" name="search">検索</button>
 </div>
@@ -53,9 +35,49 @@
 @section scripts{
     <script>
         $(function () {
-            $('button[name="search"]').click(function (e) {
+            $('#あ').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="あ" />あ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="い" />い</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="う" />う</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="え" />え</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="お" />お</label></div>');
+            })
+            $('#か').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="か" />か</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="き" />き</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="く" />く</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="け" />け</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="こ" />こ</label></div></p>');
+            })
+            $('#さ').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="さ" />し</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="し" />し</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="す" />す</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="せ" />せ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="そ" />そ</label></div></p>');
+            })
+            $('#た').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="た" />た</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ち" />ち</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="つ" />つ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="て" />て</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="と" />と</label></div></p>');
+            })
+            $('#な').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="な" />な</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="に" />に</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ぬ" />ぬ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ね" />ね</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="の" />の</label></div></p>');
+            })
+            $('#は').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="は" />は</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ひ" />ひ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ふ" />ふ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="へ" />へ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ほ" />ほ</label></div></p>');
+            })
+            $('#ま').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ま" />ま</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="み" />み</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="む" />む</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="め" />め</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="も" />も</label></div></p>');
+            })
+            $('#や').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="や" />や</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="い" />い</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ゆ" />ゆ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="え" />え</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="よ" />よ</label></div></p>');
+            })
+            $('#ら').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ら" />ら</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="り" />り</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="る" />る</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="れ" />れ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ろ" />ろ</label></div></p>');
+            })
+            $('#わ').on('click', function () {
+                $('#initial').remove();
+                $('#line').append('<p><div class="btn-group" data-toggle="buttons" id="initial"><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="わ" />わ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ゐ" />ゐ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="う" />う</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="ゑ" />ゑ</label><label class="btn btn-default"><input type="radio" name="radio-group" autocomplete="off" value="を" />を</label></div></p>');
+            })
+            $('button[name="search"]').on('click', function (e) {
                 const str = $('input:radio[name="radio-group"]:checked').val();
-                    $('#result').load('/MasterData/BusinessPartnerContent', { initial: str });
+                $('#result').load('/MasterData/BusinessPartnerContent', { initial: str });
             })
         })
     </script>
