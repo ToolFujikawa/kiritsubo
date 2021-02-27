@@ -12,6 +12,8 @@ namespace Target19_Relationship.Models.Details
     {
         public int Id { get; set; }
 
+        public int Manufacturer_Id { get; set; }
+
         [DisplayName("メーカー")]
         public string Manufacturer { get; set; }
 

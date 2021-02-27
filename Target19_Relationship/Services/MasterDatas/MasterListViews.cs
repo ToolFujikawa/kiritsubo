@@ -209,22 +209,21 @@ namespace Target19_Relationship.Services.MasterDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "products", "pr0");
-                int[] manufacturer_Ids = new int[2] { NameToId.Manufacturer(db, manufacturer)[0], NameToId.Manufacturer(db, manufacturer)[1] };
+                string where = "Empty";
+                if (!String.IsNullOrEmpty(keywords))
+                {
+                    where = whereString.ProductWhere(db, keywords);
+                }
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
+                List<DetailProduct> products = new List<DetailProduct>();
 
-                //検索文字列が評価できなかった時、空集合を返す。
                 if (where == "Empty")
                 {
-                    List<DetailProduct> products = new List<DetailProduct>();
-                    return products;
-                }
-                else
-                {
-                    var anonymous = db.Database
-                                        .SqlQuery<Product>(where)
-                                        .Where(p => p.Manufacturer_Id >= manufacturer_Ids[0]
-                                                    && p.Manufacturer_Id <= manufacturer_Ids[1])
-                                        .OrderBy(p => p.Id);
+                    var anonymous = db.Products
+                                        .Where(p => p.Manufacturer_Id >= openManufacturer_Id
+                                                    && p.Manufacturer_Id <= closeManufacturer_Id)
+                                        .ToList();
 
                     var results = anonymous
                                     .Select(a => new DetailProduct
@@ -252,7 +251,48 @@ namespace Target19_Relationship.Services.MasterDatas
                                         UpdateTime = a.UpdateTime,
                                         AccessRoute = a.AccessRoute
                                     })
+                                    .ToList();                               
+                    return results;
+                }
+                else
+                {
+                    var anonymous = db.Database
+                                        .SqlQuery<DetailProduct>(where);
+
+                    var results = anonymous
+                                    .Select(a => new DetailProduct
+                                    {
+                                        Id = a.Id,
+                                        Manufacturer_Id = a.Manufacturer_Id,
+                                        Manufacturer = a.Manufacturer,
+                                        Pseudonym = a.Pseudonym,
+                                        ProductName = a.ProductName,
+                                        Material = a.Material,
+                                        Model = a.Model,
+                                        Quantity = a.Quantity,
+                                        LowerLimitQuantity = a.LowerLimitQuantity,
+                                        OrderQuantity = a.OrderQuantity,
+                                        TaxRate = a.TaxRate,
+                                        Unit = a.Unit,
+                                        Cost = a.Cost,
+                                        Valuation = a.Valuation,
+                                        IsUnmanaged = a.IsUnmanaged,
+                                        Note = a.Note,
+                                        Recorder_Id = a.Recorder_Id,
+                                        Changer_Id = a.Changer_Id,
+                                        RecordingDate = a.RecordingDate,
+                                        RecordingTime = a.RecordingTime,
+                                        UpdateDate = a.UpdateDate,
+                                        UpdateTime = a.UpdateTime,
+                                        AccessRoute = a.AccessRoute
+                                    })
                                     .ToList();
+
+                    results = results
+                                .Where(a => a.Manufacturer_Id >= openManufacturer_Id 
+                                            && a.Manufacturer_Id <= closeManufacturer_Id)
+                                .ToList();
+
                     return results;
                 }
             }

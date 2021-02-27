@@ -9,6 +9,27 @@ namespace Target19_Relationship.Services
 {
     public class SQLWhereString
     {
+        public string ProductWhere(DefaultConnection db, string keywords)
+        {
+            StringBuilder sb = new StringBuilder();
+            string[] keywordArray = keywords.Split(new[] { ' ', '　' });
+
+            for (int i = 0; i < keywordArray.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    sb.Append(" pr0.SearchKey like '%" + keywordArray[i] + "%'");
+                }
+                else
+                {
+                    sb.Append(" and pr0.SearchKey like '%" + keywordArray[i] + "%'");
+                }
+            }
+
+            sb.Insert(0, "select * from products as pr0 left outer join manufacturers as ma0 on pr0.Manufacturer_Id = ma0.Id where");
+            return sb.ToString();
+        }
+
         public string AssembleProductWhere(DefaultConnection db, string keywords, string table, string prefix)
         {
             StringBuilder sb = new StringBuilder();
@@ -29,7 +50,7 @@ namespace Target19_Relationship.Services
                         sb.Append(" pr0.SearchKey like '%" + keywordArray[i] + "%'");
                     }
                 }
-                else if(table == "products")
+                else if (table == "products")
                 {
                     sb.Append(" and SearchKey like '%" + keywordArray[i] + "%'");
                 }
@@ -44,7 +65,7 @@ namespace Target19_Relationship.Services
             {
                 return "Empty";
             }
-            else if(table == "products")
+            else if (table == "products")
             {
                 sb.Insert(0, "select * from " + table + " where");
                 return sb.ToString();

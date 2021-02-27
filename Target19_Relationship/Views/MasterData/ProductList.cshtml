@@ -23,7 +23,7 @@
     <script>
         $(function () {
             $('button[name="search"]').click(function (e) {
-                let str = [$('#autocomplete').val(), $('#searchtext').val()];
+                let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val()];
                 $('#result').load('/MasterData/ProductContent', { manufacturer: str[0], keywords: str[1] });
             });
         });
