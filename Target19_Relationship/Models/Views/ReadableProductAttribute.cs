@@ -15,8 +15,10 @@ namespace Target19_Relationship.Models.Views
         [DisplayName("商品Id")]
         public int Product_Id { get; set; }
 
-        [DisplayName("メーカー")]
-        public string Manufacturer { get; set; }
+        public int Manufacturer_Id { get; set; }
+
+        [DisplayName("商品")]
+        public string Product { get; set; }
 
         [Key]
         [Column(Order = 1)]

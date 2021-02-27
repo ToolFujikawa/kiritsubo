@@ -251,7 +251,7 @@ namespace Target19_Relationship.Services.MasterDatas
                                         UpdateTime = a.UpdateTime,
                                         AccessRoute = a.AccessRoute
                                     })
-                                    .ToList();                               
+                                    .ToList();
                     return results;
                 }
                 else
@@ -289,7 +289,7 @@ namespace Target19_Relationship.Services.MasterDatas
                                     .ToList();
 
                     results = results
-                                .Where(a => a.Manufacturer_Id >= openManufacturer_Id 
+                                .Where(a => a.Manufacturer_Id >= openManufacturer_Id
                                             && a.Manufacturer_Id <= closeManufacturer_Id)
                                 .ToList();
 
@@ -305,18 +305,41 @@ namespace Target19_Relationship.Services.MasterDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductAttributeWhere(db, businessPartner, manufacturer, keywords);
+                string where = "Empty";
+                if (!String.IsNullOrEmpty(keywords))
+                {
+                    where = whereString.ProductAttributeWhere(db, keywords);
+                }
+                List<ReadableProductAttribute> results = new List<ReadableProductAttribute>();
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
+                int openBusinessPertner_Id = NameToId.BusinessPartner(db, businessPartner)[0];
+                int closeBusinessPertner_Id = NameToId.BusinessPartner(db, businessPartner)[1];
 
                 if (where == "Empty")//検索文字列が評価できなかった時は空集合
                 {
-                    List<ReadableProductAttribute> results = new List<ReadableProductAttribute>();
+                    results = db.ReadableProductAttributes
+                                .Where(ra => ra.Manufacturer_Id >= openManufacturer_Id 
+                                            && ra.Manufacturer_Id <= closeManufacturer_Id
+                                            && ra.BusinessPartner_Id >= openBusinessPertner_Id
+                                            && ra.BusinessPartner_Id <= closeBusinessPertner_Id)
+                                .ToList();
+
                     return results;
                 }
                 else
                 {
-                    var results = db.Database
-                                    .SqlQuery<ReadableProductAttribute>(where)
-                                    .ToList();
+                    var anonymous = db.Database
+                                        .SqlQuery<ReadableProductAttribute>(where)
+                                        .ToList();
+
+                    results = anonymous
+                                .Where(a => a.Manufacturer_Id >= openManufacturer_Id
+                                            && a.Manufacturer_Id <= closeManufacturer_Id
+                                            && a.BusinessPartner_Id >= openBusinessPertner_Id
+                                            && a.BusinessPartner_Id <= closeBusinessPertner_Id)
+                                .ToList();
+
                     return results;
                 }
             }

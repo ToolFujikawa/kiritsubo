@@ -1,13 +1,7 @@
 ﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableProductAttribute>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Product)
         </th>
@@ -49,9 +43,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manufacturer)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Product)
         </td>
