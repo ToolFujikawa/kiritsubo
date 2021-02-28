@@ -308,7 +308,7 @@ namespace Target19_Relationship.Services.MasterDatas
                 string where = "Empty";
                 if (!String.IsNullOrEmpty(keywords))
                 {
-                    where = whereString.ProductAttributeWhere(db, keywords);
+                    where = whereString.SearchKeyWhere(db, keywords, "readableproductattribute");
                 }
                 List<ReadableProductAttribute> results = new List<ReadableProductAttribute>();
                 int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];

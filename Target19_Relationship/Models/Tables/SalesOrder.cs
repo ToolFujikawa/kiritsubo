@@ -60,7 +60,7 @@ namespace Target19_Relationship.Models.Tables
         [DisplayName("備考")]
         public string Note { get; set; }
 
-        public int FIMS_Id { get; set; }
+        //public int FIMS_Id { get; set; }
 
         //ナビゲーションプロパティ
         public virtual ICollection<Sale> Sales { get; set; }

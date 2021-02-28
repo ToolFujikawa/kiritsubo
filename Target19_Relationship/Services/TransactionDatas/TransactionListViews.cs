@@ -11,6 +11,74 @@ namespace Target19_Relationship.Services.TransactionDatas
 {
     public class TransactionListViews
     {
+        public List<BeforeDelivery> BeforeDeliveryList(int customer_Id, int manufacturer_Id, string keywords, int responsibleStaff_Id,
+                                                        int helper_Id, DateTime startDate, DateTime endDate)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                int openCustomer_Id = IdRange.BusinessPartner(db, customer_Id)[0];
+                int closeCustomer_Id = IdRange.BusinessPartner(db, customer_Id)[1];
+                int openManufacturer_Id = IdRange.Manufacturer(db, manufacturer_Id)[0];
+                int closeManufacturer_Id = IdRange.Manufacturer(db, manufacturer_Id)[1];
+                int openStaff_Id = IdRange.Staff(db, responsibleStaff_Id)[0];
+                int closeStaff_Id = IdRange.Staff(db, responsibleStaff_Id)[1];
+                int openHelper_Id = IdRange.Helper(db, helper_Id)[0];
+                int closeHelper_Id = IdRange.Helper(db, helper_Id)[1];
+
+                var anonymous = db.SalesOrders
+                                    .Where(so => so.Customer_Id >= openCustomer_Id
+                                            && so.Customer_Id <= closeCustomer_Id
+                                            && so.Product.Manufacturer_Id >= openManufacturer_Id
+                                            && so.Product.Manufacturer_Id <= closeManufacturer_Id
+                                            && so.ResponsibleStaff_Id >= openStaff_Id
+                                            && so.ResponsibleStaff_Id <= closeStaff_Id
+                                            && so.Helper_Id >= openHelper_Id
+                                            && so.Helper_Id <= closeHelper_Id
+                                            && so.SalesOrderDate >= startDate
+                                            && so.SalesOrderDate <= endDate)
+                                    .ToList();
+
+                if (!String.IsNullOrEmpty(keywords))
+                {
+                    string[] keywordArray = keywords.Split(new[] { ' ', '　' });
+                    foreach (var item in keywordArray)
+                    {
+                        anonymous = anonymous
+                                    .Where(a => a.Product.SearchKey.Contains(item)).ToList();
+                    }
+                }
+
+                var results = anonymous
+                                .Select(a => new BeforeDelivery
+                                {
+                                    Id = a.Id,
+                                    IsCancel = a.IsCancel,
+                                    IsExclusiveDeliveryNote = a.IsExclusiveDeliveryNote,
+                                    Detail = a.Detail,
+                                    ResponsibleStaff_Id = a.ResponsibleStaff_Id,
+                                    ResponsibleStaff = a.ResponsibleStaff.LastName + a.ResponsibleStaff.FirstName,
+                                    Helper_Id = a.Helper_Id,
+                                    Helper = a.Helper.LastName + a.Helper.FirstName,
+                                    Customer_Id = a.Customer_Id,
+                                    Customer = a.BusinessPartner.CommonName,
+                                    DeliveryPlace_Id = a.DeliveryPlace_Id,
+                                    DeliveryPlace = a.DeliveryPlace.Location,
+                                    Product_Id = a.Product_Id,
+                                    Product = a.Product.Manufacturer.CommonName + " " + a.Product.ProductName + " " + a.Product.Material + " " + a.Product.Model,
+                                    Quantity = a.Quantity,
+                                    Unit = a.Product.TransactionUnit.Unit,
+                                    SalesOrderDate = a.SalesOrderDate,
+                                    OrderMainNo = a.OrderMainNo,
+                                    OrderBranchNo = a.OrderBranchNo,
+                                    IsParchase = a.IsParchase,
+                                    IsSeparateDelivery = a.IsSeparateDelivery,
+                                    EstimatedSale = a.EstimatedSale,
+                                    Note = a.Note
+                                })
+                                .ToList();
+                return results;
+            }
+        }
         public List<ReadableGoodsIssue> GoodsIssueList(string manufacturer, string keywords, int accountTitle_Id
                                                         , int responsibleStaff_Id, DateTime startDate, DateTime endDate)
         {
@@ -18,8 +86,9 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "goodsissues", "gi0");
-                int[] manufacturer_Ids = NameToId.Manufacturer(db, manufacturer);
+                string where = whereString.SearchKeyWhere(db, keywords, "readablegoodsissues");
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
                 if (where == "Empty")
                 {
                     var results = db.GoodsIssues
@@ -27,8 +96,8 @@ namespace Target19_Relationship.Services.TransactionDatas
                                                     && gi.AccountTitle_Id <= accountTitle_Id
                                                     && gi.FluctuatingDate >= startDate
                                                     && gi.FluctuatingDate <= endDate
-                                                    && gi.Product.Manufacturer_Id >= manufacturer_Ids[0]
-                                                    && gi.Product.Manufacturer_Id <= manufacturer_Ids[1]
+                                                    && gi.Product.Manufacturer_Id >= openManufacturer_Id
+                                                    && gi.Product.Manufacturer_Id <= closeManufacturer_Id
                                                     && gi.ResponsibleStaff_Id >= responsibleStaff_Id
                                                     && gi.ResponsibleStaff_Id <= responsibleStaff_Id);
                     readableGoodsIssues = results
@@ -57,8 +126,8 @@ namespace Target19_Relationship.Services.TransactionDatas
                                                     && r.AccountTitle_Id <= accountTitle_Id
                                                     && r.FluctuatingDate >= startDate
                                                     && r.FluctuatingDate <= endDate
-                                                    && r.Product.Manufacturer_Id >= manufacturer_Ids[0]
-                                                    && r.Product.Manufacturer_Id <= manufacturer_Ids[1]
+                                                    && r.Product.Manufacturer_Id >= openManufacturer_Id
+                                                    && r.Product.Manufacturer_Id <= closeManufacturer_Id
                                                     && r.ResponsibleStaff_Id >= responsibleStaff_Id
                                                     && r.ResponsibleStaff_Id <= responsibleStaff_Id);
                     readableGoodsIssues = results
@@ -88,8 +157,9 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "goodsreceipts", "gr0");
-                int[] manufacturer_Ids = NameToId.Manufacturer(db, manufacturer);
+                string where = whereString.SearchKeyWhere(db, keywords, "goodsreceipts");
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
                 if (where == "Empty")
                 {
                     var results = db.GoodsReceipts
@@ -97,8 +167,8 @@ namespace Target19_Relationship.Services.TransactionDatas
                                                     && gi.AccountTitle_Id <= accountTitle_Id
                                                     && gi.FluctuatingDate >= startDate
                                                     && gi.FluctuatingDate <= endDate
-                                                    && gi.Product.Manufacturer_Id >= manufacturer_Ids[0]
-                                                    && gi.Product.Manufacturer_Id <= manufacturer_Ids[1]
+                                                    && gi.Product.Manufacturer_Id >= openManufacturer_Id
+                                                    && gi.Product.Manufacturer_Id <= closeManufacturer_Id
                                                     && gi.ResponsibleStaff_Id >= responsibleStaff_Id
                                                     && gi.ResponsibleStaff_Id <= responsibleStaff_Id);
                     readableGoodsReceipts = results
@@ -127,8 +197,8 @@ namespace Target19_Relationship.Services.TransactionDatas
                                                     && r.AccountTitle_Id <= accountTitle_Id
                                                     && r.FluctuatingDate >= startDate
                                                     && r.FluctuatingDate <= endDate
-                                                    && r.Product.Manufacturer_Id >= manufacturer_Ids[0]
-                                                    && r.Product.Manufacturer_Id <= manufacturer_Ids[1]
+                                                    && r.Product.Manufacturer_Id >= openManufacturer_Id
+                                                    && r.Product.Manufacturer_Id <= closeManufacturer_Id
                                                     && r.ResponsibleStaff_Id >= responsibleStaff_Id
                                                     && r.ResponsibleStaff_Id <= responsibleStaff_Id);
                     readableGoodsReceipts = results
@@ -158,17 +228,19 @@ namespace Target19_Relationship.Services.TransactionDatas
             string[] keywordArray = keywords.Split(new[] { ' ', '　' });
             using (DefaultConnection db = new DefaultConnection())
             {
-                int[] businessPartner_Ids = new int[2] { NameToId.BusinessPartner(db, businessPartner)[0],
-                                                            NameToId.BusinessPartner(db, businessPartner)[1] };
-                int[] debit_Ids = new int[2] { IdRange.AccountTitle(db, debit_Id)[0], IdRange.AccountTitle(db, debit_Id)[1] };
-                int[] credit_Ids = new int[2] { IdRange.AccountTitle(db, credit_Id)[0], IdRange.AccountTitle(db, credit_Id)[1] };
+                int openBusinessPartner_Id = NameToId.BusinessPartner(db, businessPartner)[0];
+                int closeBusinessPartner_Id = NameToId.BusinessPartner(db, businessPartner)[1];
+                int openDebit_Id = IdRange.AccountTitle(db, debit_Id)[0];
+                int closeDebit_Id = IdRange.AccountTitle(db, debit_Id)[1];
+                int openCredit_Id = IdRange.AccountTitle(db, credit_Id)[0];
+                int closeCredit_Id = IdRange.AccountTitle(db, credit_Id)[1];
                 var anonymous = db.Journals
-                                    .Where(j => j.BusinessPartner_Id >= businessPartner_Ids[0]
-                                                && j.BusinessPartner_Id <= businessPartner_Ids[1]
-                                                && j.Debit_Id >= debit_Ids[0]
-                                                && j.Debit_Id <= debit_Ids[1]
-                                                && j.Credit_Id >= credit_Ids[0]
-                                                && j.Credit_Id <= credit_Ids[1]
+                                    .Where(j => j.BusinessPartner_Id >= openBusinessPartner_Id
+                                                && j.BusinessPartner_Id <= closeBusinessPartner_Id
+                                                && j.Debit_Id >= openDebit_Id
+                                                && j.Debit_Id <= closeDebit_Id
+                                                && j.Credit_Id >= openCredit_Id
+                                                && j.Credit_Id <= closeCredit_Id
                                                 && j.AccountingDate >= startDate
                                                 && j.AccountingDate <= endDate);
 
@@ -228,13 +300,15 @@ namespace Target19_Relationship.Services.TransactionDatas
         {
             using (DefaultConnection db = new DefaultConnection())
             {
-                int[] manufacturer_Ids = IdRange.Manufacturer(db, manufacturer_Id);
-                int[] supplier_Ids = IdRange.BusinessPartner(db, supplier_Id);
+                int openManufacturer_Id = IdRange.Manufacturer(db, manufacturer_Id)[0];
+                int closeManufacturer_Id = IdRange.Manufacturer(db, manufacturer_Id)[1];
+                int openSupplier_Id = IdRange.BusinessPartner(db, supplier_Id)[0];
+                int closeSupplier_Id = IdRange.BusinessPartner(db, supplier_Id)[1];
                 var anonymous = db.BeforeWarehousings
-                                    .Where(bw => bw.Supplier_Id >= supplier_Ids[0]
-                                            && bw.Supplier_Id <= supplier_Ids[1]
-                                            && bw.Manufacturer_Id >= manufacturer_Ids[0]
-                                            && bw.Manufacturer_Id <= manufacturer_Ids[1]
+                                    .Where(bw => bw.Supplier_Id >= openSupplier_Id
+                                            && bw.Supplier_Id <= closeSupplier_Id
+                                            && bw.Manufacturer_Id >= openManufacturer_Id
+                                            && bw.Manufacturer_Id <= closeManufacturer_Id
                                             && bw.PurchaseDate >= startDate
                                             && bw.PurchaseDate <= endDate);
 
@@ -285,17 +359,19 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "purchaseorders", "po0");
-                int[] supplier_Ids = new int[2] { NameToId.BusinessPartner(db, supplier)[0], NameToId.BusinessPartner(db, supplier)[1] };
-                int[] staff_Ids = new int[2] { IdRange.Staff(db, staff_Id)[0], IdRange.Staff(db, staff_Id)[1] };
+                string where = whereString.SearchKeyWhere(db, keywords, "purchaseorders");
+                int openSupplier_Id = NameToId.BusinessPartner(db, supplier)[0];
+                int closeSupplier_Id = NameToId.BusinessPartner(db, supplier)[1];
+                int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
+                int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
                 List<ReadablePurchase> readablePurchases = new List<ReadablePurchase>();
                 if (where == "Empty")//商品データ数が多数に上るため商品抽出をSQLで実行
                 {
                     var anonymous = db.Purchases
-                                        .Where(p => p.PurchaseOrder.Supplier_Id >= supplier_Ids[0]
-                                                    && p.PurchaseOrder.Supplier_Id <= supplier_Ids[1]
-                                                    && p.PurchaseOrder.ResponsibleStaff_Id >= staff_Ids[0]
-                                                    && p.PurchaseOrder.ResponsibleStaff_Id <= staff_Ids[1]
+                                        .Where(p => p.PurchaseOrder.Supplier_Id >= openSupplier_Id
+                                                    && p.PurchaseOrder.Supplier_Id <= closeSupplier_Id
+                                                    && p.PurchaseOrder.ResponsibleStaff_Id >= openStaff_Id
+                                                    && p.PurchaseOrder.ResponsibleStaff_Id <= closeStaff_Id
                                                     && p.PurchaseOrder.PurchaseDate >= purchaseStartDate
                                                     && p.PurchaseOrder.PurchaseDate <= purchaseEndDate
                                                     && p.ReceiptDate >= receiptStartDate
@@ -346,10 +422,10 @@ namespace Target19_Relationship.Services.TransactionDatas
                                         .SqlQuery<Purchase>(where);
 
                     readablePurchases = anonymous
-                                        .Where(a => a.PurchaseOrder.Supplier_Id >= supplier_Ids[0]
-                                                    && a.PurchaseOrder.Supplier_Id <= supplier_Ids[1]
-                                                    && a.PurchaseOrder.ResponsibleStaff_Id >= staff_Ids[0]
-                                                    && a.PurchaseOrder.ResponsibleStaff_Id <= staff_Ids[1]
+                                        .Where(a => a.PurchaseOrder.Supplier_Id >= openSupplier_Id
+                                                    && a.PurchaseOrder.Supplier_Id <= closeSupplier_Id
+                                                    && a.PurchaseOrder.ResponsibleStaff_Id >= openStaff_Id
+                                                    && a.PurchaseOrder.ResponsibleStaff_Id <= closeStaff_Id
                                                     && a.PurchaseOrder.PurchaseDate >= purchaseStartDate
                                                     && a.PurchaseOrder.PurchaseDate <= purchaseEndDate
                                                     && a.ReceiptDate >= receiptStartDate
@@ -396,66 +472,6 @@ namespace Target19_Relationship.Services.TransactionDatas
             }
         }
 
-        public List<BeforeDelivery> BeforeDeliveryList(int customer_Id, int manufacturer_Id, string keywords, int responsibleStaff_Id,
-                                                        int helper_Id, DateTime startDate, DateTime endDate)
-        {
-            using (DefaultConnection db = new DefaultConnection())
-            {
-                int[] customer_Ids = IdRange.BusinessPartner(db, customer_Id);
-                int[] manufacturer_Ids = IdRange.Manufacturer(db, manufacturer_Id);
-                int[] staff_Ids = IdRange.Staff(db, responsibleStaff_Id);
-                int[] helper_Ids = IdRange.Helper(db, helper_Id);
-
-                var anonymous = db.SalesOrders
-                                    .Where(so => so.Customer_Id >= customer_Ids[0]
-                                            && so.Customer_Id <= customer_Ids[1]
-                                            && so.Product.Manufacturer_Id >= manufacturer_Ids[0]
-                                            && so.Product.Manufacturer_Id <= manufacturer_Ids[1]
-                                            && so.ResponsibleStaff_Id >= staff_Ids[0]
-                                            && so.ResponsibleStaff_Id <= staff_Ids[1]
-                                            && so.Helper_Id >= helper_Ids[0]
-                                            && so.Helper_Id <= helper_Ids[1]
-                                            && so.SalesOrderDate >= startDate
-                                            && so.SalesOrderDate <= endDate);
-
-                string[] keywordArray = keywords.Split(new[] { ' ', '　' });
-                foreach (var item in keywordArray)
-                {
-                    anonymous = anonymous
-                                .Where(a => a.Product.SearchKey.Contains(item));
-                }
-
-                var results = anonymous
-                                .Select(a => new BeforeDelivery
-                                {
-                                    Id = a.Id,
-                                    IsCancel = a.IsCancel,
-                                    IsExclusiveDeliveryNote = a.IsExclusiveDeliveryNote,
-                                    Detail = a.Detail,
-                                    ResponsibleStaff_Id = a.ResponsibleStaff_Id,
-                                    ResponsibleStaff = a.ResponsibleStaff.LastName + a.ResponsibleStaff.FirstName,
-                                    Helper_Id = a.Helper_Id,
-                                    Helper = a.Helper.LastName + a.Helper.FirstName,
-                                    Customer_Id = a.Customer_Id,
-                                    Customer = a.BusinessPartner.CommonName,
-                                    DeliveryPlace_Id = a.DeliveryPlace_Id,
-                                    DeliveryPlace = a.DeliveryPlace.Location,
-                                    Product_Id = a.Product_Id,
-                                    Product = a.Product.Manufacturer.CommonName + " " + a.Product.ProductName + " " + a.Product.Material + " " + a.Product.Model,
-                                    Quantity = a.Quantity,
-                                    Unit = a.Product.TransactionUnit.Unit,
-                                    SalesOrderDate = a.SalesOrderDate,
-                                    OrderMainNo = a.OrderMainNo,
-                                    OrderBranchNo = a.OrderBranchNo,
-                                    IsParchase = a.IsParchase,
-                                    IsSeparateDelivery = a.IsSeparateDelivery,
-                                    EstimatedSale = a.EstimatedSale,
-                                    Note = a.Note
-                                })
-                                .ToList();
-                return results;
-            }
-        }
 
         public List<ReadableSale> SalesList(string customer, string keywords, int staff_Id, string helper, DateTime salesOrderStartDate,
                                             DateTime salesOrderEndDate, DateTime salesStartDate, DateTime salesEndDate)
@@ -463,20 +479,23 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "salesorders", "so0");
-                int[] customer_Ids = new int[2] { NameToId.BusinessPartner(db, customer)[0], NameToId.BusinessPartner(db, customer)[1] };
-                int[] staff_Ids = new int[2] { IdRange.Staff(db, staff_Id)[0], IdRange.Staff(db, staff_Id)[1] };
-                int[] helper_Ids = new int[2] { NameToId.Helper(db, helper)[0], NameToId.Helper(db, helper)[1] };
+                string where = whereString.SearchKeyWhere(db, keywords, "salesorders");
+                int openCustomer_Id = NameToId.BusinessPartner(db, customer)[0];
+                int closeCustomer_Id = NameToId.BusinessPartner(db, customer)[1];
+                int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
+                int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
+                int openHelper_Id = NameToId.Helper(db, helper)[0];
+                int closeHelper_Id = NameToId.Helper(db, helper)[1];
                 List<ReadableSale> readableSales = new List<ReadableSale>();
                 if (where == "Empty")
                 {
                     var anonymous = db.Sales
-                                        .Where(s => s.SalesOrder.Customer_Id >= customer_Ids[0]
-                                                    && s.SalesOrder.Customer_Id <= customer_Ids[1]
-                                                    && s.SalesOrder.ResponsibleStaff_Id >= staff_Ids[0]
-                                                    && s.SalesOrder.ResponsibleStaff_Id <= staff_Ids[1]
-                                                    && s.SalesOrder.Helper_Id >= helper_Ids[0]
-                                                    && s.SalesOrder.Helper_Id <= helper_Ids[1]
+                                        .Where(s => s.SalesOrder.Customer_Id >= openCustomer_Id
+                                                    && s.SalesOrder.Customer_Id <= closeCustomer_Id
+                                                    && s.SalesOrder.ResponsibleStaff_Id >= openStaff_Id
+                                                    && s.SalesOrder.ResponsibleStaff_Id <= closeStaff_Id
+                                                    && s.SalesOrder.Helper_Id >= openHelper_Id
+                                                    && s.SalesOrder.Helper_Id <= closeHelper_Id
                                                     && s.SalesOrder.SalesOrderDate >= salesOrderStartDate
                                                     && s.SalesOrder.SalesOrderDate <= salesOrderEndDate
                                                     && s.SalesDate >= salesStartDate
@@ -598,20 +617,23 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.AssembleProductWhere(db, keywords, "quotations", "qu0");
-                int[] customer_Ids = new int[2] { NameToId.BusinessPartner(db, customer)[0], NameToId.BusinessPartner(db, customer)[1] };
-                int[] staff_Ids = new int[2] { IdRange.Staff(db, staff_Id)[0], IdRange.Staff(db, staff_Id)[1] };
-                int[] helper_Ids = new int[2] { NameToId.Helper(db, helper)[0], NameToId.Helper(db, helper)[1] };
+                string where = whereString.SearchKeyWhere(db, keywords, "quotations");
+                int openCustomer_Id = NameToId.BusinessPartner(db, customer)[0];
+                int closeCustomer_Id = NameToId.BusinessPartner(db, customer)[1];
+                int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
+                int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
+                int openHelper_Id = NameToId.Helper(db, helper)[0];
+                int closeHelper_Id = NameToId.Helper(db, helper)[1];
                 List<ReadableQuotation> readableQuotations = new List<ReadableQuotation>();
                 if (where == "Empty")
                 {
                     var anonymous = db.Quotations
-                                        .Where(q => q.Customer_Id >= customer_Ids[0]
-                                                    && q.Customer_Id <= customer_Ids[1]
-                                                    && q.ResponsibleStaff_Id >= staff_Ids[0]
-                                                    && q.ResponsibleStaff_Id <= staff_Ids[1]
-                                                    && q.Helper_Id >= helper_Ids[0]
-                                                    && q.Helper_Id <= helper_Ids[1]
+                                        .Where(q => q.Customer_Id >= openCustomer_Id
+                                                    && q.Customer_Id <= closeCustomer_Id
+                                                    && q.ResponsibleStaff_Id >= openStaff_Id
+                                                    && q.ResponsibleStaff_Id <= closeStaff_Id
+                                                    && q.Helper_Id >= openHelper_Id
+                                                    && q.Helper_Id <= closeHelper_Id
                                                     && q.SubmissionDate >= startDate
                                                     && q.SubmissionDate <= endDate);
 
@@ -683,12 +705,12 @@ namespace Target19_Relationship.Services.TransactionDatas
                                             });
 
                     readableQuotations = selecter
-                                             .Where(s => s.Customer_Id >= customer_Ids[0]
-                                                    && s.Customer_Id <= customer_Ids[1]
-                                                    && s.ResponsibleStaff_Id >= staff_Ids[0]
-                                                    && s.ResponsibleStaff_Id <= staff_Ids[1]
-                                                    && s.Helper_Id >= helper_Ids[0]
-                                                    && s.Helper_Id <= helper_Ids[1]
+                                             .Where(s => s.Customer_Id >= openCustomer_Id
+                                                    && s.Customer_Id <= closeCustomer_Id
+                                                    && s.ResponsibleStaff_Id >= openStaff_Id
+                                                    && s.ResponsibleStaff_Id <= closeStaff_Id
+                                                    && s.Helper_Id >= openHelper_Id
+                                                    && s.Helper_Id <= closeHelper_Id
                                                     && s.SubmissionDate >= startDate
                                                     && s.SubmissionDate <= endDate)
                                              .ToList();

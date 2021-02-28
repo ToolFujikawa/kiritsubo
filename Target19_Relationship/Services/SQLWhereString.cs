@@ -30,7 +30,7 @@ namespace Target19_Relationship.Services
             return sb.ToString();
         }
 
-        public string ProductAttributeWhere(DefaultConnection db, string keywords)
+        public string SearchKeyWhere(DefaultConnection db, string keywords, string usetable)
         {
             StringBuilder sb = new StringBuilder();
             string[] keywordArray = keywords.Split(new[] { ' ', '　' });
@@ -39,15 +39,15 @@ namespace Target19_Relationship.Services
             {
                 if (i == 0)
                 {
-                    sb.Append(" ra0.SearchKey like '%" + keywordArray[i] + "%'");
+                    sb.Append(" sk.SearchKey like '%" + keywordArray[i] + "%'");
                 }
                 else
                 {
-                    sb.Append(" and ra0.SearchKey like '%" + keywordArray[i] + "%'");
+                    sb.Append(" and sk.SearchKey like '%" + keywordArray[i] + "%'");
                 }
             }
 
-            sb.Insert(0, "select * from readableproductattributes as ra0 where");
+            sb.Insert(0, "select * from" + usetable + " as sk where");
             return sb.ToString();
         }
     }
