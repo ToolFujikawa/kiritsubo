@@ -30,6 +30,7 @@ namespace Target19_Relationship.Models.Views
         [DisplayName("納品場所")]
         public string DeliveryPlace { get; set; }
         public int Product_Id { get; set; }
+        public int Manufacturer_Id { get; set; }
         [DisplayName("商品")]
         public string Product { get; set; }
         [DisplayName("数量")]

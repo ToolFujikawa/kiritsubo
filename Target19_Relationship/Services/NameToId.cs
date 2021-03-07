@@ -33,18 +33,26 @@ namespace Target19_Relationship.Services
         {
             try
             {
-                var result = db.Manufacturers
+                int[] ids = new int[2] { 1, 1 };
+                if (String.IsNullOrEmpty(commonName))
+                {
+                    ids[1] = db.Manufacturers.Max(m => m.Id);
+                    return ids;
+                }
+                else
+                {
+                    ids[0] = db.Manufacturers
                                 .Single(m => m.CommonName == commonName)
                                 .Id;
-                int[] ids = new int[2] { result, result };
-                return ids;
+
+                    ids[1] = db.Manufacturers
+                                .Single(m => m.CommonName == commonName)
+                                .Id;
+                    return ids;
+                }
             }
             catch (Exception)
             {
-                var result = db.Manufacturers
-                                .Max(m => m.Id);
-                int[] ids = new int[2] { 1, result };
-                return ids;
                 throw;
             }
         }
@@ -77,7 +85,7 @@ namespace Target19_Relationship.Services
                 var result = db.Helpers
                                 .Max(h => h.Id);
                 int[] ids = new int[2] { 1, result };
-                return ids ;
+                return ids;
             }
             else
             {

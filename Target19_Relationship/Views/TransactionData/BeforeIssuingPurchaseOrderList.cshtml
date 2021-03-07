@@ -6,14 +6,8 @@
 
 <h2>注文書発行前</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesOrder_Id)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.IsCancel)
         </th>
@@ -83,56 +77,11 @@
         <th>
             @Html.DisplayNameFor(model => model.SalesOrderChanger_Id)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsLater)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesQuantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaxRate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesDetail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DocumentType_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeliveryNoteNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeliveryStatus_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InvoiceNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BilledDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesNote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesRecorder_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesChanger_Id)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesOrder_Id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsCancel)
         </td>
@@ -201,48 +150,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SalesOrderChanger_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsLater)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesQuantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaxRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesDetail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocumentType_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryNoteNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryStatus_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoiceNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BilledDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesNote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesRecorder_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesChanger_Id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
