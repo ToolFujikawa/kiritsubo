@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Target19_Relationship.Models.Details;
 using Target19_Relationship.Models.Tables;
 using Target19_Relationship.Models.Views;
 
@@ -40,13 +41,13 @@ namespace Target19_Relationship.Models
         public virtual DbSet<BeforeIssuingPurchaseOrder> BeforeIssuingPurchaseOrders { get; set; }
         public virtual DbSet<BeforeWarehousing> BeforeWarehousings { get; set; }
         public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
+        public virtual DbSet<ReadableProduct> ReadableProducts { get; set; }
         public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Views.ReadableGoodsReceipt> ReadableGoodsReceipts { get; set; }
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableJournal> ReadableJournals { get; set; }
-
-        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadablePurchase> ReadablePurchases { get; set; }
-
-        public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableSale> ReadableSales { get; set; }
+        public virtual DbSet<ReadablePurchase> ReadablePurchases { get; set; }
+        public virtual DbSet<ReadableQuotation> ReadableQuotations { get; set; }
+        public virtual DbSet<ReadableSale> ReadableSales { get; set; }
         /*
 public virtual DbSet<ProductList> ProductLists { get; set; }
 public virtual DbSet<AddProductAttribute> InputProductAttributes { get; set; }

@@ -7,6 +7,7 @@
 
 <div class="form-inline">
     @Html.AutoCompleteBox("businesspartner", "販売先")
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
     @Html.SearchBox("商品キーワード")
     @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
     @Html.AutoCompleteBox("helper", "販売先担当者")
@@ -33,11 +34,11 @@
                 if (endDate == '') {
                     endDate = '9999/12/31 00:00:00';
                 };
-                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
-                $('#autocompletehelper').val(), startDate, endDate];
+                let str = [$('#autocompletebusinesspartner').val(), $('#autocompletemanufacturer').val(), $('#searchtext').val(),
+                            $('#ResponsibleStaffSelectOptions').val(), $('#autocompletehelper').val(), startDate, endDate];
                 $('#result').load('/TransactionData/QuotationContent', {
-                    customer: str[0], keywords: str[1], staff_Id: str[2], helper: str[3],
-                    startDate: str[4], endDate: str[5]
+                    customer: str[0], manufacturer: str[1], keywords: str[2], staff_Id: str[3], helper: str[4],
+                    startDate: str[5], endDate: str[6]
                 });
             });
         });

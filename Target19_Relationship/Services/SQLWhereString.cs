@@ -37,27 +37,6 @@ namespace Target19_Relationship.Services
             return sb.ToString();
         }
 
-        public string SearchKeyWhere(DefaultConnection db, string keywords, string usetable)
-        {
-            StringBuilder sb = new StringBuilder();
-            string[] keywordArray = keywords.Split(new[] { ' ', '　' });
-
-            for (int i = 0; i < keywordArray.Count(); i++)
-            {
-                if (i == 0)
-                {
-                    sb.Append(" sk.SearchKey like '%" + keywordArray[i] + "%'");
-                }
-                else
-                {
-                    sb.Append(" and sk.SearchKey like '%" + keywordArray[i] + "%'");
-                }
-            }
-            string selectStatement = this.Column<ReadableGoodsIssue>().TrimEnd(',', ' ');
-            sb.Insert(0, selectStatement + " from " + usetable + " as sk where");
-            return sb.ToString();
-        }
-
         public string SearchKeyWhere<TElement>(DefaultConnection db, string keywords)
         {
             StringBuilder sb = new StringBuilder();
@@ -76,7 +55,7 @@ namespace Target19_Relationship.Services
             }
 
             Type t = typeof(TElement);
-            string tableName = t.Name.ToLower() + "s";
+            string tableName = Pluralize.Plural(t.Name.ToLower());
             string selectStatement = this.Column<TElement>().TrimEnd(',', ' ');
             sb.Insert(0, selectStatement + " from " + tableName + " where");
             return sb.ToString();

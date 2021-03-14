@@ -11,9 +11,14 @@ namespace Target19_Relationship.Models.Tables
 {
     public partial class Manufacturer : CreationRecord
     {
+        const string str = "[^ａ-ｚＡ-Ｚ０-９ｱ-ﾝ]" + 
+                            "㈱" + 
+                            "*";
+
         public int Id { get; set; }
 
         [DisplayName("正式社名")]
+        [RegularExpression(str, ErrorMessage = "{0}に全角英数、半角カタカナ文字は使用できません。")]
         public string FormalName { get; set; }
 
         [DisplayName("一般社名")]
@@ -48,13 +53,13 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("ホームページ")]
         public string WebSite { get; set; }
-        
+
         [DisplayName("Eメールアドレス")]
         public string EmailAddress { get; set; }
 
         [DisplayName("備考")]
         public string Note { get; set; }
-        
+
         [DisplayName("FIMS_Id")]
         public string FIMS_Id { get; set; }
 

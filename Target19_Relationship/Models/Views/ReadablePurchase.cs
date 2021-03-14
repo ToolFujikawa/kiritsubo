@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using static Target19_Relationship.Models.Enums;
 
-namespace Target19_Relationship.Models.Details
+namespace Target19_Relationship.Models.Views
 {
-    public class ReadablePurchase
+    public partial class ReadablePurchase
     {
         public int Id { get; set; }
 
@@ -18,6 +18,8 @@ namespace Target19_Relationship.Models.Details
         [DisplayName("仕入先")]
         public string Supplier { get; set; }
 
+        public int Manufacturer_Id { get; set; }
+
         [DisplayName("メーカーId")]
         public int Product_Id { get; set; }
 
@@ -26,6 +28,9 @@ namespace Target19_Relationship.Models.Details
 
         [DisplayName("発注数")]
         public int PurchaseOrderQuantity { get; set; }
+
+        [DisplayName("取引単位")]
+        public string Unit { get; set; }
 
         [DisplayName("発注詳細")]
         public string Detail { get; set; }

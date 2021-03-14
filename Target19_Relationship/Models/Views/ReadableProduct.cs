@@ -6,28 +6,22 @@ using System.Linq;
 using System.Web;
 using static Target19_Relationship.Models.Enums;
 
-namespace Target19_Relationship.Models.Details
+namespace Target19_Relationship.Models.Views
 {
-    public class DetailProduct : CreationRecord
+    public partial class ReadableProduct : CreationRecord
     {
         public int Id { get; set; }
-
-        public int Manufacturer_Id { get; set; }
-
-        [DisplayName("メーカー")]
-        public string Manufacturer { get; set; }
 
         [DisplayName("未確定商品名")]
         public string Pseudonym { get; set; }
 
-        [DisplayName("品名")]
-        public string ProductName { get; set; }
+        public int Manufacturer_Id { get; set; }
 
-        [DisplayName("材質")]
-        public string Material { get; set; }
+        [DisplayName("商品")]
+        public string Product { get; set; }
 
-        [DisplayName("型式")]
-        public string Model { get; set; }
+        [DisplayName("取引単位")]
+        public string Unit { get; set; }
 
         [DisplayName("在庫量")]
         public int Quantity { get; set; }
@@ -40,9 +34,6 @@ namespace Target19_Relationship.Models.Details
 
         [DisplayName("適用税率")]
         public int TaxRate { get; set; }
-
-        [DisplayName("取引単位")]
-        public string Unit { get; set; }
 
         [DisplayName("原価")]
         public decimal Cost { get; set; }

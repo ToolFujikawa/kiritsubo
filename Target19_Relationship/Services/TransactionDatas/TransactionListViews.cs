@@ -29,7 +29,7 @@ namespace Target19_Relationship.Services.TransactionDatas
                 if (!String.IsNullOrEmpty(keywords))
                 {
                     SQLWhereString whereString = new SQLWhereString();
-                    string where = whereString.SearchKeyWhere(db, keywords, "beforedeliveries");
+                    string where = whereString.SearchKeyWhere<BeforeDelivery>(db, keywords);
                     string[] keywordArray = keywords.Split(new[] { ' ', '　' });
                     beforeDeliveries = db.Database
                                             .SqlQuery<BeforeDelivery>(where)
@@ -90,7 +90,7 @@ namespace Target19_Relationship.Services.TransactionDatas
                 if (!String.IsNullOrEmpty(keywords))
                 {
                     SQLWhereString whereString = new SQLWhereString();
-                    string where = whereString.SearchKeyWhere(db, keywords, "beforewarehousings");
+                    string where = whereString.SearchKeyWhere<BeforeWarehousing>(db, keywords);
                     beforeWarehousings = db.Database
                                             .SqlQuery<BeforeWarehousing>(where)
                                             .ToList();
@@ -171,7 +171,7 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.SearchKeyWhere(db, keywords, "goodsreceipts");
+                string where = whereString.SearchKeyWhere<ReadableGoodsIssue>(db, keywords);
                 int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
                 int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
                 if (where == "Empty")
@@ -300,7 +300,6 @@ namespace Target19_Relationship.Services.TransactionDatas
             }
         }
 
-
         public List<ReadablePurchase> PurchaseList(string supplier, string keywords, int staff_Id,
                                                     DateTime purchaseStartDate, DateTime purchaseEndDate,
                                                     DateTime receiptStartDate, DateTime receiptEndDate)
@@ -308,361 +307,153 @@ namespace Target19_Relationship.Services.TransactionDatas
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.SearchKeyWhere(db, keywords, "purchaseorders");
+                string where = whereString.SearchKeyWhere<ReadablePurchase>(db, keywords);
                 int openSupplier_Id = NameToId.BusinessPartner(db, supplier)[0];
                 int closeSupplier_Id = NameToId.BusinessPartner(db, supplier)[1];
                 int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
                 int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
                 List<ReadablePurchase> readablePurchases = new List<ReadablePurchase>();
-                if (where == "Empty")//商品データ数が多数に上るため商品抽出をSQLで実行
+
+                if (!String.IsNullOrEmpty(keywords))
                 {
-                    var anonymous = db.Purchases
-                                        .Where(p => p.PurchaseOrder.Supplier_Id >= openSupplier_Id
-                                                    && p.PurchaseOrder.Supplier_Id <= closeSupplier_Id
-                                                    && p.PurchaseOrder.ResponsibleStaff_Id >= openStaff_Id
-                                                    && p.PurchaseOrder.ResponsibleStaff_Id <= closeStaff_Id
-                                                    && p.PurchaseOrder.PurchaseDate >= purchaseStartDate
-                                                    && p.PurchaseOrder.PurchaseDate <= purchaseEndDate
-                                                    && p.ReceiptDate >= receiptStartDate
-                                                    && p.ReceiptDate <= receiptEndDate);
-                    readablePurchases = anonymous
-                                        .Select(a => new ReadablePurchase
-                                        {
-                                            Id = a.Id,//Purchase
-                                            Supplier_Id = a.PurchaseOrder.Supplier_Id,
-                                            Supplier = a.PurchaseOrder.BusinessPartner.CommonName,
-                                            Product_Id = a.PurchaseOrder.Product_Id,
-                                            Product = a.PurchaseOrder.Product.Manufacturer.CommonName + " "
-                                                        + a.PurchaseOrder.Product.ProductName + " "
-                                                        + a.PurchaseOrder.Product.Material + " "
-                                                        + a.PurchaseOrder.Product.Model,
-                                            PurchaseOrderQuantity = a.PurchaseOrder.Quantity,
-                                            Detail = a.PurchaseOrder.Detail,
-                                            ResponsibleStaff_Id = a.PurchaseOrder.ResponsibleStaff_Id,
-                                            ResponsibleStaff = a.PurchaseOrder.ResponsibleStaff.LastName +
-                                                                a.PurchaseOrder.ResponsibleStaff.FirstName,
-                                            PurchaseDate = a.PurchaseOrder.PurchaseDate,
-                                            PurchaseMethod_Id = a.PurchaseOrder.PurchaseMethod_Id,
-                                            DeliveryDate = a.PurchaseOrder.DeliveryDate,
-                                            DeliveryDateInstruction_Id = a.PurchaseOrder.DeliveryDateInstruction_Id,
-                                            AskingPrice = a.PurchaseOrder.AskingPrice,
-                                            PurchaseOrderNote = a.PurchaseOrder.Note,
-                                            SalesOrder_Id = a.PurchaseOrder.SalesOrder_Id,
-                                            SalesOrderDetail = a.PurchaseOrder.SalesOrderDetail,
-                                            IsCancel = a.PurchaseOrder.IsCancel,
-                                            PurchaseOrderRecorder_Id = a.PurchaseOrder.Recorder_Id,
-                                            PurchaseOrderChanger_Id = a.PurchaseOrder.Changer_Id,
-                                            PurchaseOrderFIMS_Id = a.PurchaseOrder.FIMS_Id,
-                                            PurchaseOrder_Id = a.PurchaseOrder_Id,
-                                            ReceiptDate = a.ReceiptDate,
-                                            BilledDate = a.BilledDate,
-                                            PurchaseQuantity = a.Quantity,
-                                            UnitPrice = a.UnitPrice,
-                                            TaxRate = a.TaxRate,
-                                            PurchaseNote = a.Note,
-                                            PurchaseFIMS_Id = a.FIMS_Id
-                                        })
-                                        .ToList();
-                    return readablePurchases;
+                    readablePurchases = db.Database
+                                            .SqlQuery<ReadablePurchase>(where)
+                                            .ToList();
+                    return readablePurchases
+                            .Where(p => p.Supplier_Id >= openSupplier_Id
+                                        && p.Supplier_Id <= closeSupplier_Id
+                                        && p.ResponsibleStaff_Id >= openStaff_Id
+                                        && p.ResponsibleStaff_Id <= closeStaff_Id
+                                        && p.PurchaseDate >= purchaseStartDate
+                                        && p.PurchaseDate <= purchaseEndDate
+                                        && p.ReceiptDate >= receiptStartDate
+                                        && p.ReceiptDate <= receiptEndDate)
+                             .ToList();
                 }
                 else
                 {
-                    var anonymous = db.Database
-                                        .SqlQuery<Purchase>(where);
-
-                    readablePurchases = anonymous
-                                        .Where(a => a.PurchaseOrder.Supplier_Id >= openSupplier_Id
-                                                    && a.PurchaseOrder.Supplier_Id <= closeSupplier_Id
-                                                    && a.PurchaseOrder.ResponsibleStaff_Id >= openStaff_Id
-                                                    && a.PurchaseOrder.ResponsibleStaff_Id <= closeStaff_Id
-                                                    && a.PurchaseOrder.PurchaseDate >= purchaseStartDate
-                                                    && a.PurchaseOrder.PurchaseDate <= purchaseEndDate
-                                                    && a.ReceiptDate >= receiptStartDate
-                                                    && a.ReceiptDate <= receiptEndDate)
-                                        .Select(a => new ReadablePurchase
-                                        {
-                                            Id = a.Id,//Purchase
-                                            Supplier_Id = a.PurchaseOrder.Supplier_Id,
-                                            Supplier = a.PurchaseOrder.BusinessPartner.CommonName,
-                                            Product_Id = a.PurchaseOrder.Product_Id,
-                                            Product = a.PurchaseOrder.Product.Manufacturer.CommonName + " "
-                                                        + a.PurchaseOrder.Product.ProductName + " "
-                                                        + a.PurchaseOrder.Product.Material + " "
-                                                        + a.PurchaseOrder.Product.Model,
-                                            PurchaseOrderQuantity = a.PurchaseOrder.Quantity,
-                                            Detail = a.PurchaseOrder.Detail,
-                                            ResponsibleStaff_Id = a.PurchaseOrder.ResponsibleStaff_Id,
-                                            ResponsibleStaff = a.PurchaseOrder.ResponsibleStaff.LastName +
-                                                                a.PurchaseOrder.ResponsibleStaff.FirstName,
-                                            PurchaseDate = a.PurchaseOrder.PurchaseDate,
-                                            PurchaseMethod_Id = a.PurchaseOrder.PurchaseMethod_Id,
-                                            DeliveryDate = a.PurchaseOrder.DeliveryDate,
-                                            DeliveryDateInstruction_Id = a.PurchaseOrder.DeliveryDateInstruction_Id,
-                                            AskingPrice = a.PurchaseOrder.AskingPrice,
-                                            PurchaseOrderNote = a.PurchaseOrder.Note,
-                                            SalesOrder_Id = a.PurchaseOrder.SalesOrder_Id,
-                                            SalesOrderDetail = a.PurchaseOrder.SalesOrderDetail,
-                                            IsCancel = a.PurchaseOrder.IsCancel,
-                                            PurchaseOrderRecorder_Id = a.PurchaseOrder.Recorder_Id,
-                                            PurchaseOrderChanger_Id = a.PurchaseOrder.Changer_Id,
-                                            PurchaseOrderFIMS_Id = a.PurchaseOrder.FIMS_Id,
-                                            PurchaseOrder_Id = a.PurchaseOrder_Id,
-                                            ReceiptDate = a.ReceiptDate,
-                                            BilledDate = a.BilledDate,
-                                            PurchaseQuantity = a.Quantity,
-                                            UnitPrice = a.UnitPrice,
-                                            TaxRate = a.TaxRate,
-                                            PurchaseNote = a.Note,
-                                            PurchaseFIMS_Id = a.FIMS_Id
-                                        })
-                                        .ToList();
+                    readablePurchases = db.ReadablePurchases
+                                            .Where(p => p.Supplier_Id >= openSupplier_Id
+                                                        && p.Supplier_Id <= closeSupplier_Id
+                                                        && p.ResponsibleStaff_Id >= openStaff_Id
+                                                        && p.ResponsibleStaff_Id <= closeStaff_Id
+                                                        && p.PurchaseDate >= purchaseStartDate
+                                                        && p.PurchaseDate <= purchaseEndDate
+                                                        && p.ReceiptDate >= receiptStartDate)
+                                            .ToList();
                     return readablePurchases;
                 }
             }
         }
 
 
-        public List<ReadableSale> SalesList(string customer, string keywords, int staff_Id, string helper, DateTime salesOrderStartDate,
-                                            DateTime salesOrderEndDate, DateTime salesStartDate, DateTime salesEndDate)
+        public List<ReadableSale> SalesList(string customer, string manufacturer, string keywords, int staff_Id, string helper,
+                                            DateTime salesOrderStartDate, DateTime salesOrderEndDate, DateTime salesStartDate,
+                                            DateTime salesEndDate)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.SearchKeyWhere(db, keywords, "salesorders");
+                string where = whereString.SearchKeyWhere<ReadableSale>(db, keywords);
                 int openCustomer_Id = NameToId.BusinessPartner(db, customer)[0];
                 int closeCustomer_Id = NameToId.BusinessPartner(db, customer)[1];
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
                 int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
                 int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
                 int openHelper_Id = NameToId.Helper(db, helper)[0];
                 int closeHelper_Id = NameToId.Helper(db, helper)[1];
                 List<ReadableSale> readableSales = new List<ReadableSale>();
-                if (where == "Empty")
+                if (!String.IsNullOrEmpty(keywords))
                 {
-                    var anonymous = db.Sales
-                                        .Where(s => s.SalesOrder.Customer_Id >= openCustomer_Id
-                                                    && s.SalesOrder.Customer_Id <= closeCustomer_Id
-                                                    && s.SalesOrder.ResponsibleStaff_Id >= openStaff_Id
-                                                    && s.SalesOrder.ResponsibleStaff_Id <= closeStaff_Id
-                                                    && s.SalesOrder.Helper_Id >= openHelper_Id
-                                                    && s.SalesOrder.Helper_Id <= closeHelper_Id
-                                                    && s.SalesOrder.SalesOrderDate >= salesOrderStartDate
-                                                    && s.SalesOrder.SalesOrderDate <= salesOrderEndDate
-                                                    && s.SalesDate >= salesStartDate
-                                                    && s.SalesDate <= salesEndDate);
-
-                    readableSales = anonymous
-                                    .Select(a => new ReadableSale
-                                    {
-                                        Id = a.Id,
-                                        SalesOrder_Id = a.SalesOrder_Id,
-                                        IsCancel = a.SalesOrder.IsCancel,
-                                        IsExclusiveDeliveryNote = a.SalesOrder.IsExclusiveDeliveryNote,
-                                        SalesOrderDetail = a.SalesOrder.Detail,
-                                        SalesOrderResponsibleStaff_Id = a.SalesOrder.ResponsibleStaff_Id,
-                                        SalesOrderResponsibleStaff = a.SalesOrder.ResponsibleStaff.LastName + a.SalesOrder.ResponsibleStaff.FirstName,
-                                        Helper_Id = a.SalesOrder.Helper_Id,
-                                        Helper = a.SalesOrder.Helper.LastName + a.SalesOrder.Helper.FirstName,
-                                        Customer_Id = a.SalesOrder.Customer_Id,
-                                        Customer = a.SalesOrder.BusinessPartner.CommonName,
-                                        DeliveryPlace_Id = a.SalesOrder.DeliveryPlace_Id,
-                                        DeliveryPlace = a.SalesOrder.DeliveryPlace.Location,
-                                        Product_Id = a.SalesOrder.Product_Id,
-                                        Product = a.SalesOrder.Product.Manufacturer.CommonName + " "
-                                                        + a.SalesOrder.Product.ProductName + " "
-                                                        + a.SalesOrder.Product.Material + " "
-                                                        + a.SalesOrder.Product.Model,
-                                        SalesOrderQuantity = a.SalesOrder.Quantity,
-                                        SalesOrderUnit = a.SalesOrder.Product.TransactionUnit.Unit,
-                                        SalesOrderDate = a.SalesOrder.SalesOrderDate,
-                                        OrderMainNo = a.SalesOrder.OrderMainNo,
-                                        OrderBranchNo = a.SalesOrder.OrderBranchNo,
-                                        IsParchase = a.SalesOrder.IsParchase,
-                                        IsSeparateDelivery = a.SalesOrder.IsSeparateDelivery,
-                                        EstimatedSale = a.SalesOrder.EstimatedSale,
-                                        SaleOrderNote = a.SalesOrder.Note,
-                                        SalesOrderRecorder_Id = a.SalesOrder.Recorder_Id,
-                                        SalesChanger_Id = a.SalesOrder.Changer_Id,
-                                        IsLater = a.IsLater,
-                                        SalesQuantity = a.Quantity,
-                                        SalesUnit = a.SalesOrder.Product.TransactionUnit.Unit,
-                                        UnitPrice = a.UnitPrice,
-                                        TaxRate = a.TaxRate,
-                                        SalesDate = a.SalesDate,
-                                        SalesDetail = a.Detail,
-                                        DocumentType_Id = a.DocumentType_Id,
-                                        DeliveryNoteNo = a.DeliveryNoteNo,
-                                        DeliveryStatus_Id = a.DeliveryStatus_Id,
-                                        InvoiceNo = a.InvoiceNo,
-                                        BilledDate = a.BilledDate,
-                                        SalesNote = a.Note,
-                                        SalesRecorder_Id = a.Recorder_Id,
-                                        SalesOrderChanger_Id = a.Changer_Id
-                                    })
-                                    .ToList();
-                    return readableSales;
+                    readableSales = db.Database
+                                        .SqlQuery<ReadableSale>(where)
+                                        .ToList();
+                    return readableSales
+                              .Where(rs => rs.Customer_Id >= openCustomer_Id
+                                      && rs.Customer_Id <= closeCustomer_Id
+                                      && rs.Manufacturer_Id >= openManufacturer_Id
+                                      && rs.Manufacturer_Id <= closeManufacturer_Id
+                                      && rs.ResponsibleStaff_Id >= openStaff_Id
+                                      && rs.ResponsibleStaff_Id <= closeStaff_Id
+                                      && rs.Helper_Id >= openHelper_Id
+                                      && rs.Helper_Id <= closeHelper_Id
+                                      && rs.SalesOrderDate >= salesOrderStartDate
+                                      && rs.SalesOrderDate <= salesOrderEndDate
+                                      && rs.SalesDate >= salesStartDate
+                                      && rs.SalesDate <= salesEndDate)
+                              .ToList();
                 }
                 else
                 {
-                    var anonymous = db.Database
-                                        .SqlQuery<Sale>(where);
+                    readableSales = db.ReadableSales
+                                        .Where(rs => rs.Customer_Id >= openCustomer_Id
+                                        && rs.Customer_Id <= closeCustomer_Id
+                                        && rs.Manufacturer_Id >= openManufacturer_Id
+                                        && rs.Manufacturer_Id <= closeManufacturer_Id
+                                        && rs.ResponsibleStaff_Id >= openStaff_Id
+                                        && rs.ResponsibleStaff_Id <= closeStaff_Id
+                                        && rs.Helper_Id >= openHelper_Id
+                                        && rs.Helper_Id <= closeHelper_Id
+                                        && rs.SalesOrderDate >= salesOrderStartDate
+                                        && rs.SalesOrderDate <= salesOrderEndDate
+                                        && rs.SalesDate >= salesStartDate
+                                        && rs.SalesDate <= salesEndDate)
+                                .ToList();
 
-                    readableSales = anonymous
-                                    .Select(a => new ReadableSale
-                                    {
-                                        Id = a.Id,
-                                        SalesOrder_Id = a.SalesOrder_Id,
-                                        IsCancel = a.SalesOrder.IsCancel,
-                                        IsExclusiveDeliveryNote = a.SalesOrder.IsExclusiveDeliveryNote,
-                                        SalesOrderDetail = a.SalesOrder.Detail,
-                                        SalesOrderResponsibleStaff_Id = a.SalesOrder.ResponsibleStaff_Id,
-                                        SalesOrderResponsibleStaff = a.SalesOrder.ResponsibleStaff.LastName + a.SalesOrder.ResponsibleStaff.FirstName,
-                                        Helper_Id = a.SalesOrder.Helper_Id,
-                                        Helper = a.SalesOrder.Helper.LastName + a.SalesOrder.Helper.FirstName,
-                                        Customer_Id = a.SalesOrder.Customer_Id,
-                                        Customer = a.SalesOrder.BusinessPartner.CommonName,
-                                        DeliveryPlace_Id = a.SalesOrder.DeliveryPlace_Id,
-                                        DeliveryPlace = a.SalesOrder.DeliveryPlace.Location,
-                                        Product_Id = a.SalesOrder.Product_Id,
-                                        Product = a.SalesOrder.Product.Manufacturer.CommonName + " "
-                                                        + a.SalesOrder.Product.ProductName + " "
-                                                        + a.SalesOrder.Product.Material + " "
-                                                        + a.SalesOrder.Product.Model,
-                                        SalesOrderQuantity = a.SalesOrder.Quantity,
-                                        SalesOrderUnit = a.SalesOrder.Product.TransactionUnit.Unit,
-                                        SalesOrderDate = a.SalesOrder.SalesOrderDate,
-                                        OrderMainNo = a.SalesOrder.OrderMainNo,
-                                        OrderBranchNo = a.SalesOrder.OrderBranchNo,
-                                        IsParchase = a.SalesOrder.IsParchase,
-                                        IsSeparateDelivery = a.SalesOrder.IsSeparateDelivery,
-                                        EstimatedSale = a.SalesOrder.EstimatedSale,
-                                        SaleOrderNote = a.SalesOrder.Note,
-                                        SalesOrderRecorder_Id = a.SalesOrder.Recorder_Id,
-                                        SalesChanger_Id = a.SalesOrder.Changer_Id,
-                                        IsLater = a.IsLater,
-                                        SalesQuantity = a.Quantity,
-                                        SalesUnit = a.SalesOrder.Product.TransactionUnit.Unit,
-                                        UnitPrice = a.UnitPrice,
-                                        TaxRate = a.TaxRate,
-                                        SalesDate = a.SalesDate,
-                                        SalesDetail = a.Detail,
-                                        DocumentType_Id = a.DocumentType_Id,
-                                        DeliveryNoteNo = a.DeliveryNoteNo,
-                                        DeliveryStatus_Id = a.DeliveryStatus_Id,
-                                        InvoiceNo = a.InvoiceNo,
-                                        BilledDate = a.BilledDate,
-                                        SalesNote = a.Note,
-                                        SalesRecorder_Id = a.Recorder_Id,
-                                        SalesOrderChanger_Id = a.Changer_Id
-                                    })
-                                    .ToList();
                     return readableSales;
                 }
             }
         }
 
-        public List<ReadableQuotation> QuotationList(string customer, string keywords, int staff_Id, string helper,
+        public List<ReadableQuotation> QuotationList(string customer, string manufacturer, string keywords, int staff_Id, string helper,
                                                         DateTime startDate, DateTime endDate)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
                 SQLWhereString whereString = new SQLWhereString();
-                string where = whereString.SearchKeyWhere(db, keywords, "quotations");
+                string where = whereString.SearchKeyWhere<ReadableQuotation>(db, keywords);
                 int openCustomer_Id = NameToId.BusinessPartner(db, customer)[0];
                 int closeCustomer_Id = NameToId.BusinessPartner(db, customer)[1];
+                int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
+                int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
                 int openStaff_Id = IdRange.Staff(db, staff_Id)[0];
                 int closeStaff_Id = IdRange.Staff(db, staff_Id)[1];
                 int openHelper_Id = NameToId.Helper(db, helper)[0];
                 int closeHelper_Id = NameToId.Helper(db, helper)[1];
                 List<ReadableQuotation> readableQuotations = new List<ReadableQuotation>();
-                if (where == "Empty")
+                if (!String.IsNullOrEmpty(keywords))
                 {
-                    var anonymous = db.Quotations
-                                        .Where(q => q.Customer_Id >= openCustomer_Id
-                                                    && q.Customer_Id <= closeCustomer_Id
-                                                    && q.ResponsibleStaff_Id >= openStaff_Id
-                                                    && q.ResponsibleStaff_Id <= closeStaff_Id
-                                                    && q.Helper_Id >= openHelper_Id
-                                                    && q.Helper_Id <= closeHelper_Id
-                                                    && q.SubmissionDate >= startDate
-                                                    && q.SubmissionDate <= endDate);
-
-                    readableQuotations = anonymous
-                                    .Select(a => new ReadableQuotation
-                                    {
-                                        Id = a.Id,
-                                        IsCancel = a.IsCancel,
-                                        InputDate = a.InputDate,
-                                        ContactOutgoingDate = a.ContactOutgoingDate,
-                                        EstimateNo = a.EstimateNo,
-                                        Detail = a.Detail,
-                                        ResponsibleStaff_Id = a.ResponsibleStaff_Id,
-                                        ResponsibleStaff = a.ResponsibleStaff.LastName + a.ResponsibleStaff.FirstName,
-                                        Helper_Id = a.Helper_Id,
-                                        Helper = a.Helper.LastName + a.Helper.FirstName,
-                                        Customer_Id = a.Customer_Id,
-                                        Customer = a.BusinessPartner.CommonName,
-                                        ValidityPeriod = a.ValidityPeriod,
-                                        PaymentTerm = a.PaymentTerm,
-                                        SubmissionDate = a.SubmissionDate,
-                                        Product_Id = a.Product_Id,
-                                        Product = a.Product.Manufacturer.CommonName + " "
-                                                        + a.Product.ProductName + " "
-                                                        + a.Product.Material + " "
-                                                        + a.Product.Model,
-                                        Quantity = a.Quantity,
-                                        Unit = a.Product.TransactionUnit.Unit,
-                                        UnitPrice = a.UnitPrice,
-                                        Arrival = a.Arrival,
-                                        Note = a.Note
-                                    })
-                                    .ToList();
-                    return readableQuotations;
+                    readableQuotations = db.Database
+                                            .SqlQuery<ReadableQuotation>(where)
+                                            .ToList();
+                    return readableQuotations
+                            .Where(rq => rq.Customer_Id >= openCustomer_Id
+                                        && rq.Customer_Id <= closeCustomer_Id
+                                        && rq.Manufacturer_Id >= openManufacturer_Id
+                                        && rq.Manufacturer_Id <= closeManufacturer_Id
+                                        && rq.Helper_Id >= openHelper_Id
+                                        && rq.Helper_Id <= closeHelper_Id
+                                        && rq.ResponsibleStaff_Id >= openStaff_Id
+                                        && rq.ResponsibleStaff_Id <= closeStaff_Id
+                                        && rq.SubmissionDate >= startDate
+                                        && rq.SubmissionDate <= endDate)
+                            .ToList();
                 }
                 else
                 {
-                    var anonymous = db.Database
-                                        .SqlQuery<Quotation>(where);
-
-                    var selecter = anonymous
-                                            .Select(a => new ReadableQuotation
-                                            {
-                                                Id = a.Id,
-                                                IsCancel = a.IsCancel,
-                                                InputDate = a.InputDate,
-                                                ContactOutgoingDate = a.ContactOutgoingDate,
-                                                EstimateNo = a.EstimateNo,
-                                                Detail = a.Detail,
-                                                ResponsibleStaff_Id = a.ResponsibleStaff_Id,
-                                                ResponsibleStaff = a.ResponsibleStaff.LastName + a.ResponsibleStaff.FirstName,
-                                                Helper_Id = a.Helper_Id,
-                                                Helper = a.Helper.LastName + a.Helper.FirstName,
-                                                Customer_Id = a.Customer_Id,
-                                                Customer = a.BusinessPartner.CommonName,
-                                                ValidityPeriod = a.ValidityPeriod,
-                                                PaymentTerm = a.PaymentTerm,
-                                                SubmissionDate = a.SubmissionDate,
-                                                Product_Id = a.Product_Id,
-                                                Product = a.Product.Manufacturer.CommonName + " "
-                                                        + a.Product.ProductName + " "
-                                                        + a.Product.Material + " "
-                                                        + a.Product.Model,
-                                                Quantity = a.Quantity,
-                                                Unit = a.Product.TransactionUnit.Unit,
-                                                UnitPrice = a.UnitPrice,
-                                                Arrival = a.Arrival,
-                                                Note = a.Note
-                                            });
-
-                    readableQuotations = selecter
-                                             .Where(s => s.Customer_Id >= openCustomer_Id
-                                                    && s.Customer_Id <= closeCustomer_Id
-                                                    && s.ResponsibleStaff_Id >= openStaff_Id
-                                                    && s.ResponsibleStaff_Id <= closeStaff_Id
-                                                    && s.Helper_Id >= openHelper_Id
-                                                    && s.Helper_Id <= closeHelper_Id
-                                                    && s.SubmissionDate >= startDate
-                                                    && s.SubmissionDate <= endDate)
-                                             .ToList();
+                    readableQuotations = db.ReadableQuotations
+                                            .Where(rq => rq.Customer_Id >= openCustomer_Id
+                                                        && rq.Customer_Id <= closeCustomer_Id
+                                                        && rq.Manufacturer_Id >= openManufacturer_Id
+                                                        && rq.Manufacturer_Id <= closeManufacturer_Id
+                                                        && rq.Helper_Id >= openHelper_Id
+                                                        && rq.Helper_Id <= closeHelper_Id
+                                                        && rq.ResponsibleStaff_Id >= openStaff_Id
+                                                        && rq.ResponsibleStaff_Id <= closeStaff_Id
+                                                        && rq.SubmissionDate >= startDate
+                                                        && rq.SubmissionDate <= endDate)
+                                            .ToList();
                     return readableQuotations;
                 }
             }

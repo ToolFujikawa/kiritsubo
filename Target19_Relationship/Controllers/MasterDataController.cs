@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Target19_Relationship.Models.Tables;
 using Target19_Relationship.Services.MasterDatas;
 
 namespace Target19_Relationship.Controllers
@@ -83,6 +84,18 @@ namespace Target19_Relationship.Controllers
         {
             MasterListViews listViews = new MasterListViews();
             return View(listViews.Helpers());
+        }
+
+        public ActionResult ManufacturerCreate()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManufacturerCreate([Bind(Include = "FormalName")] Manufacturer manufacturer)
+        {
+            return View();
         }
 
         public ActionResult ManufacturerList()

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadablePurchase>
+﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadablePurchase>
 @{
     ViewBag.Title = "PurchaseList";
 }
@@ -7,6 +7,7 @@
 
 <div class="form-inline">
     @Html.AutoCompleteBox("businesspartner", "仕入先")
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
     @Html.SearchBox("商品キーワード")
     @Html.DropDownList("ResponsibleStaffSelectOptions", null, htmlAttributes: new { @class = "form-control" })
     <p>
@@ -30,6 +31,9 @@
 @section scripts{
     <script>
         $(function () {
+            $('#autocompletemanufacturer').autocomplete({
+                source: '/NameValue/Manufacturer'
+            });
             $('#dateinputstart').datepicker();
             $('#dateinputend').datepicker();
             $('button[name="search"]').click(function (e) {
@@ -50,13 +54,15 @@
 
                     default:
                 };
-                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
-                            purchaseStratDate, purchaseEndDate, receiptStratDate, receiptEndDate];
+                let str = [$('#autocompletebusinesspartner').val(), $('#autocompletemanufacturer').val(),
+                $('#searchtext').val(), $('#ResponsibleStaffSelectOptions').val(),
+                    purchaseStratDate, purchaseEndDate, receiptStratDate, receiptEndDate];
                 $('#result').load('/TransactionData/PurchaseContent', {
-                    supplier: str[0], keywords: str[1], staff_Id: str[2],
-                    purchaseStartDate: str[3], purchaseEndDate: str[4], receiptStartDate: str[5], receiptEndDate: str[6]
+                    supplier: str[0], manufacturer: str[1], keywords: str[2], staff_Id: str[3],
+                    purchaseStartDate: str[4], purchaseEndDate: str[5], receiptStartDate: str[6], receiptEndDate: str[7]
                 });
             });
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

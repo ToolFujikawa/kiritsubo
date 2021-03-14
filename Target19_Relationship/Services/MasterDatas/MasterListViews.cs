@@ -204,7 +204,7 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
-        public List<DetailProduct> Products(string manufacturer, string keywords)
+        public List<ReadableProduct> Products(string manufacturer, string keywords)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
@@ -212,88 +212,31 @@ namespace Target19_Relationship.Services.MasterDatas
                 string where = "Empty";
                 if (!String.IsNullOrEmpty(keywords))
                 {
-                    where = whereString.ProductWhere(db, keywords);
+                    where = whereString.SearchKeyWhere<ReadableProduct>(db, keywords);
                 }
                 int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
                 int closeManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[1];
-                List<DetailProduct> products = new List<DetailProduct>();
+                List<ReadableProduct> readableProducts = new List<ReadableProduct>();
 
                 if (where == "Empty")
                 {
-                    var anonymous = db.Products
+                     readableProducts = db.ReadableProducts
                                         .Where(p => p.Manufacturer_Id >= openManufacturer_Id
                                                     && p.Manufacturer_Id <= closeManufacturer_Id)
                                         .ToList();
 
-                    var results = anonymous
-                                    .Select(a => new DetailProduct
-                                    {
-                                        Id = a.Id,
-                                        Manufacturer = a.Manufacturer.CommonName,
-                                        Pseudonym = a.Pseudonym,
-                                        ProductName = a.ProductName,
-                                        Material = a.Material,
-                                        Model = a.Model,
-                                        Quantity = a.Quantity,
-                                        LowerLimitQuantity = a.LowerLimitQuantity,
-                                        OrderQuantity = a.OrderQuantity,
-                                        TaxRate = a.TaxRate,
-                                        Unit = a.TransactionUnit.Unit,
-                                        Cost = a.Cost,
-                                        Valuation = a.Valuation,
-                                        IsUnmanaged = a.IsUnmanaged,
-                                        Note = a.Note,
-                                        Recorder_Id = a.Recorder_Id,
-                                        Changer_Id = a.Changer_Id,
-                                        RecordingDate = a.RecordingDate,
-                                        RecordingTime = a.RecordingTime,
-                                        UpdateDate = a.UpdateDate,
-                                        UpdateTime = a.UpdateTime,
-                                        AccessRoute = a.AccessRoute
-                                    })
-                                    .ToList();
-                    return results;
+                    return readableProducts;
                 }
                 else
                 {
-                    var anonymous = db.Database
-                                        .SqlQuery<DetailProduct>(where);
+                    readableProducts = db.Database
+                                        .SqlQuery<ReadableProduct>(where)
+                                        .ToList();
 
-                    var results = anonymous
-                                    .Select(a => new DetailProduct
-                                    {
-                                        Id = a.Id,
-                                        Manufacturer_Id = a.Manufacturer_Id,
-                                        Manufacturer = a.Manufacturer,
-                                        Pseudonym = a.Pseudonym,
-                                        ProductName = a.ProductName,
-                                        Material = a.Material,
-                                        Model = a.Model,
-                                        Quantity = a.Quantity,
-                                        LowerLimitQuantity = a.LowerLimitQuantity,
-                                        OrderQuantity = a.OrderQuantity,
-                                        TaxRate = a.TaxRate,
-                                        Unit = a.Unit,
-                                        Cost = a.Cost,
-                                        Valuation = a.Valuation,
-                                        IsUnmanaged = a.IsUnmanaged,
-                                        Note = a.Note,
-                                        Recorder_Id = a.Recorder_Id,
-                                        Changer_Id = a.Changer_Id,
-                                        RecordingDate = a.RecordingDate,
-                                        RecordingTime = a.RecordingTime,
-                                        UpdateDate = a.UpdateDate,
-                                        UpdateTime = a.UpdateTime,
-                                        AccessRoute = a.AccessRoute
-                                    })
-                                    .ToList();
-
-                    results = results
+                    return readableProducts
                                 .Where(a => a.Manufacturer_Id >= openManufacturer_Id
                                             && a.Manufacturer_Id <= closeManufacturer_Id)
                                 .ToList();
-
-                    return results;
                 }
             }
         }
@@ -308,7 +251,7 @@ namespace Target19_Relationship.Services.MasterDatas
                 string where = "Empty";
                 if (!String.IsNullOrEmpty(keywords))
                 {
-                    where = whereString.SearchKeyWhere(db, keywords, "readableproductattribute");
+                    where = whereString.SearchKeyWhere<ReadableProductAttribute>(db, keywords);
                 }
                 List<ReadableProductAttribute> results = new List<ReadableProductAttribute>();
                 int openManufacturer_Id = NameToId.Manufacturer(db, manufacturer)[0];
