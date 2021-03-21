@@ -10,10 +10,16 @@ namespace Target19_Relationship.Controllers
 {
     public class MasterDataController : Controller
     {
+        public ActionResult AccountTitleEdit(int Id)
+        {
+            AccountTitleData data = new AccountTitleData();
+            return View(data.GetUnique(Id));
+        }
+
         public ActionResult AccountTitleList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.AccountTitles());
+            AccountTitleData data = new AccountTitleData();
+            return View(data.GetAll());
         }
 
         public ActionResult BusinessPartnerList()
@@ -25,8 +31,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                MasterListViews listViews = new MasterListViews();
-                var results = listViews.BusinessPartners(initial);
+                BusinessPartnerData data = new BusinessPartnerData();
+                var results = data.GetAll(initial);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -48,8 +54,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                MasterListViews listViews = new MasterListViews();
-                var results = listViews.BusinessPartnerEmailAddresses(initial);
+                BusinessPartnerEmailAddressData data = new BusinessPartnerEmailAddressData();
+                var results = data.GetSpecificInitialGroup(initial);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -64,26 +70,26 @@ namespace Target19_Relationship.Controllers
 
         public ActionResult DeliveryPlaceList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.DeliveryPlaces());
+            DeliveryPlaceData data = new DeliveryPlaceData();
+            return View(data.GetAll());
         }
 
         public ActionResult FinancialInstitutionList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.FinancialInstitutions());
+            FinancialInstitutionData data = new FinancialInstitutionData();
+            return View(data.GetAll());
         }
 
         public ActionResult FinancialInstitutionBranchList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.FinancialInstitutionBranches());
+            FinancialInstitutionBranchData data = new FinancialInstitutionBranchData();
+            return View(data.GetAll());
         }
 
         public ActionResult HelperList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.Helpers());
+            HelperData data = new HelperData();
+            return View(data.GetAll());
         }
 
         public ActionResult ManufacturerCreate()
@@ -107,8 +113,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                MasterListViews listViews = new MasterListViews();
-                var results = listViews.Manufacturers(initial);
+                ManufacturerData data = new ManufacturerData();
+                var results = data.GetSpecificInitialGroup(initial);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -130,8 +136,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                MasterListViews listViews = new MasterListViews();
-                var results = listViews.Products(manufacturer, keywords);
+                ProductData data = new ProductData();
+                var results = data.GetSpecificWordGroup(manufacturer, keywords);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -153,8 +159,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                MasterListViews listViews = new MasterListViews();
-                var results = listViews.ProductAttributes(businessPartner, manufacturer, keywords);
+                ProductAttributeData data = new ProductAttributeData();
+                var results = data.GetSpecificWordGroup(businessPartner, manufacturer, keywords);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -169,8 +175,8 @@ namespace Target19_Relationship.Controllers
 
         public ActionResult StaffList()
         {
-            MasterListViews listViews = new MasterListViews();
-            return View(listViews.Staffs());
+            StaffData data = new StaffData();
+            return View(data.GetAll());
         }
     }
 }

@@ -35,12 +35,15 @@ namespace Target19_Relationship.Models.Tables
         public int Gender { get; set; }
 
         [DisplayName("生年月日")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime Birthday { get; set; }
 
         [DisplayName("担当開始日")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime HireDate { get; set; }
 
         [DisplayName("担当終了日")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime LeaveDate { get; set; }
 
         [DisplayName("取引先Id")]

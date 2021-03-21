@@ -204,12 +204,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreationRecord.cs" />
     <Compile Include="Models\Details\DetailBusinessPartnerEmailAddress.cs" />
-    <Compile Include="Models\Details\ReadableGoodsIReceipt.cs" />
     <Compile Include="Models\Details\ReadableJournal.cs" />
     <Compile Include="Models\Tables\TransactionUnit.cs" />
     <Compile Include="Models\Views\BeforeDelivery.cs" />
     <Compile Include="Models\Views\BeforeIssuingPurchaseOrder.cs" />
     <Compile Include="Models\Views\BeforeWarehousing.cs" />
+    <Compile Include="Models\Views\ReadableGoodsReceipt.cs" />
     <Compile Include="Models\Views\ReadableProduct.cs" />
     <Compile Include="Models\Views\ReadableGoodsIssue.cs" />
     <Compile Include="Models\Views\ReadableProductAttribute.cs" />
@@ -243,11 +243,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DropdownDataSources.cs" />
     <Compile Include="Services\IdRange.cs" />
+    <Compile Include="Services\MasterDatas\AccountTitleData.cs" />
+    <Compile Include="Services\MasterDatas\BusinessPartnerData.cs" />
+    <Compile Include="Services\MasterDatas\BusinessPartnerEmailAddressData.cs" />
+    <Compile Include="Services\MasterDatas\DeliveryPlaceData.cs" />
+    <Compile Include="Services\MasterDatas\FinancialInstitutionBranchData.cs" />
+    <Compile Include="Services\MasterDatas\FinancialInstitutionData.cs" />
+    <Compile Include="Services\MasterDatas\HelperData.cs" />
+    <Compile Include="Services\MasterDatas\ManufacturerData.cs" />
     <Compile Include="Services\MasterDatas\NameValue.cs" />
-    <Compile Include="Services\MasterDatas\MasterListViews.cs" />
+    <Compile Include="Services\MasterDatas\ProductAttributeData.cs" />
+    <Compile Include="Services\MasterDatas\ProductData.cs" />
+    <Compile Include="Services\MasterDatas\StaffData.cs" />
     <Compile Include="Services\NameToId.cs" />
     <Compile Include="Services\Pluralize.cs" />
-    <Compile Include="Services\TransactionDatas\TransactionListViews.cs" />
+    <Compile Include="Services\TransactionDatas\BeforeDeliveryData.cs" />
+    <Compile Include="Services\TransactionDatas\BeforeIssuingPurchaseOrderData.cs" />
+    <Compile Include="Services\TransactionDatas\BeforeWarehousingData.cs" />
+    <Compile Include="Services\TransactionDatas\GoodsIssueData.cs" />
+    <Compile Include="Services\TransactionDatas\GoodsReceiptData.cs" />
+    <Compile Include="Services\TransactionDatas\JournalData.cs" />
+    <Compile Include="Services\TransactionDatas\PurchaseData.cs" />
+    <Compile Include="Services\TransactionDatas\QuotationData.cs" />
+    <Compile Include="Services\TransactionDatas\SaleData.cs" />
     <Compile Include="Services\ViewHelpers.cs" />
     <Compile Include="Services\SQLWhereString.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -259,6 +277,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dropdown-menu.css" />
+    <Content Include="Content\modest.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -316,6 +335,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.autoKana.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -405,12 +425,12 @@
     <Content Include="Views\TransactionData\_ReadableSaleContent.cshtml" />
     <Content Include="Views\TransactionData\QuotationList.cshtml" />
     <Content Include="Views\MasterData\ManufacturerCreate.cshtml" />
+    <Content Include="Views\MasterData\AccountTitleEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Creates\" />
-    <Folder Include="Views\IdRange\" />
-    <Folder Include="Views\KeyValue\" />
+    <Folder Include="Views\NameValue\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

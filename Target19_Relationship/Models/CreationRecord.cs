@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -17,12 +18,14 @@ namespace Target19_Relationship.Models
         public int Changer_Id { get; set; }
 
         [DisplayName("登録日")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime RecordingDate { get; set; }
 
         [DisplayName("登録時刻")]
         public TimeSpan RecordingTime { get; set; }
 
         [DisplayName("更新日")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime UpdateDate { get; set; }
 
         [DisplayName("更新時刻")]

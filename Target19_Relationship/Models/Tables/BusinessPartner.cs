@@ -42,7 +42,8 @@ namespace Target19_Relationship.Models.Tables
         public string ZIPCode { get; set; }
 
         [DisplayName("都道府県")]
-        public string Prefecture { get; set; }
+        [EnumDataType(typeof(Prefectures))]
+        public Prefectures Prefecture_Id { get; set; }
 
         [DisplayName("市区町村")]
         public string City { get; set; }

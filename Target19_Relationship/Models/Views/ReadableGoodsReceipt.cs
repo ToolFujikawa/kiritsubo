@@ -10,6 +10,8 @@ namespace Target19_Relationship.Models.Views
     {
         public int Id { get; set; }
 
+        public int Manufacturer_Id { get; set; }
+
         [DisplayName("商品Id")]
         public int Product_Id { get; set; }
 
@@ -17,7 +19,7 @@ namespace Target19_Relationship.Models.Views
         public string Product { get; set; }
 
         [DisplayName("数量")]
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
 
         [DisplayName("勘定科目Id")]
         public int AccountTitle_Id { get; set; }
@@ -36,5 +38,7 @@ namespace Target19_Relationship.Models.Views
 
         [DisplayName("備考")]
         public string Note { get; set; }
+
+        public string SearchKey { get; set; }
     }
 }

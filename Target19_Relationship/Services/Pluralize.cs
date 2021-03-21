@@ -10,9 +10,9 @@ namespace Target19_Relationship.Services
     {
         public static string Plural(string str)//単数形を複数形にする
         {
-            if (Regex.IsMatch(str, ".[^aiueo]y]$"))
+            if (Regex.IsMatch(str, "[^aiueo]y$"))
             {
-                return Regex.Replace(str, ".[^aiueo]y]$", String.Empty);
+                return Regex.Replace(str, "y$", "ies");
             }
             return str + "s";
         }

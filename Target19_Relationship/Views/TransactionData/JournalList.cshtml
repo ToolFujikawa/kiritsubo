@@ -7,8 +7,8 @@
 
 <div class="form-inline">
     @Html.AutoCompleteBox("businesspartner", "取引先")
-    @Html.DropDownList("DebitSelectOptions", null, htmlAttributes: new { @class = "form-control" })
-    @Html.DropDownList("CreditSelectOptions", null, htmlAttributes: new { @class="form-control"})
+    @Html.AutoCompleteBox("debit", "借方科目")
+    @Html.AutoCompleteBox("credit", "貸方科目")
     @Html.SearchBox("商品キーワード")
     @Html.DateInputBox("start", "検索開始日")
     @Html.DateInputBox("end", "検索終了日")
@@ -33,11 +33,11 @@
                 if (endDate == '') {
                     endDate = '9999/12/31 00:00:00';
                 };
-                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#DebitSelectOptions').val(),
-                            $('#CreditSelectOptions').val(), startDate, endDate];
+                let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#autocompletedebit').val(),
+                            $('#autocompletecredit').val(), startDate, endDate];
                 $('#result').load('/TransactionData/JournalContent', {
-                    manufacturer: str[0], keywords: str[1], debit_Id: str[2],
-                    credit_Id: str[3], startdate: str[4], enddate: str[5]
+                    manufacturer: str[0], keywords: str[1], debit: str[2],
+                    credit: str[3], startdate: str[4], enddate: str[5]
                 });
             });
         });

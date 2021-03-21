@@ -23,6 +23,9 @@ namespace Target19_Relationship
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
                 "~/Scripts/datepicker-ja.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/autoKana").Include(
+                "~/Scripts/jquery.autoKana.js"));
+
             // 開発と学習には、Modernizr の開発バージョンを使用します。次に、実稼働の準備が
             // 運用の準備が完了したら、https://modernizr.com のビルド ツールを使用し、必要なテストのみを選択します。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -35,6 +38,7 @@ namespace Target19_Relationship
                       "~/Content/bootstrap.css",
                       "~/Content/dropdown-menu.css",
                       "~/Content/site.css",
+                      "~/Content/modest.css",
                       "~/Content/themes/base/jquery-ui.css"));
         }
     }

@@ -22,12 +22,15 @@ namespace Target19_Relationship.Models.Tables
         public string FormalName { get; set; }
 
         [DisplayName("一般社名")]
+        [RegularExpression(str, ErrorMessage = "{0}に全角英数、半角カタカナ文字は使用できません。")]
         public string CommonName { get; set; }
 
-        [DisplayName("フリガナ")]
+        [DisplayName("ふりがな")]
+        [RegularExpression(str, ErrorMessage = "{0}に全角英数、半角カタカナ文字は使用できません。")]
         public string Furigana { get; set; }
 
         [DisplayName("英語名")]
+        [RegularExpression(str, ErrorMessage = "{0}に全角英数、半角カタカナ文字は使用できません。")]
         public string EnglishName { get; set; }
 
         [DisplayName("郵便番号")]

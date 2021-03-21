@@ -43,7 +43,7 @@ namespace Target19_Relationship.Models
         public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
         public virtual DbSet<ReadableProduct> ReadableProducts { get; set; }
         public virtual DbSet<ReadableProductAttribute> ReadableProductAttributes { get; set; }
-        public System.Data.Entity.DbSet<Target19_Relationship.Models.Views.ReadableGoodsReceipt> ReadableGoodsReceipts { get; set; }
+        public virtual DbSet<ReadableGoodsReceipt> ReadableGoodsReceipts { get; set; }
         public System.Data.Entity.DbSet<Target19_Relationship.Models.Details.ReadableJournal> ReadableJournals { get; set; }
         public virtual DbSet<ReadablePurchase> ReadablePurchases { get; set; }
         public virtual DbSet<ReadableQuotation> ReadableQuotations { get; set; }

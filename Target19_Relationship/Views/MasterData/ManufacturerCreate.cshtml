@@ -4,6 +4,11 @@
 }
 
 <h2>メーカー登録</h2>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#required" data-toggle="tab">必須項目</a></li>
+    <li><a href="#address" data-toggle="tab">所在地</a></li>
+    <li><a href="#other" data-toggle="tab">その他</a></li>
+</ul>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -18,6 +23,38 @@
                     @Html.EditorFor(model => model.FormalName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(mode => mode.FormalName, "", new { @class = "text-danger" })
                 </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CommonName, htmlAttributes: new { @class = "control-labelcol-md-2" })
+                    @Html.EditorFor(model => model.CommonName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(mode => mode.CommonName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Furigana, htmlAttributes: new { @class = "control-labelcol-md-2" })
+                    @Html.EditorFor(model => model.Furigana, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(mode => mode.Furigana, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="address">
+            <div class="form-horizontal">
+                <hr/>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ZIPCode, htmlAttributes: new { @class = "control-labelcol-md-2" })
+                    @Html.EditorFor(model => model.ZIPCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(mode => mode.ZIPCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="other">
+            <div class="form-horizontal">
+                <hr/>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-labelcol-md-2" })
+                    @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(mode => mode.EnglishName, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -27,3 +64,10 @@
         </div>
     </div>
 }
+@section scripts{
+    <script>
+        $(function () {
+            $.fn.autoKana('#CommonName', '#Furigana', { katakana: false });
+        })
+    </script>
+    }

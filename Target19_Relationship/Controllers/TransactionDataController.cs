@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Target19_Relationship.Services;
+using Target19_Relationship.Services.MasterDatas;
 using Target19_Relationship.Services.TransactionDatas;
 
 namespace Target19_Relationship.Controllers
@@ -13,15 +14,10 @@ namespace Target19_Relationship.Controllers
         //納品前
         public ActionResult BeforeDeliveryList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var cuntomer = new SelectList(dropdownDataSources.GetBusinessPartner("BeforeDelivery"), "Value", "Text");
-            ViewBag.CustomerSelectOptions = cuntomer;
-            var manufacturer = new SelectList(dropdownDataSources.GetManufacturer("BeforeDelivery"), "Value", "Text");
-            ViewBag.ManufacturerSelectOptions = manufacturer;
-            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
-            ViewBag.ResponsibleStaffSelectOptions = staff;
-            var helper = new SelectList(dropdownDataSources.GetHelper("BeforeDelivery"), "Value", "Text");
-            ViewBag.HelperSelectOptions = helper;
+            ViewBag.CustomerSelectOptions = new SelectList(BeforeDeliveryData.GetCustomerSelectListItems(), "Value", "Text");
+            ViewBag.ManufacturerSelectOptions = new SelectList(BeforeDeliveryData.GetManufacturerSelectListItems(), "Value", "Text");
+            ViewBag.ResponsibleStaffSelectOptions = new SelectList(BeforeDeliveryData.GetStaffSelectListItems(), "Value", "Text");
+            ViewBag.HelperSelectOptions = new SelectList(BeforeDeliveryData.GetHelperSelectListItems(), "Value", "Text");
             return View();
         }
 
@@ -30,8 +26,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                TransactionListViews listViews = new TransactionListViews();
-                var results = listViews.BeforeDeliveryList(customer_Id, manufacturer_Id, keywords, responsibleStaff_Id, helper_Id,
+                BeforeDeliveryData data = new BeforeDeliveryData();
+                var results = data.GetSpecificWordGroup(customer_Id, manufacturer_Id, keywords, responsibleStaff_Id, helper_Id,
                                                             startDate, endDate);
                 if (results.Count() == 0)
                 {
@@ -48,27 +44,23 @@ namespace Target19_Relationship.Controllers
         //発注前商品
         public ActionResult BeforeIssuingPurchaseOrderList()
         {
-            TransactionListViews listViews = new TransactionListViews();
-            var results = listViews.BeforeIssuingPurchaseOrderList();
-            return View(results);
+            BeforeIssuingPurchaseOrderData data = new BeforeIssuingPurchaseOrderData();
+            return View(data.GetAll());
         }
 
         //入庫前商品
         public ActionResult BeforeWarehousingList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var supplier = new SelectList(dropdownDataSources.GetBusinessPartner("BeforeWarehousing"), "Value", "Text");
-            ViewBag.SupplierSelectOptions = supplier;
-            var manufacturer = new SelectList(dropdownDataSources.GetManufacturer("BeforeWarehousing"), "Value", "Text");
-            ViewBag.ManufacturerSelectOptions = manufacturer;
+            ViewBag.SupplierSelectOptions = new SelectList(BeforeWarehousingData.GetSupplierSelectListItems(), "Value", "Text");
+            ViewBag.ManufacturerSelectOptions = new SelectList(BeforeWarehousingData.GetManufacturerSelectListItem(), "Value", "Text");
             return View();
         }
 
         public ActionResult BeforeWarehousingContent(int supplier_Id, int manufacturer_Id, string keywords,
                                                         DateTime startDate, DateTime endDate)
         {
-            TransactionListViews listViews = new TransactionListViews();
-            var results = listViews.BeforeWarehousingList(supplier_Id, manufacturer_Id, keywords, startDate, endDate);
+            BeforeWarehousingData data = new BeforeWarehousingData();
+            var results = data.GetSpecificWordGroup(supplier_Id, manufacturer_Id, keywords, startDate, endDate);
             if (Request.IsAjaxRequest())
             {
                 if (results.Count() == 0)
@@ -86,11 +78,8 @@ namespace Target19_Relationship.Controllers
         //出庫
         public ActionResult GoodsIssueList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var accountTitles = new SelectList(dropdownDataSources.GetAccountTitle("GoodsIssue"), "Value", "Text");
-            ViewBag.AccountTitleSelectOptions = accountTitles;
-            var staffs = new SelectList(dropdownDataSources.GetStaff(true), "Value", "Text");
-            ViewBag.StaffSelectOptions = staffs;
+            ViewBag.AccountTitleSelectOptions = new SelectList(AccountTitleData.GetGoodsIssueSelectListItem(), "Value", "Text");
+            ViewBag.StaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
             return View();
         }
 
@@ -99,8 +88,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                TransactionListViews listViews = new TransactionListViews();
-                var results = listViews.GoodsIssueList(manufacturer, keywords, accounttitleid, responsiblestaffid, startdate, enddate);
+                GoodsIssueData data = new GoodsIssueData();
+                var results = data.GetSpecificWordGroup(manufacturer, keywords, accounttitleid, responsiblestaffid, startdate, enddate);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -115,19 +104,16 @@ namespace Target19_Relationship.Controllers
         //入庫
         public ActionResult GoodsReceiptList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var accountTitles = new SelectList(dropdownDataSources.GetAccountTitle("GoodsReceipt"), "Value", "Text");
-            ViewBag.AccountTitleSelectOptions = accountTitles;
-            var staffs = new SelectList(dropdownDataSources.GetStaff(true), "Value", "Text");
-            ViewBag.StaffSelectOptions = staffs;
+            ViewBag.AccountTitleSelectOptions = new SelectList(AccountTitleData.GetGoodsIssueSelectListItem(), "Value", "Text");
+            ViewBag.StaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
             return View();
         }
 
         public ActionResult GoodsReceiptContent(string manufacturer, string keywords, int accounttitleid,
                                                 int responsiblestaffid, DateTime startdate, DateTime enddate)
         {
-            TransactionListViews listViews = new TransactionListViews();
-            var results = listViews.GoodsReceiptList(manufacturer, keywords, accounttitleid, responsiblestaffid, startdate, enddate);
+            GoodsReceiptData data = new GoodsReceiptData();
+            var results = data.GetSpecificWordGroup(manufacturer, keywords, accounttitleid, responsiblestaffid, startdate, enddate);
             if (Request.IsAjaxRequest())
             {
                 if (results.Count() == 0)
@@ -145,19 +131,14 @@ namespace Target19_Relationship.Controllers
         //会計
         public ActionResult JournalList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var debit = new SelectList(dropdownDataSources.GetAccountTitle("Debit"), "Value", "Text");
-            ViewBag.DebitSelectOptions = debit;
-            var credit = new SelectList(dropdownDataSources.GetAccountTitle("Credit"), "Value", "Text");
-            ViewBag.CreditSelectOptions = credit;
             return View();
         }
 
-        public ActionResult JournalContent(string businessPertner, string keywords, int debit_Id,
-                                            int credit_Id, DateTime startDate, DateTime endDate)
+        public ActionResult JournalContent(string businessPertner, string keywords, string debit,
+                                            string credit, DateTime startDate, DateTime endDate)
         {
-            TransactionListViews listViews = new TransactionListViews();
-            var results = listViews.JournalList(businessPertner, debit_Id, credit_Id, keywords, startDate, endDate);
+            JournalData data = new JournalData();
+            var results = data.GetSpecificWordGroup(businessPertner, debit, credit, keywords, startDate, endDate);
             if (Request.IsAjaxRequest())
             {
                 if (results.Count() == 0)
@@ -175,9 +156,7 @@ namespace Target19_Relationship.Controllers
         //買掛金発生事由
         public ActionResult PurchaseList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
-            ViewBag.ResponsibleStaffSelectOptions = staff;
+            ViewBag.ResponsibleStaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
             return View();
         }
 
@@ -187,8 +166,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                TransactionListViews listViews = new TransactionListViews();
-                var results = listViews.PurchaseList(supplier, keywords, staff_Id, purchaseStartDate,
+                PurchaseData data = new PurchaseData();
+                var results = data.GetSpecificWordGroup(supplier, keywords, staff_Id, purchaseStartDate,
                                                         purchaseEndDate, receiptStartDate, receiptEndDate);
                 if (results.Count() == 0)
                 {
@@ -206,9 +185,7 @@ namespace Target19_Relationship.Controllers
         //売掛金発生事由
         public ActionResult SalesList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
-            ViewBag.ResponsibleStaffSelectOptions = staff;
+            ViewBag.ResponsibleStaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
             return View();
         }
 
@@ -218,8 +195,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                TransactionListViews listViews = new TransactionListViews();
-                var results = listViews.SalesList(customer, manufacturer, keywords, staff_Id, helper, salesOrderStartDate,
+                SaleData data = new SaleData();
+                var results = data.GetSpecificWordGroup(customer, manufacturer, keywords, staff_Id, helper, salesOrderStartDate,
                                                     salesOrderEndDate, salesStartDate, salesEndDate);
                 if (results.Count() == 0)
                 {
@@ -236,9 +213,7 @@ namespace Target19_Relationship.Controllers
         //見積
         public ActionResult QuotationList()
         {
-            DropdownDataSources dropdownDataSources = new DropdownDataSources();
-            var staff = new SelectList(dropdownDataSources.GetStaff(false), "Value", "Text");
-            ViewBag.ResponsibleStaffSelectOptions = staff;
+            ViewBag.ResponsibleStaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
             return View();
         }
 
@@ -247,8 +222,8 @@ namespace Target19_Relationship.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                TransactionListViews listViews = new TransactionListViews();
-                var results = listViews.QuotationList(customer, manufacturer, keywords, staff_Id, helper, startDate, endDate);
+                QuotationData data = new QuotationData();
+                var results = data.GetSpecificWordGroup(customer, manufacturer, keywords, staff_Id, helper, startDate, endDate);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");

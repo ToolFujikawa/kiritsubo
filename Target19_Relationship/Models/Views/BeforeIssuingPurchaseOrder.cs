@@ -9,7 +9,7 @@ using static Target19_Relationship.Models.Enums;
 
 namespace Target19_Relationship.Models.Views
 {
-    public partial class BeforeIssuingPurchaseOrder
+    public partial class BeforeIssuingPurchaseOrder/*注文書発行前*/
     {
         public int Id { get; set; }
 
@@ -86,6 +86,5 @@ namespace Target19_Relationship.Models.Views
 
         [DisplayName("受注更新者Id")]
         public int SalesOrderChanger_Id { get; set; }
-
     }
 }

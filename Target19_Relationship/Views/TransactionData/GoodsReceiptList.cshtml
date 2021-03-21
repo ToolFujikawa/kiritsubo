@@ -7,9 +7,9 @@
 
 <div class="form-inline">
     @Html.AutoCompleteBox("manufacturer", "メーカー")
+    @Html.SearchBox("商品キーワード")
     @Html.DropDownList("AccountTitleSelectOptions", null, htmlAttributes: new { @class = "form-control" })
     @Html.DropDownList("StaffSelectOptions", null, htmlAttributes: new { @class="form-control"})
-    @Html.SearchBox("適用")
     @Html.DateInputBox("start", "検索開始日")
     @Html.DateInputBox("end", "検索終了日")
     <button type="submit" name="search" class="btn btn-default">検索</button>
@@ -22,6 +22,9 @@
 @section scripts{
     <script>
         $(function () {
+            $('#autocompletemanufacturer').autocomplete({
+                source: '/NameValue/Manufacturer'
+            });
             $('#dateinputstart').datepicker();
             $('#dateinputend').datepicker();
             $('button[name="search"]').click(function (e) {

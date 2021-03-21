@@ -14,13 +14,11 @@ namespace Target19_Relationship.Models.Tables
         [DisplayName("勘定科目")]
         public string AccountName { get; set; }
 
-        [DisplayName("フリガナ")]
+        [DisplayName("ふりがな")]
         public string Furigana { get; set; }
 
         [DisplayName("備考")]
         public string Note { get; set; }
-
-        public string FIMS_Id { get; set; }
 
         //ナビゲーションプロパティ
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
