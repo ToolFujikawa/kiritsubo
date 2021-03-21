@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Target19_Relationship.Models.Views
 {
-    public class ReadableGoodsReceipt : CreationRecord
+    public class ReadableGoodsReceipt
     {
         public int Id { get; set; }
 

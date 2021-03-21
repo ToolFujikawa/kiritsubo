@@ -38,7 +38,7 @@
                 };
                 let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val(), $('#AccountTitleSelectOptions').val(),
                             $('#StaffSelectOptions').val(), startDate, endDate];
-                $('#result').load('/TransactionData/GoodsIssueContent', {
+                $('#result').load('/TransactionData/GoodsReceiptContent', {
                     manufacturer: str[0], keywords: str[1], accounttitleid: str[2],
                     responsiblestaffid: str[3], startdate: str[4], enddate: str[5]
                 });
