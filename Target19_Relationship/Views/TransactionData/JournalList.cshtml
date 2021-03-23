@@ -36,7 +36,7 @@
                 let str = [$('#autocompletebusinesspartner').val(), $('#searchtext').val(), $('#autocompletedebit').val(),
                             $('#autocompletecredit').val(), startDate, endDate];
                 $('#result').load('/TransactionData/JournalContent', {
-                    manufacturer: str[0], keywords: str[1], debit: str[2],
+                    businessPartner: str[0], keywords: str[1], debit: str[2],
                     credit: str[3], startdate: str[4], enddate: str[5]
                 });
             });

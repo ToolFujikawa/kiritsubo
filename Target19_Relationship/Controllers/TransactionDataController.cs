@@ -134,11 +134,11 @@ namespace Target19_Relationship.Controllers
             return View();
         }
 
-        public ActionResult JournalContent(string businessPertner, string keywords, string debit,
+        public ActionResult JournalContent(string businessPartner, string keywords, string debit,
                                             string credit, DateTime startDate, DateTime endDate)
         {
             JournalData data = new JournalData();
-            var results = data.GetSpecificWordGroup(businessPertner, debit, credit, keywords, startDate, endDate);
+            var results = data.GetSpecificWordGroup(businessPartner, keywords, debit, credit, startDate, endDate);
             if (Request.IsAjaxRequest())
             {
                 if (results.Count() == 0)

@@ -45,7 +45,7 @@ namespace Target19_Relationship.Models.Tables
 
         [DisplayName("手形状態")]
         [EnumDataType(typeof(BillStatuses))]
-        public BillStatuses BillStatuses { get; set; }
+        public BillStatuses BillStatus_Id { get; set; }
 
         [DisplayName("手形番号")]
         public string BillNo { get; set; }

@@ -8,7 +8,7 @@ using static Target19_Relationship.Models.Enums;
 
 namespace Target19_Relationship.Models.Details
 {
-    public class ReadableJournal : CreationRecord
+    public class ReadableJournal
     {
         public int Id { get; set; }
 
