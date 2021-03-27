@@ -10,7 +10,7 @@ namespace Target19_Relationship.Services.TransactionDatas
 {
     public class PurchaseData
     {
-        public List<ReadablePurchase> GetSpecificWordGroup(string supplier, string keywords, int staff_Id,
+        public List<ReadablePurchase> GetSpecificWordGroup(string supplier, string manufacturer, string keywords, int staff_Id,
                                                     DateTime purchaseStartDate, DateTime purchaseEndDate,
                                                     DateTime receiptStartDate, DateTime receiptEndDate)
         {
@@ -18,10 +18,15 @@ namespace Target19_Relationship.Services.TransactionDatas
             {
                 SQLWhereString whereString = new SQLWhereString();
                 string where = whereString.SearchKeyWhere<ReadablePurchase>(db, keywords);
-                int openSupplier_Id = BusinessPartnerData.NameToId(db, supplier)[0];
-                int closeSupplier_Id = BusinessPartnerData.NameToId(db, supplier)[1];
-                int openStaff_Id = StaffData.GetIdRange(db, staff_Id)[0];
-                int closeStaff_Id = StaffData.GetIdRange(db, staff_Id)[1];
+                int[] supplier_Ids = BusinessPartnerData.NameToId(db, supplier);
+                int openSupplier_Id = supplier_Ids[0];
+                int closeSupplier_Id = supplier_Ids[1];
+                int[] manufacturer_Ids = ManufacturerData.NameToId(db, manufacturer);
+                int openManufacturer_Id = manufacturer_Ids[0];
+                int closeManufacturer_Id = manufacturer_Ids[1];
+                int[] staff_Ids = StaffData.GetIdRange(db, staff_Id);
+                int openStaff_Id = staff_Ids[0];
+                int closeStaff_Id = staff_Ids[1];
                 List<ReadablePurchase> readablePurchases = new List<ReadablePurchase>();
 
                 if (!String.IsNullOrEmpty(keywords))

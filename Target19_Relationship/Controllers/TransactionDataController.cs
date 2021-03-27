@@ -167,7 +167,7 @@ namespace Target19_Relationship.Controllers
             if (Request.IsAjaxRequest())
             {
                 PurchaseData data = new PurchaseData();
-                var results = data.GetSpecificWordGroup(supplier, keywords, staff_Id, purchaseStartDate,
+                var results = data.GetSpecificWordGroup(supplier, manufacturer, keywords, staff_Id, purchaseStartDate,
                                                         purchaseEndDate, receiptStartDate, receiptEndDate);
                 if (results.Count() == 0)
                 {

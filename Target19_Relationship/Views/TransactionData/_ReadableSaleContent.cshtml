@@ -1,8 +1,5 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Details.ReadableSale>
+﻿@model IEnumerable<Target19_Relationship.Models.Views.ReadableSale>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -18,10 +15,10 @@
             @Html.DisplayNameFor(model => model.SalesOrderDetail)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesOrderResponsibleStaff_Id)
+            @Html.DisplayNameFor(model => model.ResponsibleStaff_Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesOrderResponsibleStaff)
+            @Html.DisplayNameFor(model => model.ResponsibleStaff)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Helper_Id)
@@ -51,7 +48,7 @@
             @Html.DisplayNameFor(model => model.SalesOrderQuantity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesOrderUnit)
+            @Html.DisplayNameFor(model => model.Unit)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SalesOrderDate)
@@ -72,22 +69,13 @@
             @Html.DisplayNameFor(model => model.EstimatedSale)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SaleOrderNote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesOrderRecorder_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesOrderChanger_Id)
+            @Html.DisplayNameFor(model => model.SalesOrderNote)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsLater)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesQuantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesUnit)
+            @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UnitPrice)
@@ -120,10 +108,10 @@
             @Html.DisplayNameFor(model => model.SalesNote)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesRecorder_Id)
+            @Html.DisplayNameFor(model => model.Recorder_Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SalesChanger_Id)
+            @Html.DisplayNameFor(model => model.Changer_Id)
         </th>
         <th></th>
     </tr>
@@ -143,10 +131,10 @@
             @Html.DisplayFor(modelItem => item.SalesOrderDetail)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesOrderResponsibleStaff_Id)
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff_Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesOrderResponsibleStaff)
+            @Html.DisplayFor(modelItem => item.ResponsibleStaff)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Helper_Id)
@@ -176,7 +164,7 @@
             @Html.DisplayFor(modelItem => item.SalesOrderQuantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesOrderUnit)
+            @Html.DisplayFor(modelItem => item.Unit)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SalesOrderDate)
@@ -197,22 +185,13 @@
             @Html.DisplayFor(modelItem => item.EstimatedSale)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SaleOrderNote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesOrderRecorder_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesOrderChanger_Id)
+            @Html.DisplayFor(modelItem => item.SalesOrderNote)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsLater)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesQuantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesUnit)
+            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UnitPrice)
@@ -245,10 +224,10 @@
             @Html.DisplayFor(modelItem => item.SalesNote)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesRecorder_Id)
+            @Html.DisplayFor(modelItem => item.Recorder_Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SalesChanger_Id)
+            @Html.DisplayFor(modelItem => item.Changer_Id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
