@@ -116,6 +116,15 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
+        public List<string> GetNames(string businessPartnerName)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.BusinessPartners.Where(bp => bp.CommonName.StartsWith(businessPartnerName))
+                                .Select(s => s.CommonName).ToList();
+            }
+        }
+
         public static int[] NameToId(DefaultConnection db, string businessPartner)
         {
             int[] ids = new int[2] { 1, 1 };

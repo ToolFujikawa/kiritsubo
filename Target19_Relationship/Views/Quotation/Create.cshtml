@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>見積商品選択</h2>
+
+<div class="form-inline">
+    @Html.AutoCompleteBox("businesspartner", "販売先")
+    @Html.AutoCompleteBox("helper", "販売先担当者")
+</div>
+
+@Html.Partial("_ProductSelecter")
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#autocompletebusinesspartner').autocomplete({
+                source: '/MasterData/BusinessPartnerName'
+            });
+            $('#autocompletehelper').autocomplete({
+                source: '/MasterData/HelperName'
+            });
+            $('#autocompletemanufacturer').autocomplete({
+                source: '/MasterData/ManufacturerName'
+            });
+
+            $('button[name="search"]').click(function (e) {
+                let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val()];
+                $('#result').load('/MasterData/ProductContent', {
+                    manufacturer: str[0], keywords: str[1],
+                    viewName: '_ProductSelecterContent'
+                });
+            });
+            //テーブルオブジェクトから選択されたノードを取得
+            $('button[name="send"]').on('click', function (e) {
+                let length = $('#producttable tbody').children().length;
+                let list = new Array();
+                for (var i = 1; i < length; i++) {
+                    if ($('table tr').eq(i).children().eq(3).children().prop('checked') == true) {
+                        list.push($('table tr').eq(i).children().eq(0).text());
+                    }
+                }
+                let str = [$('#autocompletebusinesspartner').val(), $('#autocompletehelper').val(),
+                            $('#username').text()];
+                $.post('/Quotation/Create', {
+                    customer: str[0], helper: str[1], staff: str[2].replace('こんにちは、', '').replace('さん', ''), products_Ids: list
+                });
+                //商品検索結果の削除
+                $('#producttable').remove();
+            });
+        });
+    </script>
+}

@@ -24,7 +24,10 @@ namespace Target19_Relationship.Models.Tables
         public DateTime ContactOutgoingDate { get; set; }
 
         [DisplayName("見積番号")]
-        public int EstimateNo { get; set; }
+        public int QuotationNo { get; set; }
+
+        [DisplayName("問合せ番号")]
+        public int InqueryNo { get; set; }
 
         [DisplayName("見積詳細")]
         public string Detail { get; set; }
@@ -78,5 +81,31 @@ namespace Target19_Relationship.Models.Tables
         public virtual Helper Helper { get; set; }
 
         public virtual ICollection<BusinessPartnerEmailAddress> BusinessPartnerEMailAddresses { get; set; }
+
+        public Quotation()
+        {
+
+        }
+
+        public Quotation(int customer_Id, int helper_Id, int product_Id, int staff_Id)
+        {
+            DateTime dt = DateTime.Now;
+
+            InputDate = dt.Date;
+            ContactOutgoingDate = DateTime.Parse("9999-12-31");
+            Detail = "";
+            ResponsibleStaff_Id = staff_Id;
+            Helper_Id = helper_Id;
+            Customer_Id = customer_Id;
+            SubmissionDate = DateTime.Parse("9999-12-31");
+            Product_Id = product_Id;
+            Arrival = "";
+            Note = "";
+            Recorder_Id = staff_Id;
+            RecordingDate = dt.Date;
+            RecordingTime = dt.TimeOfDay;
+            UpdateDate = DateTime.Parse("9999-12-31");
+            AccessRoute = "";
+        }
     }
 }

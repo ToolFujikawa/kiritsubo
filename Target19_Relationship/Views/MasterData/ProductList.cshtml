@@ -24,7 +24,7 @@
         $(function () {
             $('button[name="search"]').click(function (e) {
                 let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val()];
-                $('#result').load('/MasterData/ProductContent', { manufacturer: str[0], keywords: str[1] });
+                $('#result').load('/MasterData/ProductContent', { manufacturer: str[0], keywords: str[1], viewName: '_ProductContent' });
             });
         });
     </script>

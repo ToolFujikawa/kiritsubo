@@ -37,6 +37,15 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
+        public List<string> GetNames(string helperName)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.Helpers.Where(s => s.LastName.StartsWith(helperName))
+                                .Select(s => s.LastName + s.FirstName).ToList();
+            }
+        }
+
         public static int[] NameToId(DefaultConnection db, string fullName)
         {
             if (String.IsNullOrEmpty(fullName))

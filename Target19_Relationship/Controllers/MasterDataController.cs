@@ -45,6 +45,12 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
+        public ActionResult BusinessPartnerName(string term)
+        {
+            BusinessPartnerData data = new BusinessPartnerData();
+            return Json(data.GetNames(term), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult BusinessPartnerEmailAddressList()
         {
             return View();
@@ -92,11 +98,17 @@ namespace Target19_Relationship.Controllers
             return View(data.GetAll());
         }
 
+        public ActionResult HelperName(string term)
+        {
+            HelperData data = new HelperData();
+            return Json(data.GetNames(term), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ManufacturerCreate()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ManufacturerCreate([Bind(Include = "FormalName")] Manufacturer manufacturer)
@@ -127,27 +139,10 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
-        public ActionResult ProductList()
+        public ActionResult ManufacturerName(string term)
         {
-            return View();
-        }
-
-        public ActionResult ProductContent(string manufacturer, string keywords)
-        {
-            if (Request.IsAjaxRequest())
-            {
-                ProductData data = new ProductData();
-                var results = data.GetSpecificWordGroup(manufacturer, keywords);
-                if (results.Count() == 0)
-                {
-                    return PartialView("_NoResult");
-                }
-                else
-                {
-                    return PartialView("_ProductContent", results);
-                }
-            }
-            return Content("Ajax通信以外のアクセスはできません");
+            ManufacturerData data = new ManufacturerData();
+            return Json(data.GetNames(term), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ProductAttributeList()
@@ -164,10 +159,40 @@ namespace Target19_Relationship.Controllers
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
-;               }
+                    ;
+                }
                 else
                 {
                     return PartialView("_ProductAttributeContent", results);
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
+        public ActionResult ProductList()
+        {
+            return View();
+        }
+
+        public ActionResult ProductContent(string manufacturer, string keywords, string viewName)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                ProductData data = new ProductData();
+                var results = data.GetSpecificWordGroup(manufacturer, keywords);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    switch (viewName)
+                    {
+                        case "_ProductSelecterContent":
+                            return PartialView("_ProductSelecterContent", results);
+                        default:
+                            return PartialView("_ProductContent", results);
+                    }
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");

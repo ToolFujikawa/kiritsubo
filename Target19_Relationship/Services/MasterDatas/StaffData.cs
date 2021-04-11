@@ -10,6 +10,13 @@ namespace Target19_Relationship.Services.MasterDatas
 {
     public class StaffData
     {
+        public static int EmailToId(DefaultConnection db, string email)
+        {
+            return db.Staffs
+                        .Single(s => s.LentEmailAddress == email)
+                        .Id;
+        }
+
         public List<Staff> GetAll()
         {
             using (DefaultConnection db = new DefaultConnection())
@@ -72,6 +79,15 @@ namespace Target19_Relationship.Services.MasterDatas
 
                 return results;
 
+            }
+        }
+
+        public List<string> GetNames(string staffName)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.Staffs.Where(s => s.LastName.StartsWith(staffName))
+                                .Select(s => s.LastName + s.FirstName).ToList();
             }
         }
     }

@@ -39,6 +39,7 @@ namespace Target19_Relationship.Models
         //Views
         public virtual DbSet<BeforeDelivery> BeforeDeliveries { get; set; }
         public virtual DbSet<BeforeIssuingPurchaseOrder> BeforeIssuingPurchaseOrders { get; set; }
+        public virtual DbSet<BeforeSubmittingQuotation> BeforeSubmittingQuotations { get; set; }
         public virtual DbSet<BeforeWarehousing> BeforeWarehousings { get; set; }
         public virtual DbSet<ReadableGoodsIssue> ReadableGoodsIssues { get; set; }
         public virtual DbSet<ReadableProduct> ReadableProducts { get; set; }

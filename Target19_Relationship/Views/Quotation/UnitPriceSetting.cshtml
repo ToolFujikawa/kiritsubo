@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Target19_Relationship.Models.Views.BeforeSubmittingQuotation>
+
+@{
+    ViewBag.Title = "UnitPriceSetting";
+}
+
+<h2>見積作成</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="table table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResponsibleStaff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Helper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Arrival)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Select((v, i) => new { v, i }))
+        {
+            <tr>
+                <td hidden>
+                    <input type="text" name="setQuotations[@item.i.ToString()].Id" value="@item.v.Id" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.ResponsibleStaff)
+                </td>
+                <td hidden>
+                    <input type="text" name="setQuotations[@item.i.ToString()].ResponsibleStaff" value="@item.v.ResponsibleStaff" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.Customer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.Helper)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.Product)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.Cost)
+                </td>
+                <td>
+                    <input type="text" name="setQuotations[@item.i.ToString()].Quantity" value="@item.v.Quantity" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.v.Unit)
+                </td>
+                <td>
+                    <input type="text" name="setQuotations[@item.i.ToString()].UnitPrice" value="@item.v.UnitPrice" />
+                </td>
+                <td>
+                    <input type="text" name="setQuotations[@item.i.ToString()].Arrival" value="@item.v.Arrival" />
+                </td>
+                <td>
+                    <input type="text" name="setQuotations[@item.i.ToString()].Detail" value="@item.v.Detail" />
+                </td>
+                <td hidden>
+                    <input type="text" name="setQuotations[@item.i.ToString()].ValidityPeriod" value="@item.v.ValidityPeriod" />
+                </td>
+                <td hidden>
+                    <input type="text" name="setQuotations[@item.i.ToString()].PaymentTerm" value="@item.v.PaymentTerm" />
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="入力反映" class="btn btn-primary form-control" id="send" formaction="@Url.Action("UnitPriceSetting", "Quotation")" />
+    <input type="submit" value="見積書発行" class="btn btn-primary form-control" id="publish" formaction="@Url.Action("PublishQuotation", "Quotation")" />
+}

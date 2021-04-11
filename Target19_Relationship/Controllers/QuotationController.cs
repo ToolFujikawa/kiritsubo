@@ -6,7 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using Target19_Relationship.Models;
 using Target19_Relationship.Models.Tables;
+using Target19_Relationship.Models.Views;
 using Target19_Relationship.Services;
+using Target19_Relationship.Services.Quotations;
 
 namespace Target19_Relationship.Controllers
 {
@@ -15,14 +17,38 @@ namespace Target19_Relationship.Controllers
         //見積入力画面の表示。取引先、担当者等共通部分。
         public ActionResult Create()
         {
-            var paymentTerm = new SelectList(DataConverter.CreateEnumDictionary<Enums.PaymentTerms>(), "Key", "Value");
-            var validityPeriods = new SelectList(DataConverter.CreateEnumDictionary<Enums.ValidityPeriods>(), "Key", "Value");
-            ViewBag.PaymentTermOptions = paymentTerm;
-            ViewBag.DeferPeriodOptions = validityPeriods;
-            AddEstimate addEstimate = new AddEstimate();
-            return View(addEstimate);
+            return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(string customer, string helper, string staff, string[] products_Ids)
+        {
+            QuoteOperation quoteOperation = new QuoteOperation();
+            quoteOperation.Create(customer, helper, staff, products_Ids);
+            return View();
+        }
+
+        //数量、単価入力
+        public ActionResult UnitPriceSetting()
+        {
+            ReadableQuotationData data = new ReadableQuotationData();
+            return View(data.UnitPriceSetting());
+        }
+
+        [HttpPost]
+        public ActionResult UnitPriceSetting(List<BeforeSubmittingQuotation> setQuotations)
+        {
+            QuoteOperation quoteOperation = new QuoteOperation();
+            quoteOperation.SetUnitPrice(setQuotations);
+            return RedirectToAction("Create");
+        }
+
+        public ActionResult PublishQuotation(List<BeforeSubmittingQuotation> setQuotations)
+        {
+            QuoteOperation quoteOperation = new QuoteOperation();
+            quoteOperation.Publish(setQuotations);
+            return RedirectToAction("Create");
+        }
         /*
         //ViewのRazorで入力行数制御
         [ChildActionOnly]

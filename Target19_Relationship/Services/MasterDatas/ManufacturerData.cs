@@ -27,6 +27,18 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
+        public List<string> GetNames(string term)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.Manufacturers
+                            .Where(m => m.CommonName.StartsWith(term))
+                            .OrderBy(m => m.Furigana)
+                            .Select(m => m.CommonName)
+                            .ToList();
+            }
+        }
+
         public List<Manufacturer> GetSpecificInitialGroup(string initial)
         {
             using (DefaultConnection db = new DefaultConnection())

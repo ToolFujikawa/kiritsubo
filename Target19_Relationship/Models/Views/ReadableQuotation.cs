@@ -16,26 +16,38 @@ namespace Target19_Relationship.Models.Views
         [DisplayName("中止")]
         public bool IsCancel { get; set; }
 
-        [DisplayName("入力日")]
+        [DisplayName("")]
         public DateTime InputDate { get; set; }
 
-        [DisplayName("問合せ発信日")]
+        [DisplayName("")]
         public DateTime ContactOutgoingDate { get; set; }
 
-        [DisplayName("見積番号")]
-        public int EstimateNo { get; set; }
+        [DisplayName("")]
+        public int QuotationNo { get; set; }
 
-        [DisplayName("見積詳細")]
+        [DisplayName("")]
+        public int InqueryNo { get; set; }
+
+        [DisplayName("")]
         public string Detail { get; set; }
 
-        [DisplayName("責任者Id")]
+        [DisplayName("")]
         public int ResponsibleStaff_Id { get; set; }
 
-        [DisplayName("依頼者Id")]
+        [DisplayName("")]
+        public string ResponsibleStaff { get; set; }
+
+        [DisplayName("")]
         public int Helper_Id { get; set; }
 
-        [DisplayName("受注先Id")]
+        [DisplayName("")]
+        public string Helper { get; set; }
+
+        [DisplayName("")]
         public int Customer_Id { get; set; }
+
+        [DisplayName("")]
+        public string Customer { get; set; }
 
         [DisplayName("有効期間")]
         [EnumDataType(typeof(ValidityPeriods))]
@@ -45,40 +57,32 @@ namespace Target19_Relationship.Models.Views
         [EnumDataType(typeof(PaymentTerms))]
         public PaymentTerms PaymentTerm { get; set; }
 
-        [DisplayName("提出日")]
+        [DisplayName("")]
         public DateTime SubmissionDate { get; set; }
 
-        [DisplayName("商品Id")]
+        [DisplayName("")]
         public int Product_Id { get; set; }
 
-        [DisplayName("数量")]
-        public int Quantity { get; set; }
-
-        [DisplayName("単価")]
-        public decimal UnitPrice { get; set; }
-
-        [DisplayName("納期")]
-        public string Arrival { get; set; }
-
-        [DisplayName("備考")]
-        public string Note { get; set; }
-
+        [DisplayName("")]
         public int Manufacturer_Id { get; set; }
 
-        [DisplayName("責任者")]
-        public string ResponsibleStaff { get; set; }
-
-        [DisplayName("責任者")]
-        public string Helper { get; set; }
-
-        [DisplayName("販売先")]
-        public string Customer { get; set; }
-
-        [DisplayName("商品")]
+        [DisplayName("")]
         public string Product { get; set; }
 
-        [DisplayName("取引単位")]
+        [DisplayName("")]
+        public int Quantity { get; set; }
+
+        [DisplayName("")]
         public string Unit { get; set; }
+
+        [DisplayName("")]
+        public decimal UnitPrice { get; set; }
+
+        [DisplayName("")]
+        public string Arrival { get; set; }
+
+        [DisplayName("")]
+        public string Note { get; set; }
 
         public string SearchKey { get; set; }
     }
