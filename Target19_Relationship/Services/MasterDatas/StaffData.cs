@@ -45,6 +45,22 @@ namespace Target19_Relationship.Services.MasterDatas
             }
         }
 
+        public static string EmailToFullName(DefaultConnection db, string lentEmail)
+        {
+            var anonymous = db.Staffs
+                                .Where(s => s.LentEmailAddress == lentEmail)
+                                .Select(s => new
+                                {
+                                    FullName = s.LastName + s.FirstName
+                                })
+                                .ToList();
+            string result = anonymous
+                            .Select(a => a.FullName)
+                            .First()
+                            .ToString();
+            return result;
+        }
+
         public static int[] GetIdRange(DefaultConnection db, int targetId)
         {
             int[] results = new int[2];

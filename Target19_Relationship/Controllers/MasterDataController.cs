@@ -10,6 +10,17 @@ namespace Target19_Relationship.Controllers
 {
     public class MasterDataController : Controller
     {
+        public ActionResult AccountTitelContent(int page)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                AccountTitleData data = new AccountTitleData();
+                var results = data.GetSpecificPage(0);
+                return PartialView("_AccountTitleContent");
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
+
         public ActionResult AccountTitleEdit(int Id)
         {
             AccountTitleData data = new AccountTitleData();
@@ -20,6 +31,13 @@ namespace Target19_Relationship.Controllers
         {
             AccountTitleData data = new AccountTitleData();
             return View(data.GetAll());
+        }
+
+        public ActionResult AccountTitleRowCount()
+        {
+            AccountTitleData data = new AccountTitleData();
+            string jsonData = "{\"status\":" + data.GetRow() + "}";
+            return Content(jsonData, "application/json");
         }
 
         public ActionResult BusinessPartnerList()
@@ -80,10 +98,24 @@ namespace Target19_Relationship.Controllers
             return View(data.GetAll());
         }
 
+        public ActionResult FinancialInstitutionContent(int page)
+        {
+            FinancialInstitutionData data = new FinancialInstitutionData();
+            var results = data.GetSpecificPage(page);
+            return PartialView("_FinancialInstitutionContent", results);
+        }
+
         public ActionResult FinancialInstitutionList()
         {
             FinancialInstitutionData data = new FinancialInstitutionData();
             return View(data.GetAll());
+        }
+
+        public ActionResult FinancialInstitutionRowCount()
+        {
+            FinancialInstitutionData data = new FinancialInstitutionData();
+            string jsonData = "{\"status\":" + data.GetRow() + "}";
+            return Content(jsonData, "application/json");
         }
 
         public ActionResult FinancialInstitutionBranchList()

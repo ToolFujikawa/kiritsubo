@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - マイ ASP.NET アプリケーション</title>
+    <title>@ViewBag.Title - CHIKAKO</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -17,13 +17,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("(株)ふじ川工具店", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("CHIKAKO", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">日常業務<b class="create"></b></a>
                         <ul class="dropdown-menu multi-level">
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">見積</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("Create","Quotation")">商品登録</a></li>
+                                    <li><a href="@Url.Action("UnitPriceSetting","Quotation")">価格設定</a></li>
+                                    <li><a href="@Url.Action("Publish","Quotation")">発行</a></li>
+                                </ul>
+                            </li>
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">受注</a>
                                 <ul class="dropdown-menu">
@@ -75,12 +83,21 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="@Url.Action("AccountTitleList", "MasterData")">勘定科目</a></li>
                                     <li><a href="@Url.Action("BusinessPartnerList", "MasterData")">取引先</a></li>
+                                    <li><a href="@Url.Action("BusinessPartnerEmailAddressList", "MasterData")">取引先メールアドレス</a></li>
+                                    <li><a href="@Url.Action("DeliveryPlaceList", "MasterData")">納品場所</a></li>
+                                    <li><a href="@Url.Action("FinancialInstitutionList", "MasterData")">金融機関</a></li>
+                                    <li><a href="@Url.Action("FinancialInstitutionBranchList", "MasterData")">金融機関支店</a></li>
+                                    <li><a href="@Url.Action("HelperList", "MasterData")">支持者</a></li>
+                                    <li><a href="@Url.Action("ManufacturerList", "MasterData")">メーカー</a></li>
+                                    <li><a href="@Url.Action("ProductAttributeList", "MasterData")">取り扱い</a></li>
                                     <li><a href="@Url.Action("ProductList", "MasterData")">商品</a></li>
+                                    <li><a href="@Url.Action("StaffList", "MasterData")">従業員</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">取引データ</a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("QuotationList","TransactionData")">見積</a></li>
                                     <li><a href="@Url.Action("BeforeIssuingPurchaseOrderList", "TransactionData")">注文書発行前</a></li>
                                     <li><a href="@Url.Action("BeforeWarehousingList","TransactionData")">入庫前</a></li>
                                     <li><a href="@Url.Action("PurchaseList","TransactionData")">仕入</a></li>
@@ -102,7 +119,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>
+            <p>&copy; @DateTime.Now.Year - (株)ふじ川工具店</p>
         </footer>
     </div>
 

@@ -18,5 +18,27 @@ namespace Target19_Relationship.Services.MasterDatas
                 return records;
             }
         }
+
+        public int GetRow()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.FinancialInstitutions
+                            .Count();
+            }
+        }
+
+        public List<FinancialInstitution> GetSpecificPage(int page)
+        {
+            using(DefaultConnection db = new DefaultConnection())
+            {
+                int skipNo = page == 1 ? 0 : (page - 1) * 8;
+                return db.FinancialInstitutions
+                            .OrderBy(fi => fi.Furigana)
+                            .Skip(skipNo)
+                            .Take(8)
+                            .ToList();
+            }
+        }
     }
 }

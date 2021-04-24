@@ -5,16 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using Target19_Relationship.Models;
 using Target19_Relationship.Models.Views;
+using Target19_Relationship.Services.MasterDatas;
 
 namespace Target19_Relationship.Services.Quotations
 {
     public class ReadableQuotationData
     {
-        public List<BeforeSubmittingQuotation> UnitPriceSetting()
+        public List<BeforeSubmittingQuotation> UnitPriceSetting(string staffEmailAddress)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
-                return db.BeforeSubmittingQuotations.ToList();
+                string fullName = StaffData.EmailToFullName(db, staffEmailAddress);
+                return db.BeforeSubmittingQuotations
+                            .Where(sq => sq.ResponsibleStaff == fullName)
+                            .ToList();
             }
         }
 

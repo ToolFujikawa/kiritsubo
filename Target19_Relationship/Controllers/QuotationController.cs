@@ -31,8 +31,7 @@ namespace Target19_Relationship.Controllers
         //数量、単価入力
         public ActionResult UnitPriceSetting()
         {
-            ReadableQuotationData data = new ReadableQuotationData();
-            return View(data.UnitPriceSetting());
+            return View();
         }
 
         [HttpPost]
@@ -43,11 +42,17 @@ namespace Target19_Relationship.Controllers
             return RedirectToAction("Create");
         }
 
+        public ActionResult UnitPriceSettingContent(string staffEmailAddress)
+        {
+            ReadableQuotationData data = new ReadableQuotationData();
+            return PartialView("_UnitPriceSettingContent", data.UnitPriceSetting(staffEmailAddress));
+        }
+
         public ActionResult PublishQuotation(List<BeforeSubmittingQuotation> setQuotations)
         {
             QuoteOperation quoteOperation = new QuoteOperation();
             quoteOperation.Publish(setQuotations);
-            return RedirectToAction("Create");
+            return Redirect("~/WebForms/Quotation.aspx");
         }
         /*
         //ViewのRazorで入力行数制御

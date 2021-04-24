@@ -65,7 +65,8 @@ namespace Target19_Relationship.Services.Quotations
             {
                 string responsibleStaff = quotations
                                             .Max(q => q.ResponsibleStaff);
-                db.Database.ExecuteSqlCommand("call publishquotation(" + NameToId.Staff(db, responsibleStaff)[0] + ")");               
+                int staff_Id = NameToId.Staff(db, responsibleStaff)[0];
+                db.Database.ExecuteSqlCommand("call publishquotation(" + staff_Id + ")");               
             }
         }
         /*

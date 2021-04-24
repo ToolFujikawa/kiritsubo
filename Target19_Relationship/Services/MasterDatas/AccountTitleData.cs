@@ -72,6 +72,24 @@ namespace Target19_Relationship.Services.MasterDatas
 
         }
 
+        public int GetRow()
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.AccountTitles.Count();
+            }
+        }
+
+        public List<AccountTitle> GetSpecificPage(int page)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                return db.AccountTitles
+                            .OrderBy(at => at.Furigana)
+                            .ToList();
+            }
+        }
+
         public AccountTitle GetUnique(int Id)
         {
             using (DefaultConnection db = new DefaultConnection())

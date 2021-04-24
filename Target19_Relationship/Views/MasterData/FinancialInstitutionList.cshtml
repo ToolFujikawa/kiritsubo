@@ -1,93 +1,68 @@
-﻿@model IEnumerable<Target19_Relationship.Models.Tables.FinancialInstitution>
-
+﻿
 @{
     ViewBag.Title = "FinancialInstitutionList";
 }
 
 <h2>金融機関</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Recorder_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Changer_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecordingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecordingTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessRoute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinancialInstitutionName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Furigana)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FIMS_Id)
-        </th>
-        <th></th>
-    </tr>
+<div id="result"></div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recorder_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Changer_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecordingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecordingTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessRoute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinancialInstitutionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Furigana)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FIMS_Id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<div id="pagiNation"></div>
+
+@section scripts{
+    <script>
+        $(window).on('load', function () {
+            //初期値の表示
+            $('#result').load('/MasterData/FinancialInstitutionContent', {
+                page: 1
+            });
+
+            let str = '@Url.Action("FinancialInstitutionRowCount", "MasterData")';
+            //データ個数(テーブル行数)の獲得
+            $.getJSON(str, function (data) {
+                if (Math.floor(data.status % 8) == 0) {
+                    var pageNo = Array(Math.floor(data.status / 8));
+                }
+                else {
+                    var pageNo = Array(Math.floor(data.status / 8) + 1);
+                }
+
+                if (pageNo <= 8) {
+                    for (var i = 0; i < pageNo.length; i++) {
+                        var j = i + 1;
+                        pageNo[i] = '<button type=\"button\" class=\"btn btn-default\" data-page=\"' + j + '\">' + j + '</button>'
+                    };
+                    var pagestring = pageNo.join('');
+                    $('#pagiNation').html(pagestring);
+                }
+                else {
+                    //ページ数が9以上のときの処理
+                    for (var i = 0; i < 9; i++) {
+                        var j = i + 1;
+                        pageNo[i] = '<button type=\"button\" class=\"btn btn-default\" data-page=\"' + j + '\">' + j + '</button>'
+                    };
+                    pageNo.unshift('<button type=\"button\" class=\"btn btn-default\" id=\"Prev\">&laquo;</button>');
+                    pageNo.push('<button type=\"button\" class=\"btn btn-default\" id=\"Next\">&raquo;</button>');
+                    pageNo.push('<button type=\"button\" class=\"btn btn-default\" data-page=\"' + pageNo.length + '\">' + pageNo.length + '</button>')
+                    var pagestring = pageNo.join('');
+                    $('#pagiNation').html(pagestring);
+                }
+            });
+        });
+
+        //データ属性が指定してあるボタンでページを更新
+        $(document).on('click', '.btn', function () {
+            let page = $(this).attr('data-page');
+            $('#result').load('/MasterData/FinancialInstitutionContent', {
+                page: page
+            });
+        });
+
+        //次へボタンを押してデータ属性を更新
+        $(document).on('click', '#Next', function () {
+            var data = $('.btn').eq(1).data('page');
+            $('.btn').eq(1).attr('data-page', data + 8);
+            $('.btn').eq(1).text(data + 8);
+        })
+    </script>
 }
-
-</table>

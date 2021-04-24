@@ -274,6 +274,13 @@
     <Compile Include="SqlServerTypes\DataSet1.Designer.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebForms\Quotation.aspx.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Quotation.aspx.designer.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -330,6 +337,7 @@
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="WebForms\Quotation.aspx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\datepicker-ja.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -434,9 +442,17 @@
     <Content Include="Views\Shared\_ProductSelecter.cshtml" />
     <Content Include="Views\MasterData\_ProductSelecterContent.cshtml" />
     <Content Include="Views\Quotation\UnitPriceSetting.cshtml" />
-    <Content Include="SqlServerTypes\DataSet1.xsc" />
+    <Content Include="SqlServerTypes\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="SqlServerTypes\DataSet1.xsd" />
-    <Content Include="SqlServerTypes\DataSet1.xss" />
+    <Content Include="SqlServerTypes\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\TransactionData\_ReadableQuotationContent.cshtml" />
+    <Content Include="Views\MasterData\_FinancialInstitutionContent.cshtml" />
+    <Content Include="Views\Shared\_PagiNation.cshtml" />
+    <Content Include="Views\Quotation\_UnitPriceSettingContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -457,6 +473,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\QuotationMain.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationSub.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

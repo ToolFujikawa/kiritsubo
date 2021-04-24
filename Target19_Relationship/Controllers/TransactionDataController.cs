@@ -181,6 +181,31 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
+        //見積
+        public ActionResult QuotationList()
+        {
+            ViewBag.ResponsibleStaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
+            return View();
+        }
+
+        public ActionResult QuotationContent(string customer, string manufacturer, string keywords, int staff_Id, string helper,
+                                                DateTime startDate, DateTime endDate)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                QuotationData data = new QuotationData();
+                var results = data.GetSpecificWordGroup(customer, manufacturer, keywords, staff_Id, helper, startDate, endDate);
+                if (results.Count() == 0)
+                {
+                    return PartialView("_NoResult");
+                }
+                else
+                {
+                    return PartialView("_ReadableQuotationContent", results);
+                }
+            }
+            return Content("Ajax通信以外のアクセスはできません");
+        }
 
         //売掛金発生事由
         public ActionResult SalesList()
@@ -205,32 +230,6 @@ namespace Target19_Relationship.Controllers
                 else
                 {
                     return PartialView("_ReadableSaleContent", results);
-                }
-            }
-            return Content("Ajax通信以外のアクセスはできません");
-        }
-
-        //見積
-        public ActionResult QuotationList()
-        {
-            ViewBag.ResponsibleStaffSelectOptions = new SelectList(StaffData.GetAllSelectListItem(), "Value", "Text");
-            return View();
-        }
-
-        public ActionResult QuotationContent(string customer, string manufacturer, string keywords, int staff_Id, string helper,
-                                                DateTime startDate, DateTime endDate)
-        {
-            if (Request.IsAjaxRequest())
-            {
-                QuotationData data = new QuotationData();
-                var results = data.GetSpecificWordGroup(customer, manufacturer, keywords, staff_Id, helper, startDate, endDate);
-                if (results.Count() == 0)
-                {
-                    return PartialView("_NoResult");
-                }
-                else
-                {
-                    return PartialView("_ReadableQuotationContent", results);
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
