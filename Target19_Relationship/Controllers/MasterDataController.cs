@@ -206,12 +206,15 @@ namespace Target19_Relationship.Controllers
             return View();
         }
 
-        public ActionResult ProductContent(string manufacturer, string keywords, string viewName)
+        public ActionResult ProductContent(string manufacturer, string keywords, int page, string viewName)
         {
             if (Request.IsAjaxRequest())
             {
                 ProductData data = new ProductData();
-                var results = data.GetSpecificWordGroup(manufacturer, keywords);
+                int skipNo = page == 1 ? 0 : (page - 1) * 8;//1ページ目はスキップ0
+                var results = data.GetSpecificWordGroup(manufacturer, keywords)
+                                    .Skip(skipNo)
+                                    .Take(8);
                 if (results.Count() == 0)
                 {
                     return PartialView("_NoResult");
@@ -228,6 +231,13 @@ namespace Target19_Relationship.Controllers
                 }
             }
             return Content("Ajax通信以外のアクセスはできません");
+        }
+
+        public ActionResult ProductRowCount(string manufacturer, string keywords)
+        {
+            ProductData data = new ProductData();
+            string jsonData = "{\"status\":" + data.GetSpecificWordRow(manufacturer, keywords) + "}";
+            return Content(jsonData, "application/json");
         }
 
         public ActionResult StaffList()

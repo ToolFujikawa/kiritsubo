@@ -234,5 +234,7 @@ namespace Target19_Relationship.Controllers
             }
             return Content("Ajax通信以外のアクセスはできません");
         }
+
+
     }
 }

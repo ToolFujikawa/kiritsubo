@@ -27,7 +27,7 @@
                     var pageNo = Array(Math.floor(data.status / 8) + 1);
                 }
 
-                if (pageNo <= 8) {
+                if (pageNo.length <= 8) {
                     for (var i = 0; i < pageNo.length; i++) {
                         var j = i + 1;
                         pageNo[i] = '<button type=\"button\" class=\"btn btn-default\" data-page=\"' + j + '\">' + j + '</button>'

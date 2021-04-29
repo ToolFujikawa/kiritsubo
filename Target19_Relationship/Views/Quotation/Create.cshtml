@@ -26,11 +26,71 @@
 
             $('button[name="search"]').click(function (e) {
                 let str = [$('#autocompletemanufacturer').val(), $('#searchtext').val()];
+                //初期商品データ描画
                 $('#result').load('/MasterData/ProductContent', {
-                    manufacturer: str[0], keywords: str[1],
+                    manufacturer: str[0], keywords: str[1], page: 1,
+                    viewName: '_ProductSelecterContent'
+                });
+                //ページネーション取得Url組み立て
+                let url = '@Url.Action("ProductRowCount", "MasterData")';
+                const obj = {
+                    manufacturer: str[0], keywords: str[1]
+                };
+                url = url + '?' + $.param(obj);
+                //ページネーション描画
+                pagination(url);
+            });
+
+            //データ属性が指定してあるボタンでページを更新
+            $(document).on('click', '.btn', function () {
+                const str = [$('#autocompletemanufacturer').val(), $('#searchtext').val()];
+                const page = $(this).attr('data-page');
+                $('#result').load('/MasterData/ProductContent', {
+                    manufacturer: str[0], keywords: str[1], page: page,
                     viewName: '_ProductSelecterContent'
                 });
             });
+
+            //次へボタンを押してデータ属性を更新
+            $(document).on('click', '#Next', function () {
+                let data = $('#pagiNation').children().eq(1).attr('data-page');
+                let array = new Array(8);
+                for (var i = 0; i < 8; i++) {
+                    array[i] = Number(data) + i + 8;
+                }
+                for (var i = 1; i < 9; i++) {
+                    $('#pagiNation').children().eq(i).attr('data-page', array[i - 1]);
+                    $('#pagiNation').children().eq(i).text(array[i - 1]);
+                }
+            });
+
+            //前へボタンを押してページネーションを更新
+            $(document).on('click', '#Prev', function () {
+                let data = $('#pagiNation').children().eq(8).attr('data-page');
+                console.log(data);
+                if (Number(data) == 8 || Number(data) == 16) {
+                    let array = new Array(8);
+                    for (var i = 0; i < 8; i++) {
+                        array[i] = i + 1;
+                    }
+                    for (var i = 1; i < 9; i++) {
+                        $('#pagiNation').children().eq(i).attr('data-page', array[i - 1]);
+                        $('#pagiNation').children().eq(i).text(array[i - 1]);
+                    }
+                }
+                else {
+                    let array = new Array(8);
+                    data = Math.floor((Number(data) / 8)) - 1;
+                    for (var i = 0; i < 8; i++) {
+                        array[i] = (data * 8 + i) - 7;
+                    }
+                    for (var i = 1; i < 9; i++) {
+                        $('#pagiNation').children().eq(i).attr('data-page', array[i - 1]);
+                        $('#pagiNation').children().eq(i).text(array[i - 1]);
+                    }
+                }
+            })
+
             //テーブルオブジェクトから選択されたノードを取得
             $('button[name="send"]').on('click', function (e) {
                 let length = $('#producttable tbody').children().length;

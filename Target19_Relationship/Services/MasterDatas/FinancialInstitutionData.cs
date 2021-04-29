@@ -32,7 +32,7 @@ namespace Target19_Relationship.Services.MasterDatas
         {
             using(DefaultConnection db = new DefaultConnection())
             {
-                int skipNo = page == 1 ? 0 : (page - 1) * 8;
+                int skipNo = page == 1 ? 0 : (page - 1) * 8;//1ページ目はスキップ0
                 return db.FinancialInstitutions
                             .OrderBy(fi => fi.Furigana)
                             .Skip(skipNo)
