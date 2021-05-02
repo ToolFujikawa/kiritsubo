@@ -14,7 +14,7 @@ namespace Target19_Relationship.Services.Quotations
     public class QuoteOperation
     {
         //見積データの追加
-        public void Create(string customer, string helper, string staff, string[] products_Id)
+        public void Create(string customer, string helper, string staff, string[] products_Ids)
         {
             using (DefaultConnection db = new DefaultConnection())
             {
@@ -24,7 +24,7 @@ namespace Target19_Relationship.Services.Quotations
                 int helper_Id = helper_Ids[0];
                 int product_Id = 0;
                 int staff_Id = StaffData.EmailToId(db, staff);
-                foreach (var item in products_Id)
+                foreach (var item in products_Ids)
                 {
                     product_Id = int.Parse(item);
                     Quotation quotation = new Quotation(customer_Id, helper_Id, product_Id, staff_Id);

@@ -1,0 +1,11 @@
+﻿<h4>新規商品</h4>
+
+@Html.AntiForgeryToken()
+<div class="form-inline">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AutoCompleteBox("manufacturer", "メーカー")
+    <input type="text" name="productName" class="form-control" id="newproductname"/>
+    <input type="text" name="material" class="form-control" id="newmaterial"/>
+    <input type="text" name="model" class="form-control" id="newmodel"/>
+    <button class="btn btn-default" id="newproductcreate">新商品登録</button>
+</div>

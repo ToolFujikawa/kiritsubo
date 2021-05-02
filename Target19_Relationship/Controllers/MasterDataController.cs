@@ -201,6 +201,18 @@ namespace Target19_Relationship.Controllers
             return Content("Ajax通信以外のアクセスはできません");
         }
 
+        public ActionResult ProductCreate(string type)
+        {
+            if (type == "minimum")
+            {
+                return PartialView("_ProductCreateMinimum");
+            }
+            else
+            {
+                return PartialView();
+            }
+        }
+
         public ActionResult ProductList()
         {
             return View();

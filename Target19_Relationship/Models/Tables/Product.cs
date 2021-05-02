@@ -16,13 +16,13 @@ namespace Target19_Relationship.Models.Tables
             //引数付きのコンストラクタがあるとき、引数なしのコンストラクタが無いとLINQの検索でエラー発生します。
         }
 
-        public Product(string pseudonym, int recorder_Id)
+        public Product(int manufacturer_Id, string productName, string material, string model, int recorder_Id)
         {
-            Manufacturer_Id = 1;
-            Pseudonym = pseudonym;
-            ProductName = "新規";
-            Material = "";
-            Model = "";
+            Manufacturer_Id = manufacturer_Id;
+            Pseudonym = "";
+            ProductName = productName;
+            Material = material;
+            Model = model;
             Quantity = 0;
             LowerLimitQuantity = 0;
             OrderQuantity = 0;

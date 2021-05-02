@@ -78,6 +78,13 @@ namespace Target19_Relationship.Services
             }
         }
 
+        public static int StaffByEmailAddress(DefaultConnection db, string emailAddress)
+        {
+            return db.Staffs
+                        .Single(s => s.LentEmailAddress == emailAddress)
+                        .Id;
+        }
+
         public static int[] Helper(DefaultConnection db, string fullName)
         {
             if (String.IsNullOrEmpty(fullName))

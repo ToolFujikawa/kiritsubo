@@ -7,6 +7,7 @@
 <div class="form-inline">
     @Html.AutoCompleteBox("businesspartner", "販売先")
     @Html.AutoCompleteBox("helper", "販売先担当者")
+    <button class="btn btn-default" name="newProduct">新規商品</button>
 </div>
 
 @Html.Partial("_ProductSelecter")
@@ -89,7 +90,7 @@
                         $('#pagiNation').children().eq(i).text(array[i - 1]);
                     }
                 }
-            })
+            });
 
             //テーブルオブジェクトから選択されたノードを取得
             $('button[name="send"]').on('click', function (e) {
@@ -107,6 +108,36 @@
                 });
                 //商品検索結果の削除
                 $('#producttable').remove();
+            });
+
+            //商品新規登録ビューへの切り替え
+            $('button[name="newProduct"]').on('click', function () {
+                //検索ビューの削除、登録ビュー追加場所作成
+                $('#productSelecter').remove();
+                $('.form-inline').after('<div class="form-inline" id="createProduct"></div>');
+                $('#createProduct').load('/MasterData/ProductCreate', {
+                    type: 'minimum'
+                });
+            });
+
+            //商品新規登録ビュー描画後のオートコンプリート設定
+            $(document).on('click', '#autocompletemanufacturer', function () {
+                $('#autocompletemanufacturer').autocomplete({
+                    source: '/MasterData/ManufacturerName'
+                });
+            });
+
+            //新商品登録
+            $(document).on('click', '#newproductcreate', function () {
+                //入力値読み込み
+                let str = [$('#autocompletebusinesspartner').val(), $('#autocompletehelper').val(),
+                $('#username').text(), $('#autocompletemanufacturer').val(), $('#newproductname').val(),
+                    $('#newmaterial').val(), $('#newmodel').val()];
+                //登録処理
+                $.post('/Quotation/CreateWithNewProduct', {
+                    customer: str[0], helper: str[1], staff: str[2].replace('こんにちは、', '').replace('さん', ''),
+                    manufacturer: str[3], productName: str[4], material: str[5], model: str[6]
+                });
             });
         });
     </script>

@@ -10,6 +10,20 @@ namespace Target19_Relationship.Services.MasterDatas
 {
     public class ProductData
     {
+        public int Create(string manufacturer, string productName, string material, string model, string createrEmailAddress)
+        {
+            using (DefaultConnection db = new DefaultConnection())
+            {
+                Product product = new Product(NameToId.Manufacturer(db, manufacturer)[0], productName, material, model, 
+                                                NameToId.StaffByEmailAddress(db, createrEmailAddress));
+                db.Products
+                    .Add(product);
+                db.SaveChanges();
+
+                return db.Products
+                            .Max(p => p.Id);
+            }
+        }
         public List<ReadableProduct> GetSpecificWordGroup(string manufacturer, string keywords)
         {
             using (DefaultConnection db = new DefaultConnection())

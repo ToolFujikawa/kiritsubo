@@ -454,6 +454,7 @@
     <Content Include="Views\MasterData\_FinancialInstitutionContent.cshtml" />
     <Content Include="Views\Shared\_PagiNation.cshtml" />
     <Content Include="Views\Quotation\_UnitPriceSettingContent.cshtml" />
+    <Content Include="Views\MasterData\_ProductCreateMinimum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
